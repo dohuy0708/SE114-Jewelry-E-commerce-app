@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Activities.HomeActivity">
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView" />
+=======
+>>>>>>> 7d8d278 (test git)
 </androidx.constraintlayout.widget.ConstraintLayout>
