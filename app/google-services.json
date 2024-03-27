@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "980280575853",
+    "project_id": "jewelry-b2dcd",
+    "storage_bucket": "jewelry-b2dcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980280575853:android:68bbcfbfbe67652a97bc64",
+        "android_client_info": {
+          "package_name": "com.example.jewelryecommerceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8yXqsJmcgxpg7P73B3r5vD4fnhqcASNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
