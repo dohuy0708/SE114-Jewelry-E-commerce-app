@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="320dp"
         android:layout_marginTop="40dp"
-        android:src="@drawable/intro"
+        android:src="@drawable/logo_intro"
         android:layout_margin="20dp"
         android:layout_gravity="center"/>
 
