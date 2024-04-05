@@ -15,30 +15,29 @@ import com.example.jewelryecommerceapp.Models.Product;
 
 import java.util.ArrayList;
 
-public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-   Context context;
-   ArrayList<Product> productList;
+public class TopWeekAdapter  extends RecyclerView.Adapter<TopWeekAdapter.ProductViewHolder> {
+    Context context;
+    ArrayList<Product> productList;
 
-   public ProductAdapter(Context context, ArrayList<Product> productList){
-       this.context=context;
-       this.productList=productList;
-   }
+    public TopWeekAdapter(Context context, ArrayList<Product> productList){
+        this.context=context;
+        this.productList=productList;
+    }
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_product,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_top_week,parent,false);
         return new ProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product=productList.get(position);
         if(product==null)
             return;
-        ProductViewHolder productViewHolder= (ProductViewHolder) holder;
-        productViewHolder.img_product.setImageResource(product.getImg());
-        productViewHolder.name_product.setText(product.getProductName());
-        productViewHolder.price_product.setText(product.getProductPrice()+"");
+        holder.img_product.setImageResource(product.getImg());
+        holder.name_product.setText(product.getProductName());
+        holder.id_product.setText("Mã sp: "+product.getProductId());
     }
 
 
@@ -50,12 +49,12 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
         ImageView img_product;
-        TextView name_product,price_product;
+        TextView name_product,id_product;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             img_product=itemView.findViewById(R.id.img_product);
             name_product=itemView.findViewById(R.id.name_product);
-            price_product=itemView.findViewById(R.id.price_product);
+            id_product=itemView.findViewById(R.id.id_product);
 
         }
     }
