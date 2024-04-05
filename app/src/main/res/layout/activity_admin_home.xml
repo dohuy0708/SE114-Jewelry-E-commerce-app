@@ -9,8 +9,8 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pagerMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="62dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="59dp"
         android:backgroundTint="@color/white" />
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="59dp"
             app:itemIconTint="@color/color_item_bottom_nav"
             app:itemTextColor="@color/color_item_bottom_nav"
 
