@@ -15,9 +15,10 @@ import com.example.jewelryecommerceapp.Models.Product;
 
 import java.util.ArrayList;
 
-public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
    Context context;
    ArrayList<Product> productList;
+
    public ProductAdapter(Context context, ArrayList<Product> productList){
        this.context=context;
        this.productList=productList;
@@ -25,19 +26,21 @@ public class ProductAdapter  extends RecyclerView.Adapter<ProductAdapter.Product
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_view_holder,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_product,parent,false);
         return new ProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-       Product product=productList.get(position);
-       if(product==null)
-           return;
-        holder.img_product.setImageResource(product.getImg());
-        holder.name_product.setText(product.getProductName());
-        holder.price_product.setText(product.getProductPrice()+"");
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Product product=productList.get(position);
+        if(product==null)
+            return;
+        ProductViewHolder productViewHolder= (ProductViewHolder) holder;
+        productViewHolder.img_product.setImageResource(product.getImg());
+        productViewHolder.name_product.setText(product.getProductName());
+        productViewHolder.price_product.setText(product.getProductPrice()+"");
     }
+
 
     @Override
     public int getItemCount() {
