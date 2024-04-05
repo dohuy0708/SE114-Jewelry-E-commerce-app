@@ -1,20 +1,18 @@
 package com.example.jewelryecommerceapp.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.example.jewelryecommerceapp.Activities.NoticeActivity;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
@@ -76,11 +74,10 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    ImageView img_notice;
     ArrayList<Product> myList;
-    RecyclerView rc_trend;
+    RecyclerView trendList;
 
-    RecyclerView rc_new;
+    RecyclerView newList;
     ProductAdapter myAdapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -89,29 +86,21 @@ public class HomeFragment extends Fragment {
         myList= new ArrayList<>();
         initProduct(myList);
 
+
+
         myAdapter = new ProductAdapter(getContext(),myList);
 
-        rc_trend=view.findViewById(R.id.rc_trend);
-        rc_trend.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rc_trend.setHasFixedSize(true);
-        rc_trend.setAdapter(myAdapter);
+        trendList=view.findViewById(R.id.trendList);
+        trendList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        trendList.setHasFixedSize(true);
+        trendList.setAdapter(myAdapter);
 
-        rc_new=view.findViewById(R.id.rc_new);
+        newList=view.findViewById(R.id.newList);
         //newList.setLayoutManager(new GridLayoutManager(getContext(),2));
-        rc_new.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rc_new.setHasFixedSize(true);
-        rc_new.setAdapter(myAdapter);
+        newList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        newList.setHasFixedSize(true);
+        newList.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
-
-        //
-        img_notice=view.findViewById(R.id.img_notice);
-        img_notice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), NoticeActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
     public void initProduct(ArrayList<Product> myList){
