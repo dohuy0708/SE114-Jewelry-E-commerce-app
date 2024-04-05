@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    android:layout_height="150dp"
+    android:layout_margin="8dp"
+    android:elevation="3dp"
+    app:cardBackgroundColor="#F8E3E3E3"
+    app:cardCornerRadius="5dp"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/demo" />
+
+        <TextView
+            android:id="@+id/name_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="6dp"
+            android:singleLine="true"
+            android:text="Nhẫn vàng"
+            android:textAlignment="textStart"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/id_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="6dp"
+
+            android:singleLine="true"
+            android:text="Mã sp: A12"
+            android:textAlignment="viewStart"
+            android:textColor="#226393"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+

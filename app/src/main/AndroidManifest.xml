@@ -13,14 +13,14 @@
         android:theme="@style/Theme.JewelryEcommerceApp"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.AdminHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.LoginActivity"
-            android:exported="true">
-
-        </activity>
-
+            android:exported="true"></activity>
         <activity
             android:name=".Activities.HomeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,9 +29,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>
