@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="175dp"
+    android:layout_height="240dp"
+    android:layout_margin="8dp"
+    android:elevation="3dp"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="#F8E3E3E3"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            app:srcCompat="@drawable/demo" />
+
+        <TextView
+            android:id="@+id/name_product"
+            android:layout_width="163dp"
+            android:layout_height="21dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="Nhẫn vàng"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/price_product"
+            android:layout_width="164dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="2.999.000VNĐ"
+            android:textAlignment="center"
+            android:textColor="#F9A503" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+
