@@ -44,12 +44,28 @@ public class Product {
         this.img=img;
         this.productName=name;
         this.productPrice=price;
+
     }
+    public Product(int img,String name,String id){
+        this.img=img;
+        this.productName=name;
+        this.productId=id;
+
+    }
+    public Product(int img,String name,double rate){
+        this.img=img;
+        this.productName=name;
+        this.ratingStar=rate;
+
+    }
+
 
     // dung tam:
     public  int getImg(){
         return  img;
     }
+
+
 
     public void setImg(int img) {
         this.img = img;
