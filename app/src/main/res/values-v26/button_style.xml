@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyButtonStyle" parent="@style/Widget.Material3.Button.ElevatedButton">
+        <item name="android:layout_width">360dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">26dp</item>
+        <item name="android:layout_marginEnd">25dp</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="iconTint">@color/black</item>
+    </style>
+</resources>
