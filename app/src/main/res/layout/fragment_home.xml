@@ -25,7 +25,7 @@
                 android:id="@+id/editText"
                 android:layout_width="239dp"
                 android:layout_height="31dp"
-                android:background="@drawable/edittext_custom"
+                android:background="@drawable/black_stroke"
                 android:hint="search"
                 android:paddingLeft="8dp"
                 android:paddingRight="30dp"
@@ -48,7 +48,7 @@
                 app:layout_constraintTop_toTopOf="@+id/editText" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/img_notice"
                 android:layout_width="26dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="8dp"
@@ -63,8 +63,8 @@
                 android:layout_height="28dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/ic_chat"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                app:layout_constraintStart_toEndOf="@+id/img_notice"
+                app:layout_constraintTop_toTopOf="@+id/img_notice" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,7 +117,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trendList"
+            android:id="@+id/rc_trend"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp" />
@@ -151,7 +151,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newList"
+            android:id="@+id/rc_new"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp" />
