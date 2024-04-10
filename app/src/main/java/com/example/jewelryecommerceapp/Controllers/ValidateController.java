@@ -86,84 +86,8 @@ public class ValidateController {
         return result;
     }
 
-    // nếu kiểm tra tất cả input đều hợp lệ thì bắt đầu đăng kí
-    public static boolean onClickSignUp(  String email, String password)
-    {
-        final boolean[] result = {false};
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        // If sign in fails, display a message to the user.
-                        if (task.isSuccessful()) {
-                            result[0] = true;
-                            // Sign in success,
-                           /* User  user = new User(name, "", email,"","","");
-                            User.addUserToFirestore(user);*/
-
-                        } else
-                        {
-
-                        }
-                    }
-                });
 
 
-        return result[0];
-    }
-    // hàm xử lí đăng nhập
-    public static boolean onClickLogIn(String email, String password)
-    {
-        final boolean[] result = {false};
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            result[0] = true;
-                           // FirebaseUser user = mAuth.getCurrentUser();
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-
-                        }
-
-                    }
-
-                });
-        return result[0];
-
-
-    }
-
-    public  static boolean onClickForgotPass(String emailAddress)
-    {
-        final boolean[] result = {false};
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-        mAuth.sendPasswordResetEmail(emailAddress)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            result[0] = true;
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                });
-
-        return result[0];
-    }
 
 
 
