@@ -15,10 +15,9 @@ public class ValidateController {
     public static final String EMAIL_VERIFICATION = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile(EMAIL_VERIFICATION, Pattern.CASE_INSENSITIVE);
-    public static final String ERROR_CODE1 = "Please enter this field";
-    public static final String ERROR_CODE2 = "Invalid email. Please re-enter";
-    public static final String ERROR_CODE3 = "Min 8 characters, 1 lowercase character," +
-            " 1 upppercase character and 1 number";
+    public static final String ERROR_CODE1 = "Vui lòng nhập đầy đủ thông tin!";
+    public static final String ERROR_CODE2 = "Email không hợp lệ, Vui lòng nhập lại Email!";
+    public static final String ERROR_CODE3 = "Mật khẩu không hợp lệ, Vui lòng nhập lại mật khẩu!";
     public static final String ERROR_CODE4 = "Email or Password is incorrect. Please re-enter";
     public static final String ERROR_CODE5 = "Email may not exist. Please check again";
     public static final String ERROR_CODE6 = "Current password is incorrect";
@@ -47,7 +46,7 @@ public class ValidateController {
         else
             return true;
     }
-    public static String isValidate(String name, String email, String pass )
+    public static String isValidate(String name,String SDT, String email, String pass )
     {
         String result ="1";
         // kiem tra có ô nào bị bỏ trông không
@@ -57,6 +56,11 @@ public class ValidateController {
                 return result;
         }
         if(isFieldEmpty(email))
+        {
+            result = ERROR_CODE1;
+            return result;
+        }
+        if(isFieldEmpty(SDT))
         {
             result = ERROR_CODE1;
             return result;
@@ -83,9 +87,9 @@ public class ValidateController {
     }
 
     // nếu kiểm tra tất cả input đều hợp lệ thì bắt đầu đăng kí
-    public static boolean onClickSignUp(String name, String email, String password)
+    public static boolean onClickSignUp(  String email, String password)
     {
-        final boolean[] result = {true};
+        final boolean[] result = {false};
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -94,13 +98,14 @@ public class ValidateController {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // If sign in fails, display a message to the user.
                         if (task.isSuccessful()) {
+                            result[0] = true;
                             // Sign in success,
                            /* User  user = new User(name, "", email,"","","");
                             User.addUserToFirestore(user);*/
 
                         } else
                         {
-                            result[0] = false;
+
                         }
                     }
                 });
@@ -111,7 +116,7 @@ public class ValidateController {
     // hàm xử lí đăng nhập
     public static boolean onClickLogIn(String email, String password)
     {
-        final boolean[] result = {true};
+        final boolean[] result = {false};
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email, password)
@@ -120,12 +125,12 @@ public class ValidateController {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-
+                            result[0] = true;
                            // FirebaseUser user = mAuth.getCurrentUser();
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            result[0] = false;
+
 
                         }
 
@@ -135,6 +140,29 @@ public class ValidateController {
         return result[0];
 
 
+    }
+
+    public  static boolean onClickForgotPass(String emailAddress)
+    {
+        final boolean[] result = {false};
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        mAuth.sendPasswordResetEmail(emailAddress)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            result[0] = true;
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                });
+
+        return result[0];
     }
 
 
@@ -191,6 +219,8 @@ public class ValidateController {
         }
         return false;
     }
+
+
 
 
 }
