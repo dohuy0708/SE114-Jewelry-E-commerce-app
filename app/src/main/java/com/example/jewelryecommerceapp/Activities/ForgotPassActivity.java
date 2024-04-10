@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,8 +12,11 @@ import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Controllers.ValidateController;
 import com.example.jewelryecommerceapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassActivity extends AppCompatActivity {
 
@@ -32,14 +36,23 @@ public class ForgotPassActivity extends AppCompatActivity {
            public void onClick(View v) {
                String email = edtEmail.getText().toString().trim();
 
-               Boolean isSend = ValidateController.onClickForgotPass(email);
-               if( isSend)
-               {
-                   Toast.makeText(ForgotPassActivity.this,"Email đã được gửi, vui lòng kiểm tra hộp thư của bạn!",Toast.LENGTH_SHORT).show();
-               }
-               else {
-                   Toast.makeText(ForgotPassActivity.this,"Thật bại , vui lòng kiểm lại email của bạn!",Toast.LENGTH_SHORT).show();
-               }
+               FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+               mAuth.sendPasswordResetEmail(email)
+                       .addOnCompleteListener(new OnCompleteListener<Void>() {
+                           @Override
+                           public void onComplete(@NonNull Task<Void> task) {
+                               if (task.isSuccessful()) {
+                                   Toast.makeText(ForgotPassActivity.this,"Email đã được gửi, vui lòng kiểm tra hộp thư của bạn!",Toast.LENGTH_SHORT).show();
+                               }
+                               else
+                               {
+                                   Toast.makeText(ForgotPassActivity.this,"Thật bại , vui lòng kiểm lại email của bạn!",Toast.LENGTH_SHORT).show();
+                               }
+                           }
+                       });
+
+
 
 
            }
