@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -17,6 +18,10 @@ import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Controllers.ValidateController;
 import com.example.jewelryecommerceapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText edtEmail, edtNumberPhone, edtName, edtPassword, edtRePassword;
@@ -65,17 +70,23 @@ public class SignUpActivity extends AppCompatActivity {
                 if (isValidate =="1")
                 {
 
-                    boolean isSignUp = ValidateController.onClickSignUp(email,pass);
-                    if(isSignUp == true)
-                    {
-                        Toast.makeText(SignUpActivity.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
-                        // chờ vài giây
 
-                        finish();
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    mAuth.createUserWithEmailAndPassword(email, pass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    // If sign in fails, display a message to the user.
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(SignUpActivity.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
 
-                    }
-                    else
-                        Toast.makeText(SignUpActivity.this,"Đăng ký thất bại",Toast.LENGTH_SHORT).show();
+                                    } else
+                                    {
+                                        Toast.makeText(SignUpActivity.this,"Đăng ký thất bại",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
                 }
                 else
                 {
@@ -83,6 +94,13 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+        ImgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void InitUI() {
