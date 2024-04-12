@@ -1,16 +1,21 @@
 package com.example.jewelryecommerceapp.Models;
 
+import java.util.ArrayList;
+
 public class Cart {
     private String cartId;
     private int totalAmount;
     private int totalPrice;
     private String userId;
 
-    public Cart(String cartId, int totalAmount, int totalPrice, String userId) {
+    private ArrayList<CartProducts> cartProducts;
+
+    public Cart(String cartId, int totalAmount, int totalPrice, String userId, ArrayList<CartProducts> CartProducts) {
         this.cartId = cartId;
         this.totalAmount = totalAmount;
         this.totalPrice = totalPrice;
         this.userId = userId;
+        this.cartProducts=CartProducts;
     }
 
     public Cart() {
@@ -46,6 +51,14 @@ public class Cart {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public ArrayList<CartProducts> getCartProducts() {
+        return cartProducts;
+    }
+
+    public void setCartProducts(ArrayList<CartProducts> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 }
 
