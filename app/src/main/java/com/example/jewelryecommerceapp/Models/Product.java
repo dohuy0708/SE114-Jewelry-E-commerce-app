@@ -16,6 +16,8 @@ public class Product {
     private int ratingAmount;
     private String publisherId;
     private String state;
+    // demo
+    int img;
 
     public Product() {
     }
@@ -36,6 +38,37 @@ public class Product {
         this.ratingAmount = ratingAmount;
         this.publisherId = publisherId;
         this.state = state;
+    }
+    // dùng tạm:
+    public Product(int img,String name,int price){
+        this.img=img;
+        this.productName=name;
+        this.productPrice=price;
+
+    }
+    public Product(int img,String name,String id){
+        this.img=img;
+        this.productName=name;
+        this.productId=id;
+
+    }
+    public Product(int img,String name,double rate){
+        this.img=img;
+        this.productName=name;
+        this.ratingStar=rate;
+
+    }
+
+
+    // dung tam:
+    public  int getImg(){
+        return  img;
+    }
+
+
+
+    public void setImg(int img) {
+        this.img = img;
     }
 
     public String getProductId() {

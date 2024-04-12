@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = edtEmail.getText().toString().trim();
                 String pass = edtPass.getText().toString().trim();
                 boolean isSuccess = UserControllers.login(email,pass);
-                 isLoginResutl(isSuccess);
+                isLoginResutl(isSuccess);
             }
         });
     }

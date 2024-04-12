@@ -1,40 +1,45 @@
 package com.example.jewelryecommerceapp.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.example.jewelryecommerceapp.Adapters.ViewPagerAdapter;
-import com.example.jewelryecommerceapp.Fragments.CartFragment;
-import com.example.jewelryecommerceapp.Fragments.CategoryFragment;
-import com.example.jewelryecommerceapp.Fragments.HomeFragment;
-import com.example.jewelryecommerceapp.Fragments.UserFragment;
+import com.example.jewelryecommerceapp.Fragments.AdHomeFragment;
+import com.example.jewelryecommerceapp.Fragments.AdStoreFragment;
+import com.example.jewelryecommerceapp.Fragments.AdOrderFragment;
+import com.example.jewelryecommerceapp.Fragments.AdUserFragment;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class AdminHomeActivity extends AppCompatActivity {
     ViewPager2 pagerMain;
     ArrayList<Fragment> fragmentArrayList;
     BottomNavigationView bottomNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_admin_home);
 
         pagerMain=findViewById(R.id.pagerMain);
         fragmentArrayList= new ArrayList<>();
         bottomNav=findViewById(R.id.bottomNav);
-        fragmentArrayList.add(new HomeFragment());
-        fragmentArrayList.add(new CategoryFragment());
-        fragmentArrayList.add(new CartFragment());
-        fragmentArrayList.add(new UserFragment());
+        fragmentArrayList.add(new AdHomeFragment());
+        fragmentArrayList.add(new AdStoreFragment());
+        fragmentArrayList.add(new AdOrderFragment());
+        fragmentArrayList.add(new AdUserFragment());
 
         ViewPagerAdapter adapterViewPager = new ViewPagerAdapter(this,fragmentArrayList);
         pagerMain.setAdapter(adapterViewPager);
@@ -46,10 +51,10 @@ public class HomeActivity extends AppCompatActivity {
                         bottomNav.setSelectedItemId(R.id.itHome);
                         break;
                     case 1:
-                        bottomNav.setSelectedItemId(R.id.itCategory);
+                        bottomNav.setSelectedItemId(R.id.itStore);
                         break;
                     case 2:
-                        bottomNav.setSelectedItemId(R.id.itCart);
+                        bottomNav.setSelectedItemId(R.id.itOrder);
                         break;
                     case 3:
                         bottomNav.setSelectedItemId(R.id.itUser);
@@ -64,9 +69,9 @@ public class HomeActivity extends AppCompatActivity {
 
                 if(item.getItemId()==R.id.itHome)
                     pagerMain.setCurrentItem(0);
-                else if(item.getItemId()==R.id.itCategory)
+                else if(item.getItemId()==R.id.itStore)
                     pagerMain.setCurrentItem(1);
-                else if(item.getItemId()==R.id.itCart)
+                else if(item.getItemId()==R.id.itOrder)
                     pagerMain.setCurrentItem(2);
                 else if(item.getItemId()==R.id.itUser)
                     pagerMain.setCurrentItem(3);
