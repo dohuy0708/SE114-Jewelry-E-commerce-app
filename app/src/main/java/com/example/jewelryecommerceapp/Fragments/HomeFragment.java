@@ -114,8 +114,10 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
+    //
     public void initProduct(ArrayList<Product> myList){
-        myList.add( new Product(R.drawable.demo,"Selena",2999000));
+        myList.add( new Product(R.drawable.demo,"Selena",1111000));
         myList.add(new Product(R.drawable.demo,"Lucia Plume",2999000));
         myList.add(new Product(R.drawable.demo,"Lucia Crimson Abyss",2999000));
         myList.add(new Product(R.drawable.demo,"Vera Rozen",2999000));

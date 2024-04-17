@@ -8,10 +8,21 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@android:drawable/ic_menu_camera"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@color/white"
+
         android:supportsRtl="true"
         android:theme="@style/Theme.JewelryEcommerceApp"
         tools:targetApi="31">
+        <activity android:name=".Activities.Splash_Activity"
+            android:exported="true"
+            android:theme="@style/ThemeSpl">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".Activities.ForgotPassActivity"
             android:exported="false" />
@@ -20,22 +31,18 @@
             android:exported="false" />
         <activity
             android:name=".Activities.AdminHomeActivity"
-            android:exported="true"></activity>
+            android:exported="false"></activity>
         <activity
             android:name=".Activities.SignUpActivity"
             android:exported="true"></activity>
         <activity
             android:name=".Activities.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.HomeActivity"
-            android:exported="true"></activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />
