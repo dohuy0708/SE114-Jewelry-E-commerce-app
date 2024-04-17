@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Adapters.ViewPagerAdapter;
 import com.example.jewelryecommerceapp.Fragments.CartFragment;
@@ -16,6 +18,7 @@ import com.example.jewelryecommerceapp.Fragments.UserFragment;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -74,5 +77,17 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+
+    // khi click sign out thì khởi động lại activityhome
+    public void ClickSignOut( Fragment fragment)
+    {
+        FirebaseAuth.getInstance().signOut();
+
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

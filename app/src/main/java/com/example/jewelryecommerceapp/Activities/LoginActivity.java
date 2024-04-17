@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnlogin;
     TextView txtSignUp, txtForgotpass , SubText;
     EditText edtEmail, edtPass;
+    ImageView back_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         txtSignUp = findViewById(R.id.txtSignUp);
         txtForgotpass = findViewById(R.id.txtForgotPass);
         SubText = findViewById(R.id.Subtext_login);
-
+        back_login = findViewById(R.id.back_login);
 
     }
 
@@ -107,6 +109,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
 
 
+            }
+        });
+        back_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
