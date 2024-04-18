@@ -17,6 +17,8 @@ import com.example.jewelryecommerceapp.Fragments.AdHomeFragment;
 import com.example.jewelryecommerceapp.Fragments.AdStoreFragment;
 import com.example.jewelryecommerceapp.Fragments.AdOrderFragment;
 import com.example.jewelryecommerceapp.Fragments.AdUserFragment;
+import com.example.jewelryecommerceapp.Fragments.CategoryFragment;
+import com.example.jewelryecommerceapp.Fragments.FilterFragment;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
