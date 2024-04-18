@@ -58,7 +58,7 @@
 
             <Button
                     android:id="@+id/rate_button"
-                    android:text="Đánh giá"
+                    android:text="Đơn hàng"
                     android:textSize="15sp"
                     style="@style/UserButtonStyle" />
 
