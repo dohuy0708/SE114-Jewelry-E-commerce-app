@@ -1,28 +1,18 @@
 package com.example.jewelryecommerceapp.Fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link UserFragment#newInstance} factory method to
+ * Use the {@link admin_profile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserFragment extends Fragment {
+public class admin_profile extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,7 +23,7 @@ public class UserFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public UserFragment() {
+    public admin_profile() {
         // Required empty public constructor
     }
 
@@ -43,11 +33,11 @@ public class UserFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment UserFragment.
+     * @return A new instance of fragment admin_profile.
      */
     // TODO: Rename and change types and number of parameters
-    public static UserFragment newInstance(String param1, String param2) {
-        UserFragment fragment = new UserFragment();
+    public static admin_profile newInstance(String param1, String param2) {
+        admin_profile fragment = new admin_profile();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,35 +58,6 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        return inflater.inflate(R.layout.fragment_admin_profile, container, false);
     }
-
-    Button BtnOrderList;
-    Button BtnSignOut ;
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        BtnOrderList = view.findViewById(R.id.orderlist);
-        BtnSignOut = view.findViewById(R.id.SignOut);
-        BtnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ((HomeActivity) getActivity()).ClickSignOut(new HomeFragment());
-            }
-        });
-        BtnOrderList.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-
-            }
-
-        });
-
-    }
-
-
 }
