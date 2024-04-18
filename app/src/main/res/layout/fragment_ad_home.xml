@@ -25,7 +25,7 @@
                 android:id="@+id/editText"
                 android:layout_width="239dp"
                 android:layout_height="31dp"
-                android:background="@drawable/edittext_custom"
+                android:background="@drawable/rectangle"
                 android:hint="search"
                 android:paddingLeft="8dp"
                 android:paddingRight="30dp"
