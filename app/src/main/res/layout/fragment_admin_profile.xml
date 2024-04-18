@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".Fragments.admin_profile">
+             tools:context=".Fragments.AdminProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
@@ -11,6 +11,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/logo" />
+
     <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
@@ -21,7 +22,6 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_gravity="center_horizontal"/>
-
     <ScrollView android:layout_width="match_parent"
                 android:layout_height="match_parent">
         <LinearLayout
@@ -41,7 +41,7 @@
 
             <Button
                     android:id="@+id/account_button"
-                    android:text="Tài khoản"
+                    android:text="Tài khoản và bảo mật"
                     android:textSize="15sp"
                     style="@style/UserButtonStyle"/>
             <Button

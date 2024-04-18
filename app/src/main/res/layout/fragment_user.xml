@@ -55,7 +55,7 @@
                     android:id="@+id/button"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Tài khoản"
+                    android:text="Tài khoản và bảo mật"
                     style='@style/UserButtonStyle'
             />
 

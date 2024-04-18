@@ -9,10 +9,10 @@ import com.example.jewelryecommerceapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link admin_profile#newInstance} factory method to
+ * Use the {@link AccountDetail#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class admin_profile extends Fragment {
+public class AccountDetail extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +23,7 @@ public class admin_profile extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public admin_profile() {
+    public AccountDetail() {
         // Required empty public constructor
     }
 
@@ -33,11 +33,11 @@ public class admin_profile extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment admin_profile.
+     * @return A new instance of fragment AccountDetail.
      */
     // TODO: Rename and change types and number of parameters
-    public static admin_profile newInstance(String param1, String param2) {
-        admin_profile fragment = new admin_profile();
+    public static AccountDetail newInstance(String param1, String param2) {
+        AccountDetail fragment = new AccountDetail();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,6 +58,6 @@ public class admin_profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_profile, container, false);
+        return inflater.inflate(R.layout.fragment_account_detail, container, false);
     }
 }
