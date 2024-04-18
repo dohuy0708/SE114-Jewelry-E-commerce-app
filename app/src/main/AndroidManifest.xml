@@ -13,20 +13,8 @@
         android:theme="@style/Theme.JewelryEcommerceApp"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.ForgotPassActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.NoticeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.AdminHomeActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".Activities.SignUpActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".Activities.LoginActivity"
-            android:exported="true">
+            android:name=".Activities.ProductDetailActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,8 +22,25 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Activities.ForgotPassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.NoticeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.AdminHomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activities.SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".Activities.HomeActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
