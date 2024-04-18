@@ -46,43 +46,46 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="240dp"
         android:layout_gravity="center_horizontal"
-        android:text="Button" />
+        android:text="Tài khoản"
+        style= '@style/UserButtonStyle'
+    />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="290dp"
         android:layout_gravity="center_horizontal"
-        android:text="Button" />
+        android:text="Thông tin cá nhân"
+        style="@style/UserButtonStyle"/>
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="340dp"
         android:layout_gravity="center_horizontal"
-        android:text="Button" />
+        android:text="Đơn hàng"
+        style="@style/UserButtonStyle"/>
+
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="390dp"
         android:layout_gravity="center_horizontal"
-        android:text="Button" />
+        android:text="Thông báo"
+        style="@style/UserButtonStyle"/>
+    <Button
+            android:id="@+id/button5"
+            android:layout_marginTop="440dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Cài đặt"
+            style="@style/UserButtonStyle"/>
 
     <Button
         android:id="@+id/SignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
-      android:layout_gravity="center_horizontal"
-
+        android:layout_gravity="center_horizontal"
         android:text="Sign Out" />
 
 

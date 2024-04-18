@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MyButtonStyle" parent="@style/Widget.Material3.Button.ElevatedButton">
+    <style name="UserButtonStyle" >
         <item name="android:layout_width">360dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginStart">26dp</item>
-        <item name="android:layout_marginEnd">25dp</item>
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="CommonTextViewStyle">
         <item name="android:layout_width">100dp</item>
@@ -24,7 +20,7 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:textSize">15sp</item>
         <item name="android:layout_marginStart">72dp</item>
-        <item name="android:background">@drawable/edit_text_background</item>
+
         <item name="paddingStart">10dp</item>
     </style>
     <style name="RestockTextViewStyle">
@@ -37,14 +33,13 @@
         <item name="android:layout_marginStart">10dp</item>
     </style>
     <style name="AddImageButtonStyle" parent="@style/Widget.Material3.Button.IconButton">
-        <item name="android:src">@drawable/addimage</item>
+
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
-        <item name="android:background">@drawable/button_background</item>
+
         <item name="android:tint">@color/black</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:backgroundTint">@color/white</item>
     </style>
-
 
 </resources>
