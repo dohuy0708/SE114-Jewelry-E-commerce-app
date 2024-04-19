@@ -2,13 +2,22 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
+import com.example.jewelryecommerceapp.Models.Order;
 import com.example.jewelryecommerceapp.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +57,8 @@ public class AdOrderFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,5 +73,26 @@ public class AdOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ad_order, container, false);
+    }
+    ImageView logo;
+    RecyclerView NotYetOrders;
+    ArrayList<Order> orders;
+    OrdersAdapter adt;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        orders=new ArrayList<Order>();
+        init(orders);
+        adt=new OrdersAdapter(getContext(),orders);
+        NotYetOrders=view.findViewById(R.id.listord);
+        NotYetOrders.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        NotYetOrders.setHasFixedSize(true);
+        NotYetOrders.setAdapter(adt);
+        adt.notifyDataSetChanged();
+        logo=view.findViewById(R.id.logooo);
+    }
+
+    private void init(ArrayList<Order> orders) {
     }
 }

@@ -28,4 +28,5 @@
 
             app:menu="@menu/menu_admin_bottom_nav" />
     </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

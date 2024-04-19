@@ -39,11 +39,11 @@
                     android:layout_width="51dp"
                     android:layout_height="49dp"
                     android:layout_weight="1"
-                    tools:src="@tools:sample/avatars" />
+                    tools:src="@drawable/ic_cart" />
 
                 <TextView
                     android:id="@+id/textView5"
-                    android:layout_width="273dp"
+                    android:layout_width="307dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
@@ -58,7 +58,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Cartt"
                 android:layout_width="match_parent"
-                android:layout_height="204dp" />
+                android:layout_height="262dp" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -73,7 +73,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="138dp"
+                android:layout_height="221dp"
                 android:background="#D4E3F3">
 
                 <TextView
@@ -200,77 +200,6 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/textView23"
                     app:layout_constraintTop_toBottomOf="@+id/view" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="Thông tin "
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"  />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="109dp"
-                android:background="#D4E3F3">
-
-                <TextView
-                    android:id="@+id/textView29"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="12dp"
-                    android:text="Địa chỉ giao hàng: "
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="66dp"
-                    android:layout_height="41dp"
-                    android:text="Sửa"
-                    android:textSize="9dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView29"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView29" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:background="#0A1867"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView29"
-                    app:layout_constraintVertical_bias="0.298"
-                    tools:layout_editor_absoluteX="0dp" />
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Phương thức thanh toán"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView29"
-                    app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-                <Button
-                    android:id="@+id/button5"
-                    android:layout_width="66dp"
-                    android:layout_height="41dp"
-                    android:text="Sửa"
-                    android:textSize="9dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView30"
-                    app:layout_constraintEnd_toEndOf="@+id/view2"
-                    app:layout_constraintTop_toTopOf="@+id/textView30" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

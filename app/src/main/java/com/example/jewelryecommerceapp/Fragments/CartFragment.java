@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
+import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
@@ -80,14 +81,14 @@ public class CartFragment extends Fragment {
 
     ArrayList<Product> Pros;
     RecyclerView inCartPros;
-    ProductAdapter Adt;
+    CartProductsAdapter Adt;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
         Pros=new ArrayList<>();
         initProduct(Pros);
-        Adt=new ProductAdapter(getContext(),Pros);
+        Adt=new CartProductsAdapter(getContext(),Pros);
         inCartPros=view.findViewById(R.id.Cartt);
         inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
         inCartPros.setHasFixedSize(true);
