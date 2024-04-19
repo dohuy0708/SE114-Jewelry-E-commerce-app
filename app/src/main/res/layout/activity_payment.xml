@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.activity_payment">
+    tools:context=".Activities.Payment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,14 +103,16 @@
                     android:text="Phương thức thanh toán"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
 
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
                     android:layout_weight="1"
-                    android:text="Sửa" />
+                    android:text="Sửa"
+                    tools:ignore="DuplicateIds" />
             </LinearLayout>
 
             <TextView
