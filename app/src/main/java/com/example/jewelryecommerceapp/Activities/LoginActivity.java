@@ -55,6 +55,11 @@ public class LoginActivity extends AppCompatActivity {
                 String email = edtEmail.getText().toString().trim();
                 String pass = edtPass.getText().toString().trim();
 
+                if ( email.isEmpty() || pass.isEmpty())
+                {
+                    SubText.setText("Vui lòng nhập email/mật khẩu của bạn!");
+                }
+                else
                 {
 
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();

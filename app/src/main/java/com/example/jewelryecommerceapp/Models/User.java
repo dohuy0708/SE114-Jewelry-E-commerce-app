@@ -12,6 +12,16 @@ public class User {
     private String GENDER;
     private int TYPE;
 
+    private int imgTest;
+    public User(String name,int imgTest)   {
+        this.NAME=name;
+        this.imgTest=imgTest;
+    }
+
+    public int getImgTest() {
+        return imgTest;
+    }
+
     public User()   {
 
     }
