@@ -77,7 +77,7 @@
                 android:background="#D4E3F3">
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/promote"
                     android:layout_width="38dp"
                     android:layout_height="19dp"
                     android:layout_marginTop="16dp"
@@ -92,7 +92,7 @@
                     app:layout_constraintVertical_bias="0.443" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/tienship"
                     android:layout_width="38dp"
                     android:layout_height="19dp"
                     android:layout_marginTop="16dp"
@@ -148,7 +148,7 @@
                     tools:layout_editor_absoluteX="3dp" />
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/tiensp"
                     android:layout_width="38dp"
                     android:layout_height="19dp"
                     android:layout_marginTop="16dp"
@@ -204,7 +204,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/ordernow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Đặt hàng" />

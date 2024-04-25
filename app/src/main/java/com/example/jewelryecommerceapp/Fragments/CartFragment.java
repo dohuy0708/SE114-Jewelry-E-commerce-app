@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
+import com.example.jewelryecommerceapp.Activities.Payment;
 import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
@@ -82,6 +85,10 @@ public class CartFragment extends Fragment {
     ArrayList<Product> Pros;
     RecyclerView inCartPros;
     CartProductsAdapter Adt;
+    TextView tienspp;
+    TextView tienshipp;
+    TextView promotee;
+    Button ordernoww;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -97,6 +104,17 @@ public class CartFragment extends Fragment {
         Adt.notifyDataSetChanged();
 
         logo=view.findViewById(R.id.logo);
+        tienspp=view.findViewById(R.id.tiensp);
+        tienshipp=view.findViewById(R.id.tienship);
+        promotee=view.findViewById(R.id.promote);
+        ordernoww=view.findViewById(R.id.ordernow);
+        ordernoww.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent transtoPay=new Intent(getActivity(), Payment.class);
+            }
+        });
+
     }
 
     private void initProduct(ArrayList<Product> pros) {

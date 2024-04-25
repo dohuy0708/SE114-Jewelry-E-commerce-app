@@ -72,26 +72,28 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listord"
                 android:layout_width="match_parent"
-                android:layout_height="454dp"
+                android:layout_height="476dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/button4"
+                <TextView
+                    android:id="@+id/tvshipping"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Xem danh sách đơn hàng đang vận chuyển"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
-                    android:textSize="13sp">
+                    android:textSize="17sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/black">
 
-                </Button>
+                </TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -99,17 +101,19 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/button5"
+                <TextView
+                    android:id="@+id/tvshipped"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Xem danh sách đơn hàng đã giao"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
-                    android:textSize="13sp">
+                    android:textSize="17sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/black">
 
-                </Button>
+                </TextView>
             </LinearLayout>
 
         </LinearLayout>

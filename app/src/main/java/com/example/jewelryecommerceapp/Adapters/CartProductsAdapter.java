@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Models.Product;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapter.ProductViewHolder> {
@@ -34,9 +37,28 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         Product pro=listPro.get(position);
         if (pro==null)
             return;
-        holder.idPro.setText("Mã sản phẩm: " + pro.getProductId());
-        holder.imgPro.setImageResource(pro.getImg());
         holder.namePro.setText(pro.getProductName());
+        holder.imgPro.setImageResource(pro.getImg());
+        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice());
+        holder.pluss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        holder.minuss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        holder.binn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listPro.remove(pro);
+            }
+        });
+
     }
 
     @Override
@@ -49,13 +71,22 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
 
         ImageView imgPro;
         TextView namePro;
-        TextView idPro;
-        public ProductViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgPro=itemView.findViewById(R.id.img_product);
-            namePro=itemView.findViewById(R.id.name_product);
-            idPro =itemView.findViewById(R.id.id_product);
-
+        TextView pricee;
+        TextView pluss;
+        TextView minuss;
+        EditText numm;
+        TextView totall;
+        ImageView binn;
+        public ProductViewHolder(@NonNull View view) {
+            super(view);
+            imgPro=view.findViewById(R.id.pic);
+            namePro=view.findViewById(R.id.titletext);
+            pricee=view.findViewById(R.id.price);
+            pluss=view.findViewById(R.id.plusbtn);
+            minuss=view.findViewById(R.id.minusbtn);
+            numm=view.findViewById(R.id.number);
+            totall=view.findViewById(R.id.total);
+            binn=view.findViewById(R.id.bin);
         }
     }
 }

@@ -111,29 +111,4 @@
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnacpt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Xác nhận"
-            android:layout_gravity="center"
-            android:layout_marginLeft="13dp"/>
-
-        <Button
-            android:id="@+id/btncancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Hủy "
-            android:layout_gravity="center"
-            android:layout_marginRight="6dp"
-            android:layout_marginLeft="13dp"/>
-    </LinearLayout>
-
 </LinearLayout>

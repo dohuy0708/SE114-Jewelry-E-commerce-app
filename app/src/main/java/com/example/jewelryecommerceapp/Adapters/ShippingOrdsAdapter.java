@@ -15,11 +15,11 @@ import com.example.jewelryecommerceapp.R;
 
 import java.util.ArrayList;
 
-public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
+public class ShippingOrdsAdapter extends RecyclerView.Adapter<ShippingOrdsAdapter.OrderViewHolder> {
     Context context;
     ArrayList<Order> ListOrder;
 
-    public OrdersAdapter(Context context, ArrayList<Order> listOrder) {
+    public ShippingOrdsAdapter(Context context, ArrayList<Order> listOrder) {
         this.context = context;
         this.ListOrder = listOrder;
     }
@@ -50,12 +50,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
             }
         });
-        holder.acpt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         holder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +72,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         TextView datee;
         TextView money;
         Button dtls;
-        Button acpt;
         Button cancel;
         public OrderViewHolder(@NonNull View view)
         {
@@ -90,7 +83,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             datee=view.findViewById(R.id.ordererdate);
             money=view.findViewById(R.id.orderermoney);
             dtls=view.findViewById(R.id.buttonDtls);
-            acpt=view.findViewById(R.id.btnacpt);
             cancel=view.findViewById(R.id.btncancel);
         }
     }

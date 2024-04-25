@@ -37,9 +37,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Thanh toán"
+                android:textColor="@color/black"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <View
@@ -72,7 +72,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btnadd"
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
                     android:layout_weight="1"
@@ -107,7 +107,7 @@
                     tools:ignore="DuplicateIds" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btnwaypay"
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
                     android:layout_weight="1"
@@ -145,18 +145,31 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ttpros"
             android:layout_width="match_parent"
-            android:layout_height="362dp"
+            android:layout_height="294dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp" />
 
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:text="Tổng hóa đơn: "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="13dp"/>
+
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btnpay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thanh toán"
             android:layout_marginRight="13dp"
             android:layout_marginLeft="13dp"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             />
 
     </LinearLayout>

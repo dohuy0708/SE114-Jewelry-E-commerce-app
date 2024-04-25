@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
 import com.example.jewelryecommerceapp.Models.Order;
@@ -78,6 +79,8 @@ public class AdOrderFragment extends Fragment {
     RecyclerView NotYetOrders;
     ArrayList<Order> orders;
     OrdersAdapter adt;
+    TextView shipping;
+    TextView shipped;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -91,6 +94,20 @@ public class AdOrderFragment extends Fragment {
         NotYetOrders.setAdapter(adt);
         adt.notifyDataSetChanged();
         logo=view.findViewById(R.id.logooo);
+        shipped=view.findViewById(R.id.tvshipped);
+        shipping=view.findViewById(R.id.tvshipping);
+        shipped.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        shipping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void init(ArrayList<Order> orders) {
