@@ -13,6 +13,7 @@ import com.example.jewelryecommerceapp.Fragments.CartFragment;
 import com.example.jewelryecommerceapp.Fragments.CategoryFragment;
 import com.example.jewelryecommerceapp.Fragments.HomeFragment;
 import com.example.jewelryecommerceapp.Fragments.SearchFragment;
+import com.example.jewelryecommerceapp.Fragments.SearchProductFragment;
 import com.example.jewelryecommerceapp.Fragments.UserFragment;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

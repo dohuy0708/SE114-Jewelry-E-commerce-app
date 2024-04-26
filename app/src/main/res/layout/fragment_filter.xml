@@ -37,31 +37,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp" />
 
-            //Color
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:fontFamily="sans-serif"
-                android:text="Giới tính"
-                android:textSize="20dp" />
-
-            <GridView
-                android:id="@+id/Sex_List"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:nestedScrollingEnabled="true"
-                android:numColumns="2" />
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp" />
-
-            //Price range
 
             <TextView
                 android:id="@+id/filter_tvPriceRange"

@@ -23,10 +23,10 @@ public class FilterFragment extends Fragment {
     public static final String TAG = FilterFragment.class.getName();
     private View view;
     private TextView minPrice,maxPrice;
-    private GridView gvMaterial,gvSex;
+    private GridView gvMaterial;
     public static SeekBar seekBar;
     private Button Applybtn;
-    private ArrayList<Filter> SexList,MaterialList;
+    private ArrayList<Filter> MaterialList;
     private FilterButtonAdapter SexAdapter,MaterialAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +46,6 @@ public class FilterFragment extends Fragment {
         minPrice=view.findViewById(R.id.MinPrice);
         maxPrice = view.findViewById(R.id.MaxPrice);
         gvMaterial = view.findViewById(R.id.Material_List);
-        gvSex = view.findViewById(R.id.Sex_List);
         seekBar = view.findViewById(R.id.filter_seekbar);
         Applybtn = view.findViewById(R.id.filter_ApplyButton);
     }
@@ -58,11 +57,6 @@ public class FilterFragment extends Fragment {
         MaterialAdapter=new FilterButtonAdapter(getContext(),MaterialList);
         gvMaterial.setAdapter(MaterialAdapter);
 
-        SexList= new ArrayList<>();
-        SexList.add(new Filter("Nam"));
-        SexList.add(new Filter("Nữ"));
-        SexAdapter=new FilterButtonAdapter(getContext(),SexList);
-        gvSex.setAdapter(SexAdapter);
 
         minPrice.setText("0");
         maxPrice.setText("100000000");

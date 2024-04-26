@@ -80,7 +80,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/cardView_Cart"
                 android:background="@drawable/black_stroke"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
@@ -123,26 +122,6 @@
                     android:src="@drawable/black_stroke" />
 
             </RelativeLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_Cart"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:backgroundTint="#E5E5E5"
-                app:cardCornerRadius="10dp">
-
-                <ImageView
-                    android:id="@+id/btnCart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_cart" />
-            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 

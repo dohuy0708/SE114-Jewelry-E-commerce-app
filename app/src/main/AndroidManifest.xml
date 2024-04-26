@@ -13,7 +13,7 @@
         android:theme="@style/Theme.JewelryEcommerceApp"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.ProductDetailActivity"
+            android:name=".Activities.HomeActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
 
         </activity>
         <activity
-            android:name=".Activities.HomeActivity"
+            android:name=".Activities.ProductDetailActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

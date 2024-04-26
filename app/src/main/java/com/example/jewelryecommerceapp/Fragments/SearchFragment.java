@@ -18,16 +18,14 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
     private View view;
-    private ImageView btnCart, btnFilter;
+    private ImageView btnFilter;
     private FrameLayout filterFrame;
-    private Fragment filterFragment, categoryFragment;
+    private Fragment filterFragment, categoryFragment,a;
     public static FrameLayout searchFrame;
     private FragmentTransaction transaction;
     public static EditText etSearch;
 
-    //Filter
-    //size chứa short name, color chứa name
-    public static ArrayList<String> selectedSize, selectedColor;
+
     public static int selectedPrice = 0;
 
     @Override
@@ -36,8 +34,6 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
         // use for filter
-        selectedColor = new ArrayList<>();
-        selectedSize = new ArrayList<>();
 
         //add category fragment
         transaction = getChildFragmentManager().beginTransaction();
@@ -82,9 +78,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-
                 filterFragment = getChildFragmentManager().findFragmentByTag(FilterFragment.TAG);
-
                 if (filterFragment != null) {
                     if (filterFragment.isVisible()) {
                         transaction.replace(R.id.filter_frame, new Fragment()).addToBackStack(FilterFragment.TAG);
@@ -97,7 +91,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void reference() {
-        btnCart = view.findViewById(R.id.btnCart);
         btnFilter = view.findViewById(R.id.btnFilter);
         filterFrame = view.findViewById(R.id.filter_frame);
         etSearch = view.findViewById(R.id.searchFragment_etSearch);

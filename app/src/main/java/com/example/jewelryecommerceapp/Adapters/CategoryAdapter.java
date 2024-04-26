@@ -20,6 +20,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     Context context;
     ArrayList<CategoryItem> myList;
+    private OnItemClickListener listener;
+
     public CategoryAdapter(Context context, ArrayList<CategoryItem> myList){
         this.context=context;
         this.myList=myList;
@@ -34,6 +36,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryItem categoryItem =myList.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!= null) {
+                    listener.onItemClick(categoryItem);
+                }
+            }
+        });
         if (categoryItem==null)
             return;
     holder.category_item_name.setText(categoryItem.getCategoryName());
@@ -54,4 +64,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             category_item_name=itemView.findViewById(R.id.category_item_name);
         }
     }
+    public interface OnItemClickListener {
+        void onItemClick(CategoryItem categoryItem);
+    }
+        public void setOnItemClickListener(OnItemClickListener listener) {
+            this.listener = listener;
+        }
+
 }

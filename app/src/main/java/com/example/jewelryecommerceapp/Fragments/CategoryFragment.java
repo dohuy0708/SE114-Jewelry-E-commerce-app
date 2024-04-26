@@ -5,12 +5,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.jewelryecommerceapp.Adapters.CategoryAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopRateAdapter;
@@ -74,6 +78,7 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false);
     }
+    Fragment searchProductFragment;
     RecyclerView rc_category;
     CategoryAdapter categoryAdapter;
     ArrayList<CategoryItem> CategoryList;
@@ -90,9 +95,18 @@ public class CategoryFragment extends Fragment {
         CategoryList.add(new CategoryItem("Vòng",R.drawable.ic_back));
         CategoryList.add(new CategoryItem("Bông tai",R.drawable.ic_back));
         categoryAdapter=new CategoryAdapter(getContext(),CategoryList);
+        rc_category.setHasFixedSize(true);
         rc_category.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         rc_category.setAdapter(categoryAdapter);
-
+        categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CategoryItem categoryItem) {
+                searchProductFragment = new SearchProductFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.search_frame,searchProductFragment);
+                transaction.commit();
+            }
+        });
+    }
 
     }
-}
