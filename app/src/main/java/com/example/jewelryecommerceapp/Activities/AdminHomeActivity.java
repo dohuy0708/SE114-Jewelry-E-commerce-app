@@ -39,7 +39,6 @@ public class AdminHomeActivity extends AppCompatActivity {
         fragmentArrayList.add(new AdStoreFragment());
         fragmentArrayList.add(new AdOrderFragment());
         fragmentArrayList.add(new AdUserFragment());
-        fragmentArrayList.add(new AdminProfileFragment());
 
         ViewPagerAdapter adapterViewPager = new ViewPagerAdapter(this,fragmentArrayList);
         pagerMain.setAdapter(adapterViewPager);

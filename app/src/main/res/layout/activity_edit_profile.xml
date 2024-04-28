@@ -98,7 +98,7 @@
                         android:textSize="15sp"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:hint="Full name"
+                        android:hint="Họ và tên"
                 />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -139,7 +139,7 @@
                             android:textSize="14sp"
                             android:padding="10dp"
                             android:textColor="@color/black"
-                            android:hint="Date of birth"
+                            android:hint="Ngày sinh"
                             android:enabled="false"
                     />
 

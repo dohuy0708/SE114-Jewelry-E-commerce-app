@@ -39,16 +39,6 @@
                     android:src="@drawable/default_avatar"
                     android:scaleType="centerCrop"/>
 
-            <Button
-                    android:id="@+id/account_button"
-                    android:text="Tài khoản và bảo mật"
-                    android:textSize="15sp"
-                    style="@style/UserButtonStyle"/>
-            <Button
-                    android:id="@+id/revenue_button"
-                    android:text="Doanh Thu"
-                    android:textSize="15sp"
-                    style="@style/UserButtonStyle" />
 
             <Button
                     android:id="@+id/rate_button"
@@ -64,7 +54,7 @@
 
             <Button
                     android:id="@+id/customers_button"
-                    android:text="Khách hàng"
+                    android:text="Quản lý khách hàng"
                     android:textSize="15sp"
                     style="@style/UserButtonStyle" />
 
@@ -73,6 +63,11 @@
                     android:text="Thông tin cửa hàng"
                     android:textSize="15sp"
                     style="@style/UserButtonStyle" />
+            <Button
+                    android:id="@+id/account_button"
+                    android:text="Tài khoản và bảo mật"
+                    android:textSize="15sp"
+                    style="@style/UserButtonStyle"/>
             <Button
                     android:id="@+id/SignOut"
                     android:layout_width="wrap_content"

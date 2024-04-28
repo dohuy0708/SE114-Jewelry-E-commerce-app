@@ -104,6 +104,7 @@ public class UserFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
     }
 
 }
