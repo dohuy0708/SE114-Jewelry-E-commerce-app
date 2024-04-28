@@ -8,4 +8,5 @@
     <string name="phoneNumber">Số điện thoại</string>
     <string name="phone_Number">"Số điện thoại "</string>
     <string name="VND">VND\n</string>
+    <string name="title_activity_account_sercurity">Account_Sercurity</string>
 </resources>

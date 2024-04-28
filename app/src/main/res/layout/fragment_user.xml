@@ -52,18 +52,18 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                    android:id="@+id/button"
+                    android:id="@+id/edit_profile"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Tài khoản và bảo mật"
+                    android:text="Thông tin cá nhân"
                     style='@style/UserButtonStyle'
             />
 
             <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/account_sercurity"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Thông tin cá nhân"
+                    android:text="Tài khoản và bảo mật"
                     style="@style/UserButtonStyle"/>
             <Button
                     android:id="@+id/orderlist"
@@ -74,16 +74,16 @@
 
 
             <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/address_book"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Thông báo"
+                    android:text="Sổ địa chỉ"
                     style="@style/UserButtonStyle"/>
             <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/about"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Cài đặt"
+                    android:text="Thông tin"
                     style="@style/UserButtonStyle"/>
 
             <Button
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Sign Out"/>
+                    android:text="Đăng xuất"/>
         </LinearLayout>
     </ScrollView>
 

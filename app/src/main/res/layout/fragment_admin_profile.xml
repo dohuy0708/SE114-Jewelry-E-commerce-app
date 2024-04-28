@@ -51,12 +51,6 @@
                     style="@style/UserButtonStyle" />
 
             <Button
-                    android:id="@+id/logistic_button"
-                    android:text="Vận chuyển"
-                    android:textSize="15sp"
-                    style="@style/UserButtonStyle" />
-
-            <Button
                     android:id="@+id/rate_button"
                     android:text="Đơn hàng"
                     android:textSize="15sp"
@@ -85,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Sign Out"/>
+                    android:text="Đăng xuất"/>
 
         </LinearLayout>
     </ScrollView>
