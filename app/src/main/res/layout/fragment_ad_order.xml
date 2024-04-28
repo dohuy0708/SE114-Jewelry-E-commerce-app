@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AdOrderFragment" >
+    tools:context=".Fragments.AdOrderFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <View
                 android:id="@+id/view2"
@@ -22,20 +22,20 @@
             <LinearLayout
                 android:id="@+id/cartView"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/logooo"
-                    android:layout_width="51dp"
-                    android:layout_height="49dp"
+                    android:id="@+id/logooo0"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     tools:src="@drawable/ic_cart" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/cardt"
                     android:layout_width="382dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -44,8 +44,14 @@
                     android:text="Đơn hàng"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view10"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
@@ -55,67 +61,43 @@
                 android:layout_height="11dp"
                 android:background="#D5DBF8" />
 
-            <TextView
-                android:id="@+id/textView11"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Danh sách đơn hàng chờ xác nhận"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                />
+                android:layout_height="match_parent">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listord"
-                android:layout_width="match_parent"
-                android:layout_height="476dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/choxacnhan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chờ xác nhận (0)" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/daxacnhan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đã xác nhận (0)" />
 
-                <TextView
-                    android:id="@+id/tvshipping"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Xem danh sách đơn hàng đang vận chuyển"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="17sp"
-                    android:textStyle="italic"
-                    android:textColor="@color/black">
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/dagiao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đã giao (0)" />
+                </com.google.android.material.tabs.TabLayout>
 
-                </TextView>
-            </LinearLayout>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tab_layout"
+                    >
+                </androidx.viewpager2.widget.ViewPager2>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvshipped"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Xem danh sách đơn hàng đã giao"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="17sp"
-                    android:textStyle="italic"
-                    android:textColor="@color/black">
-
-                </TextView>
-            </LinearLayout>
-
+            </RelativeLayout>
         </LinearLayout>
+
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

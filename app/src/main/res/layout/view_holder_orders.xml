@@ -112,6 +112,7 @@
         android:layout_marginRight="13dp"/>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -123,7 +124,8 @@
             android:layout_weight="1"
             android:text="Xác nhận"
             android:layout_gravity="center"
-            android:layout_marginLeft="13dp"/>
+            android:layout_marginLeft="13dp"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btncancel"
@@ -133,7 +135,8 @@
             android:text="Hủy "
             android:layout_gravity="center"
             android:layout_marginRight="6dp"
-            android:layout_marginLeft="13dp"/>
+            android:layout_marginLeft="13dp"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </LinearLayout>

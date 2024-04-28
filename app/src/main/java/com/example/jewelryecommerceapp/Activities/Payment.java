@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,11 +24,17 @@ import java.util.ArrayList;
 
 public class Payment extends AppCompatActivity {
 
-    ImageButton back;
+    ImageView back;
     RecyclerView pross;
     CartProductsAdapter adt;
     ArrayList<Product> listpro;
+    TextView add;
+    TextView shipmoney;
+    TextView totalpro;
+    TextView totalord;
+    TextView payway;
 
+    TextView choosevoucher;
     Button pay;
     Button setaddr;
     Button setpayway;
@@ -51,10 +59,22 @@ public class Payment extends AppCompatActivity {
         pay=findViewById(R.id.btnpay);
         setaddr=findViewById(R.id.btnadd);
         setpayway=findViewById(R.id.btnwaypay);
-        back.setOnClickListener(new View.OnClickListener() {
+        add=findViewById(R.id.addd);
+        shipmoney=findViewById(R.id.shipfee);
+        totalpro=findViewById(R.id.totalp);
+        totalord=findViewById(R.id.totalord);
+        payway=findViewById(R.id.payway);
+        choosevoucher=findViewById(R.id.shipvou);
+        choosevoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         pay.setOnClickListener(new View.OnClickListener() {

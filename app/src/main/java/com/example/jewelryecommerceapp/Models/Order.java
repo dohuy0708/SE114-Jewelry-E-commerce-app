@@ -8,10 +8,18 @@ public class Order {
     private int Money;
     private String Datee;
 
+    private String status;
+
     public Order(){
 
     }
 
+    public String getStatus(){
+        return status;
+    }
+    public void setStatus(String Status){
+        this.status=Status;
+    }
     public String getOrderID() {
         return OrderID;
     }
@@ -59,7 +67,7 @@ public class Order {
     public void setDatee(String datee) {
         Datee = datee;
     }
-    public Order(String orderID, String ordererName, String ordererAdd, String ordererSDT, int money, String datee)
+    public Order(String orderID, String ordererName, String ordererAdd, String ordererSDT, int money, String datee, String Status)
     {
         this.OrderID=orderID;
         this.OrdererName=ordererName;
@@ -67,5 +75,6 @@ public class Order {
         this.OrdererSDT=ordererSDT;
         this.Money=money;
         this.Datee=datee;
+        this.status=Status;
     }
 }

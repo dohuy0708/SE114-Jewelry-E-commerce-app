@@ -39,11 +39,12 @@ public class ShippingOrdsAdapter extends RecyclerView.Adapter<ShippingOrdsAdapte
         if(order==null)
             return;
         holder.orderID.setText("Mã đơn hàng: "+ order.getOrderID());
-        holder.ordererName.setText(order.getOrdererName());
-        holder.ordererSDT.setText(order.getOrdererSDT());
-        holder.ordererAdd.setText(order.getOrdererAdd());
-        holder.datee.setText(order.getDatee());
-        holder.money.setText(order.getMoney());
+        holder.ordererName.setText("Tên khách hàng: "+order.getOrdererName());
+        holder.ordererSDT.setText("Số điện thoại: "+order.getOrdererSDT());
+        holder.ordererAdd.setText("Địa chỉ: "+order.getOrdererAdd());
+        holder.datee.setText("Ngày đặt đơn: "+order.getDatee());
+        holder.money.setText("Tổng tiền: "+order.getMoney());
+        holder.status.setText("Tình trạng đơn: "+order.getStatus());
         holder.dtls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +74,7 @@ public class ShippingOrdsAdapter extends RecyclerView.Adapter<ShippingOrdsAdapte
         TextView money;
         Button dtls;
         Button cancel;
+        TextView status;
         public OrderViewHolder(@NonNull View view)
         {
             super(view);
@@ -84,6 +86,7 @@ public class ShippingOrdsAdapter extends RecyclerView.Adapter<ShippingOrdsAdapte
             money=view.findViewById(R.id.orderermoney);
             dtls=view.findViewById(R.id.buttonDtls);
             cancel=view.findViewById(R.id.btncancel);
+            status=view.findViewById(R.id.ordererstatus);
         }
     }
 }

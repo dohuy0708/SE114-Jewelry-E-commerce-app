@@ -13,20 +13,24 @@
         android:theme="@style/Theme.JewelryEcommerceApp"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.activity_shippedords"
+            android:name=".Activities.ShippedOrders"
             android:exported="false" />
         <activity
-            android:name=".Activities.activity_shippingords"
+            android:name=".Activities.ShippingOrders"
             android:exported="false" />
         <activity
-            android:name=".Activities.activity_payment"
+            android:name=".Activities.Payment"
             android:exported="false" />
         <activity
             android:name=".Activities.NoticeActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.AdminHomeActivity"
-            android:exported="true" />
+            android:exported="true">
+
+
+
+        </activity>
         <activity
             android:name=".Activities.LoginActivity"
             android:exported="true" />
@@ -38,6 +42,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".MainActivity"

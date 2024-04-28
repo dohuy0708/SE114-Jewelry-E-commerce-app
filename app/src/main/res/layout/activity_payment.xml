@@ -22,24 +22,31 @@
             android:layout_height="62dp"
             android:orientation="horizontal">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/btnbackkk"
-                android:layout_width="wrap_content"
-                android:layout_height="49dp"
+                android:layout_width="65dp"
+                android:layout_height="36dp"
                 android:layout_weight="1"
-                android:background="#E8E5E5"
-                android:src="@android:drawable/ic_menu_revert" />
+                app:srcCompat="@drawable/ic_back" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="363dp"
                 android:layout_height="51dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="Thanh toán"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <View
@@ -80,7 +87,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/addd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
@@ -88,6 +95,93 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/shipfee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="13dp"
+                    android:text="Phí vận chuyển: "
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/shipvou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chọn voucher"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginBottom="10dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách sản phẩm"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="13dp"
+            android:layout_marginBottom="13dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ttpros"
+            android:layout_width="match_parent"
+            android:layout_height="272dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp" />
+
+        <TextView
+            android:id="@+id/totalp"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:text="Tổng giá trị sản phẩm: "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="13dp"/>
+
+        <TextView
+            android:id="@+id/totalord"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:text="Tổng hóa đơn: "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#CBE1F3"
+            android:orientation="vertical"
+            android:layout_marginRight="13dp"
+            android:layout_marginLeft="13dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,50 +210,16 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/payway"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:text="Chuyển tiền ngân hàng"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
-
-        <View
-            android:id="@+id/view9"
-            android:layout_width="match_parent"
-            android:layout_height="12dp" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Danh sách sản phẩm"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="13dp"
-            android:layout_marginBottom="13dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ttpros"
-            android:layout_width="match_parent"
-            android:layout_height="294dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp" />
-
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="match_parent"
-            android:layout_height="31dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp"
-            android:text="Tổng hóa đơn: "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="13dp"/>
 
         <Button
             android:id="@+id/btnpay"

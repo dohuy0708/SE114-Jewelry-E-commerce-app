@@ -98,6 +98,17 @@
         android:textColor="@color/black"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"/>
+    <TextView
+        android:id="@+id/ordererstatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tình trạng đơn: "
+        android:layout_marginTop="13dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"/>
 
     <TextView
         android:id="@+id/orderermoney"

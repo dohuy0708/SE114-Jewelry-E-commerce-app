@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
 import com.example.jewelryecommerceapp.Activities.Payment;
 import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
@@ -86,7 +87,7 @@ public class CartFragment extends Fragment {
     RecyclerView inCartPros;
     CartProductsAdapter Adt;
     TextView tienspp;
-    TextView tienshipp;
+    TextView totalll;
     TextView promotee;
     Button ordernoww;
 
@@ -105,21 +106,23 @@ public class CartFragment extends Fragment {
 
         logo=view.findViewById(R.id.logo);
         tienspp=view.findViewById(R.id.tiensp);
-        tienshipp=view.findViewById(R.id.tienship);
         promotee=view.findViewById(R.id.promote);
         ordernoww=view.findViewById(R.id.ordernow);
+        totalll=view.findViewById(R.id.tccc);
+        totalll.setText("Tổng cộng: "+ String.valueOf(Integer.parseInt(tienspp.getText().toString())-Integer.parseInt(promotee.getText().toString())));
         ordernoww.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent transtoPay=new Intent(getActivity(), Payment.class);
+                Intent i = new Intent(getActivity(),Payment.class );
+                startActivity(i);
             }
         });
-
     }
 
     private void initProduct(ArrayList<Product> pros) {
 
+            Pros.add(new Product(R.drawable.ic_home,"aloalo",2999000));
+            Pros.add(new Product(R.drawable.demo,"assdasd",2999000));
 
     }
-
 }

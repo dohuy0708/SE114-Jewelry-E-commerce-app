@@ -1,9 +1,12 @@
 package com.example.jewelryecommerceapp.Adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,17 +42,30 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             return;
         holder.namePro.setText(pro.getProductName());
         holder.imgPro.setImageResource(pro.getImg());
-        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice());
+        String s=holder.numm.getText().toString();
+        int numb=Integer.parseInt(s);
+        holder.pricee.setText("Tổng giá: "+ pro.getProductPrice()*numb);
         holder.pluss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int numb=Integer.parseInt(holder.numm.getText().toString());
+                numb++;
+                holder.numm.setText(String.valueOf(numb));
             }
         });
         holder.minuss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int numb=Integer.parseInt(holder.numm.getText().toString());
+                numb--;
+                if(numb>=1)
+                {
+                    holder.numm.setText(String.valueOf(numb));
+                }
+                else
+                {
+                    listPro.remove(pro);
+                }
             }
         });
         holder.binn.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +91,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         TextView pluss;
         TextView minuss;
         EditText numm;
-        TextView totall;
+        CheckBox check;
         ImageView binn;
         public ProductViewHolder(@NonNull View view) {
             super(view);
@@ -85,8 +101,31 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             pluss=view.findViewById(R.id.plusbtn);
             minuss=view.findViewById(R.id.minusbtn);
             numm=view.findViewById(R.id.number);
-            totall=view.findViewById(R.id.total);
+            check=view.findViewById(R.id.checking);
             binn=view.findViewById(R.id.bin);
+            numm.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(!s.toString().isEmpty())
+                    {
+                        int numb=Integer.parseInt(s.toString());
+                        if(numb<=0)
+                        {
+                            numm.setError("Vui lòng chọn số nguyên lớn hơn 0");
+                        }
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
     }
 }

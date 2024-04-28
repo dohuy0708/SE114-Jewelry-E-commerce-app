@@ -6,7 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    android:background="#BED9EF">
+    android:background="#BED9EF"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
 
     <View
         android:id="@+id/view3"
@@ -42,9 +44,9 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/pic"
         app:layout_constraintStart_toEndOf="@+id/view3"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="-1dp" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/price"
@@ -59,49 +61,50 @@
         app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintStart_toEndOf="@+id/view3" />
 
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
+    <CheckBox
+        android:id="@+id/checking"
+        android:layout_width="33dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="16dp"
         android:textColor="#122693"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="385dp"
-        tools:layout_editor_absoluteY="11dp"
-        android:layout_marginRight="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/price"
-        app:layout_constraintEnd_toStartOf="@+id/total"
-        app:layout_constraintTop_toBottomOf="@+id/total"
+        app:layout_constraintEnd_toStartOf="@+id/checking"
+        app:layout_constraintTop_toBottomOf="@+id/checking"
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/plusbtn"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_marginEnd="16dp"
             android:background="@color/white"
             android:gravity="center"
             android:text="+"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/minusbtn"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="8dp" />
+            app:layout_constraintTop_toTopOf="@+id/minusbtn"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            android:text="0"
+            android:text="1"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -128,8 +131,10 @@
         android:id="@+id/bin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:srcCompat="@android:drawable/ic_menu_delete"
-        tools:layout_editor_absoluteX="376dp"
-        tools:layout_editor_absoluteY="59dp"
         tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

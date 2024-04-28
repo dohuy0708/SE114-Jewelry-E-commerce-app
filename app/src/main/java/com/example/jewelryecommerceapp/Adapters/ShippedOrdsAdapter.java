@@ -39,11 +39,11 @@ public class ShippedOrdsAdapter extends RecyclerView.Adapter<ShippedOrdsAdapter.
         if(order==null)
             return;
         holder.orderID.setText("Mã đơn hàng: "+ order.getOrderID());
-        holder.ordererName.setText(order.getOrdererName());
-        holder.ordererSDT.setText(order.getOrdererSDT());
-        holder.ordererAdd.setText(order.getOrdererAdd());
-        holder.datee.setText(order.getDatee());
-        holder.money.setText(order.getMoney());
+        holder.ordererName.setText("Tên khách hàng: "+order.getOrdererName());
+        holder.ordererSDT.setText("Số điện thoại: "+order.getOrdererSDT());
+        holder.ordererAdd.setText("Địa chỉ: "+order.getOrdererAdd());
+        holder.datee.setText("Ngày đặt đơn: "+order.getDatee());
+        holder.money.setText("Tổng tiền: "+order.getMoney());
         holder.dtls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
