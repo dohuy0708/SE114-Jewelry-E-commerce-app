@@ -2,12 +2,16 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.R;
 
 /**
@@ -62,5 +66,25 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false);
+    }
+
+    Button BtnSignOut ;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        BtnSignOut = view.findViewById(R.id.SignOut);
+        BtnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // sau khi đăng xuất, chuyển sang màn hình home
+
+
+                ((HomeActivity) getActivity()).ClickSignOut(new HomeFragment());
+
+
+            }
+        });
     }
 }
