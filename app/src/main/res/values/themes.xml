@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.JewelryEcommerceApp" parent="Base.Theme.JewelryEcommerceApp"/>
+
+    <style name="ThemeSpl" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
 </resources>
