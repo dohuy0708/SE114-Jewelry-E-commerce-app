@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
+import com.example.jewelryecommerceapp.Activities.AddressBookActivity;
 import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Adapters.ViewPagerAdapter;
@@ -55,10 +56,7 @@ public class UserFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false);
     }
-    Button btnEditProfile;
-    Button btnOrderList;
-    Button btnSignOut ;
-    Button btnAccountSercurity;
+    Button btnEditProfile, btnOrderList, btnSignOut , btnAccountSercurity, btnAddressBook;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -66,6 +64,7 @@ public class UserFragment extends Fragment {
         btnSignOut = view.findViewById(R.id.SignOut);
         btnEditProfile = view.findViewById(R.id.edit_profile);
         btnAccountSercurity = view.findViewById(R.id.account_sercurity);
+        btnAddressBook = view.findViewById(R.id.address_book);
         setupButton();
     }
     private void setupButton()
@@ -95,6 +94,13 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AccountSercurityActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnAddressBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddressBookActivity.class);
                 startActivity(intent);
             }
         });

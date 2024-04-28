@@ -12,13 +12,18 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.JewelryEcommerceApp"
             tools:targetApi="31">
-
-        <activity android:name=".Activities.AccountSercurityActivity"
-        android:exported="false"/>
+        <activity
+                android:name=".Activities.address_book"
+                android:exported="false"
+                android:label="@string/title_activity_address_book"
+                android:theme="@style/Theme.JewelryEcommerceApp"/>
+        <activity
+                android:name=".Activities.AccountSercurityActivity"
+                android:exported="false"/>
         <activity
                 android:name=".Activities.EditProfileActivity"
                 android:exported="true">
-            </activity>
+        </activity>
         <activity
                 android:name=".Activities.Splash_Activity"
                 android:exported="true"
@@ -28,7 +33,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
         <activity
                 android:name=".Activities.ForgotPassActivity"
