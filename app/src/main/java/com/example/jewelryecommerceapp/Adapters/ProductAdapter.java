@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Models.Product;
 
@@ -48,7 +49,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(product==null)
             return;
         ProductViewHolder productViewHolder= (ProductViewHolder) holder;
-        productViewHolder.img_product.setImageResource(product.getImg());
+        Glide.with(context).load(productList.get(position).getProductImage1()).into(((ProductViewHolder) holder).img_product);
         productViewHolder.name_product.setText(product.getProductName());
         productViewHolder.price_product.setText(product.getProductPrice()+"");
 

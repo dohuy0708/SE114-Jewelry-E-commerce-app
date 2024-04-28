@@ -77,16 +77,24 @@ public class HomeFragment extends Fragment {
 
 
         ///  Đẩy dữ liệu lên firebase
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+      //  StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         String uri = "https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Screenshot%202024-03-07%20150607.png?alt=media&token=5848514f-5f7e-4d61-9574-083ec5f67e0b";
+
+        Product testproduct = new Product("3", "Nhẫn Bạc",uri,"","","",100000,"L",10,5,"Nhẫn đẹp",4.5,10,"PNJ","Còn hàng");
+
         FirebaseDatabase data = FirebaseDatabase.getInstance();
-        DatabaseReference ref = data.getReference("Production").push();
-        Product testproduct = new Product(uri,"Nhẫn Bạc",1000000);
-        ref.setValue(testproduct, new DatabaseReference.CompletionListener() {
+        DatabaseReference ref = data.getReference("Product");
+
+        ref.child("5").setValue(testproduct, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(getActivity(),"Đẩy lên", Toast.LENGTH_LONG).show();
-
+                if (error != null) {
+                    // Đã xảy ra lỗi khi đẩy dữ liệu lên Firebase
+                    Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    // Đẩy dữ liệu lên Firebase thành công
+                    Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -153,7 +161,7 @@ public class HomeFragment extends Fragment {
     // Lấy dữ liệu từ Database xuống ListTrend
     private void GetNewListFromDataBase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Production");
+        DatabaseReference ref = database.getReference("Product");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -179,7 +187,7 @@ public class HomeFragment extends Fragment {
 
     private void GetTrendListFromDataBase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Production");
+        DatabaseReference ref = database.getReference("Product");
 
 
         ref.addValueEventListener(new ValueEventListener() {
