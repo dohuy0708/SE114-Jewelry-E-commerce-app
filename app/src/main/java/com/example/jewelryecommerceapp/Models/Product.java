@@ -59,6 +59,13 @@ public class Product {
 
     }
 
+    public Product(String img,String name,int price){
+        this.productImage1=img;
+        this.productName=name;
+        this.productPrice=price;
+
+    }
+
 
     // dung tam:
     public  int getImg(){

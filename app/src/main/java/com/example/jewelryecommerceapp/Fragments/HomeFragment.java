@@ -13,11 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -66,6 +74,22 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+        ///  Đẩy dữ liệu lên firebase
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        String uri = "https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Screenshot%202024-03-07%20150607.png?alt=media&token=5848514f-5f7e-4d61-9574-083ec5f67e0b";
+        FirebaseDatabase data = FirebaseDatabase.getInstance();
+        DatabaseReference ref = data.getReference("Production").push();
+        Product testproduct = new Product(uri,"Nhẫn Bạc",1000000);
+        ref.setValue(testproduct, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(getActivity(),"Đẩy lên", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 
 
@@ -77,31 +101,42 @@ public class HomeFragment extends Fragment {
     }
 
     ImageView img_notice;
-    ArrayList<Product> myList;
+
+    ArrayList<Product> myTrendList, myNewList;
+
     RecyclerView rc_trend;
 
     RecyclerView rc_new;
-    ProductAdapter myAdapter;
+    ProductAdapter myAdapterTrend, myAdapterNew;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        myList= new ArrayList<>();
-        initProduct(myList);
+        myTrendList= new ArrayList<>();
+        //initProduct(myList);
 
-        myAdapter = new ProductAdapter(getContext(),myList);
+        myAdapterTrend = new ProductAdapter(getContext(),myTrendList);
+        myNewList= new ArrayList<>();
+        //initProduct(myList);
+
+
+        myAdapterNew= new ProductAdapter(getContext(),myNewList);
+
+        GetTrendListFromDataBase();
+        GetNewListFromDataBase();
 
         rc_trend=view.findViewById(R.id.rc_trend);
         rc_trend.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_trend.setHasFixedSize(true);
-        rc_trend.setAdapter(myAdapter);
+        rc_trend.setAdapter(myAdapterTrend);
 
         rc_new=view.findViewById(R.id.rc_new);
         //newList.setLayoutManager(new GridLayoutManager(getContext(),2));
         rc_new.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_new.setHasFixedSize(true);
-        rc_new.setAdapter(myAdapter);
-        myAdapter.notifyDataSetChanged();
+        rc_new.setAdapter(myAdapterNew);
+        myAdapterNew.notifyDataSetChanged();
 
         //
         img_notice=view.findViewById(R.id.img_notice);
@@ -114,12 +149,75 @@ public class HomeFragment extends Fragment {
         });
 
     }
-    public void initProduct(ArrayList<Product> myList){
+
+    // Lấy dữ liệu từ Database xuống ListTrend
+    private void GetNewListFromDataBase() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Production");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    myNewList.add(product);
+
+                }
+                Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+                myAdapterNew.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void GetTrendListFromDataBase() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Production");
+
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Product product =  dataSnapshot.getValue(Product.class);
+
+
+                    // Query những sản phẩm trending rồi mới add vào.
+                    myTrendList.add(product);
+
+
+
+                }
+                Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+                myAdapterTrend.notifyDataSetChanged();
+            }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
+
+            }
+        });
+        
+    }
+
+    /*public void initProduct(ArrayList<Product> myList){
         myList.add( new Product(R.drawable.demo,"Nhẫn",2999000));
         myList.add(new Product(R.drawable.demo2,"Nhẫn vàng",2999000));
         myList.add(new Product(R.drawable.demo2,"Nhẫn vàng promax",2999000));
         myList.add(new Product(R.drawable.demo,"Vẫn là nhẫn",2999000));
         myList.add(new Product(R.drawable.demo,"Nhà toàn nhẫn",2999000));
 
-    }
+    }*/
 }
