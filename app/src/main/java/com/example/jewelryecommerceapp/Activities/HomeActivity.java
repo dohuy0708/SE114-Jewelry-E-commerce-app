@@ -18,7 +18,6 @@ import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -59,6 +58,8 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                 }
                 super.onPageSelected(position);
+
+
             }
         });
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
