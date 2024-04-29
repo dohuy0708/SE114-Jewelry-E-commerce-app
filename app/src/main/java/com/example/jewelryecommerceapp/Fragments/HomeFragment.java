@@ -13,8 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.example.jewelryecommerceapp.Activities.HomeActivity;
+import com.example.jewelryecommerceapp.Activities.LoadingDialog;
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
@@ -24,8 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -73,7 +72,10 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
         }
+
 
 
         ///  Đẩy dữ liệu lên firebase
@@ -107,6 +109,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+    private LoadingDialog loadingDialog;
 
     ImageView img_notice;
 
@@ -117,9 +120,11 @@ public class HomeFragment extends Fragment {
     RecyclerView rc_new;
     ProductAdapter myAdapterTrend, myAdapterNew;
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadingDialog = new LoadingDialog(getActivity());
 
         myTrendList= new ArrayList<>();
         //initProduct(myList);
@@ -160,6 +165,8 @@ public class HomeFragment extends Fragment {
 
     // Lấy dữ liệu từ Database xuống ListTrend
     private void GetNewListFromDataBase() {
+        loadingDialog.show();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Product");
 
@@ -175,6 +182,7 @@ public class HomeFragment extends Fragment {
                 }
              //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterNew.notifyDataSetChanged();
+              loadingDialog.cancel();
             }
 
             @Override
