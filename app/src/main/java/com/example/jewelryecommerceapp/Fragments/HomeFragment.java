@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
 
         ///  Đẩy dữ liệu lên firebase
       //  StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        String uri = "https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Screenshot%202024-03-07%20150607.png?alt=media&token=5848514f-5f7e-4d61-9574-083ec5f67e0b";
+     /*   String uri = "https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Screenshot%202024-03-07%20150607.png?alt=media&token=5848514f-5f7e-4d61-9574-083ec5f67e0b";
 
         Product testproduct = new Product("3", "Nhẫn Bạc",uri,"","","",100000,"L",10,5,"Nhẫn đẹp",4.5,10,"PNJ","Còn hàng");
 
@@ -93,10 +93,10 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     // Đẩy dữ liệu lên Firebase thành công
-                    Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
 
     }
 
@@ -173,13 +173,13 @@ public class HomeFragment extends Fragment {
                     myNewList.add(product);
 
                 }
-                Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+             //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterNew.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
+             //   Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment {
 
 
                 }
-                Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterTrend.notifyDataSetChanged();
             }
 
@@ -213,7 +213,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
 
             }
         });
