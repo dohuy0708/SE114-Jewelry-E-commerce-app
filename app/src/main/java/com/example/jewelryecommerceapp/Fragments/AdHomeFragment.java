@@ -12,10 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
+import com.example.jewelryecommerceapp.Adapters.ServiceAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopRateAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopWeekAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
+import com.example.jewelryecommerceapp.Models.Service;
 import com.example.jewelryecommerceapp.R;
 
 import java.util.ArrayList;
@@ -78,14 +79,16 @@ public class AdHomeFragment extends Fragment {
 
     TopRateAdapter topRateAdapter;
     TopWeekAdapter topWeekAdapter;
-    ArrayList<Product> topRateList,topWeekList,serviceList;
+    ServiceAdapter serviceAdapter;
+    ArrayList<Product> topRateList,topWeekList;
+    ArrayList<Service> serviceList;
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rc_service=view.findViewById(R.id.serviceList);
+        rc_service=view.findViewById(R.id.rc_service);
         serviceList = new ArrayList<>();
 
         //myAdapter = new ProductAdapter(getContext(),myList);
@@ -113,6 +116,18 @@ public class AdHomeFragment extends Fragment {
         rc_topRate.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_topRate.setHasFixedSize(true);
         rc_topRate.setAdapter(topRateAdapter);
+
+        serviceList = new ArrayList<>();
+        serviceList.add(new Service("SV01",R.drawable.demo2,"Đánh bóng trang sức",324));
+        serviceList.add(new Service("SV02",R.drawable.demo2,"Gia công sửa chữa",530));
+        serviceList.add(new Service("SV03",R.drawable.demo2,"Thiết kế trang sức",21));
+        serviceList.add(new Service("SV04",R.drawable.demo2,"Đánh bóng trang sức",21));
+
+        rc_service=view.findViewById(R.id.rc_service);
+        serviceAdapter= new ServiceAdapter(getContext(),serviceList);
+        rc_service.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rc_service.setHasFixedSize(true);
+        rc_service.setAdapter(serviceAdapter);
 
     }
 }
