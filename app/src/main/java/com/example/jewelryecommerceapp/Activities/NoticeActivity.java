@@ -1,9 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,7 +37,7 @@ public class NoticeActivity extends AppCompatActivity {
             return insets;
         });
 
-        rc_notice=findViewById(R.id.rc_notice);
+        rc_notice=findViewById(R.id.rc_notice_ad);
         noticeList= new ArrayList<>();
         initNotice(noticeList);
         noticeAdapter = new NoticeAdapter(this,noticeList);

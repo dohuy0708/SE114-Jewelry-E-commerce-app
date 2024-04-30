@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,15 +12,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.jewelryecommerceapp.Activities.NoticeAdActivity;
 import com.example.jewelryecommerceapp.Adapters.ServiceAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopRateAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopWeekAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.Models.Service;
 import com.example.jewelryecommerceapp.R;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.type.Color;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +92,10 @@ public class AdHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ad_home, container, false);
     }
+    BarChart chart;
+    ArrayList<BarEntry> revenue;
 
+    ImageView ad_notice,ad_chat;
     RecyclerView rc_topWeak, rc_topRate,rc_service;
 
     TopRateAdapter topRateAdapter;
@@ -88,10 +109,83 @@ public class AdHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rc_service=view.findViewById(R.id.rc_service);
-        serviceList = new ArrayList<>();
+        ad_notice= view.findViewById(R.id.ad_notice);
+        ad_notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), NoticeAdActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        //myAdapter = new ProductAdapter(getContext(),myList);
+        chart = view.findViewById(R.id.chart);
+        chart.getAxisRight().setDrawLabels(false);
+        revenue= new ArrayList<>();
+
+        revenue.add(new BarEntry(0,156.33f));
+        revenue.add(new BarEntry(1,123.7f));
+        revenue.add(new BarEntry(2,157.95f));
+        revenue.add(new BarEntry(3,168.2f));
+        revenue.add(new BarEntry(4,100.0f));
+        revenue.add(new BarEntry(5,98.35f));
+        revenue.add(new BarEntry(6,88.2f));
+        revenue.add(new BarEntry(7,120.3f));
+        revenue.add(new BarEntry(8,103.2f));
+        revenue.add(new BarEntry(9,63.98f));
+        revenue.add(new BarEntry(10,135.2f));
+        revenue.add(new BarEntry(11,123.2f));
+
+        BarDataSet barDataSet = new BarDataSet(revenue,"Doanh thu (triệu đồng)");
+        barDataSet.setColor(android.graphics.Color.parseColor("#2196F3"));
+        barDataSet.setValueTextSize(10f);
+        barDataSet.setDrawValues(true);
+
+        BarData barData = new BarData(barDataSet);
+        chart.setData(barData);
+        chart.getDescription().setEnabled(false);
+        chart.animateY(1000);
+        chart.invalidate();
+
+
+        YAxis yAxis =chart.getAxisLeft();
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum(180f);
+        yAxis.setAxisLineWidth(30f);
+        yAxis.setAxisLineColor(Color.ALPHA_FIELD_NUMBER);
+        yAxis.setLabelCount(10);
+
+
+
+
+
+        String[] xValues = new String[] {"1","2","3","4","5","6","7","8","9","10","11","12"};
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xValues));
+        chart.getXAxis().setLabelCount(revenue.size(), false);
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setDrawGridLines(false); // Loại bỏ đường kẻ trên trục x
+        chart.getAxisRight().setDrawGridLines(false);
+
+
+
+       /* chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                // Xử lý sự kiện khi người dùng chọn một cột trên biểu đồ
+                if (e == null) {
+                    return;
+                }
+                Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            @Override
+            public void onNothingSelected() {
+                // Xử lý sự kiện khi không có giá trị nào được chọn
+            }
+        });*/
 
         topWeekList = new ArrayList<>();
         topWeekList.add( new Product(R.drawable.demo,"Nhẫn","A12"));
@@ -128,6 +222,8 @@ public class AdHomeFragment extends Fragment {
         rc_service.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_service.setHasFixedSize(true);
         rc_service.setAdapter(serviceAdapter);
+
+
 
     }
 }

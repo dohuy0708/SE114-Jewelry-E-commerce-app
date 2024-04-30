@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +38,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
         if(notice==null)
             return;
         holder.img_notice.setImageResource(notice.getImgNotice());
-        holder.txt_notice.setText(notice.getTxtNotice());
+        holder.title_notice.setText(notice.getTitleNotice());
         holder.more.setText("xem thêm");
     }
 
@@ -50,11 +49,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
     class NoticeViewHolder extends RecyclerView.ViewHolder {
         ImageView img_notice;
-        TextView txt_notice,more;
+        TextView title_notice,more;
         public NoticeViewHolder(@NonNull View itemView) {
             super(itemView);
             img_notice=itemView.findViewById(R.id.img_notice_item);
-            txt_notice=itemView.findViewById(R.id.txt_notice_item);
+            title_notice=itemView.findViewById(R.id.title_notice_item);
             more=itemView.findViewById(R.id.more_notice_item);
         }
     }

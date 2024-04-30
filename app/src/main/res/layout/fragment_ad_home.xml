@@ -33,7 +33,7 @@
                 android:singleLine="true"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintEnd_toStartOf="@+id/ad_notice"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,39 +48,55 @@
                 app:layout_constraintTop_toTopOf="@+id/editText" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ad_notice"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
 
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_notice"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintEnd_toStartOf="@+id/ad_chat"
                 app:layout_constraintTop_toTopOf="@+id/editText" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ad_chat"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_chat"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                app:layout_constraintTop_toTopOf="@+id/ad_notice" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
+
                 android:layout_width="0dp"
                 android:layout_height="233dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
                 android:background="#D8D8D8"
+                android:elevation="3dp"
+                app:cardCornerRadius="5dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
