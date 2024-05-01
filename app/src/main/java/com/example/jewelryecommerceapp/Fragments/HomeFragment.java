@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,22 +83,25 @@ public class HomeFragment extends Fragment {
 
 
         ///  Đẩy dữ liệu lên firebase
-      //  StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        ArrayList<String> imagelist = new ArrayList<>();
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_e3758ea112c84d298615e66534243eba.webp?alt=media&token=e34834a1-7653-44a9-a7ba-41370c0fa940");
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_3_c89ebbfbfc7f49dabb1cba750440a536.webp?alt=media&token=13a28ef3-87cb-4bae-a5f9-9f9668f6af7c");
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_2_4ae654a07a9443ecbf0142315cc2eddc.webp?alt=media&token=338d81b0-eb9b-47d3-b368-ed0d9b666e5d");
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_1_5157e7a1d2c043a5a620deb78b074354.webp?alt=media&token=15c21f88-bf0e-457d-aa49-2da2a776200f");
-      // imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample1%2Fon-gbztxmh000017-bong-tai-vang-14k-dinh-da-synthetic-pnj-hello-kitty-2.jpg?alt=media&token=79eb2c83-05d5-4f1a-8723-733e4b908d37");
+    //   StorageReference storageReference = FirebaseStorage.getInstance().getReference("Vòng tay");
 
+
+      /*  ArrayList<String> imagelist = new ArrayList<>();
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_3_16695c0fe811418682010dc2d0cc717c_master_02785f02098140dea8cdf90a76bfb4fa.webp?alt=media&token=b6522c92-8d9a-4ab9-b580-c93fdae751cc");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_2_9394c175484f43819e0959a9b0a5d72f_master_bbbee07d40ce4dd5a7b2995a381ed7e2.webp?alt=media&token=e507cec7-f5e0-4011-bc42-915a3324ffc8");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2F94c175484f43819e0959a9b0a5d72f_master_bbbee07d40ce4dd5a7b2995a381ed7e2_924a0cf7293942d28e00030fedca30b1.webp?alt=media&token=9d370171-e7b3-4635-91d4-42f38ed3ff4f");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_1_ba2f06bf22414cfc9dd3110232f79350_master_3c8e678e53594dbe9051f0605394180e.webp?alt=media&token=58a34460-1424-4987-9cbe-d28bd1f4f37a");
+
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2F2f06bf22414cfc9dd3110232f79350_master_3c8e678e53594dbe9051f0605394180e_d08755dd78a847c6832f4707821102f8.webp?alt=media&token=355340b5-4f87-470f-9d81-08bb7f5b71f7");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnc466_1_acb49941fe154c22b1cdf524226b3823_master_c105dd97ae4042708fce06c5a15d0da3.webp?alt=media&token=9faf7419-dd0a-4116-8360-c429ef829176");
         Map<String,Integer> sizemap = new HashMap<>();
-        sizemap.put("11",10);
-        sizemap.put("12",10);
-        sizemap.put("13",10);
         sizemap.put("14",10);
+        sizemap.put("15",10);
+        sizemap.put("16",10);
+        sizemap.put("17",10);
 
 
-        Product testproduct = new Product("3", "Bông tai","Bông tai Mặt Trăng đính đá Cubic","Vàng",imagelist,sizemap,"đá Cubic",4.5,4450000,"Sang xịn mịn","H-Jewelry");
+        Product testproduct = new Product("4", "Nhẫn đôi","Nhẫn đôi Vàng đánh Kim Cương NDC15 ","Vàng",imagelist,sizemap,"Kim Cương",12.6,14850000,"Sang xịn mịn","H-Jewelry");
 
         FirebaseDatabase data = FirebaseDatabase.getInstance();
         DatabaseReference ref = data.getReference("Product").child(testproduct.getType());
@@ -112,8 +117,7 @@ public class HomeFragment extends Fragment {
                     //Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 }
             }
-        });
-
+        });*/
     }
 
 
@@ -182,7 +186,7 @@ public class HomeFragment extends Fragment {
         loadingDialog.show();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product/Bông tai");
+        DatabaseReference ref = database.getReference("Product/Nhẫn đôi");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -209,7 +213,7 @@ public class HomeFragment extends Fragment {
 
     private void GetTrendListFromDataBase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product/Bông tai");
+        DatabaseReference ref = database.getReference("Product/Nhẫn đôi");
 
 
         ref.addValueEventListener(new ValueEventListener() {
