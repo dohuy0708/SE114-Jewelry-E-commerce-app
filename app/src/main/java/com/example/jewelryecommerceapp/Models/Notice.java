@@ -8,19 +8,25 @@ import java.time.LocalDateTime;
 
 
 public class Notice implements Serializable {
-    int imgNotice;
+    Object imgNotice;
     String titleNotice;
     String contentNotice;
     LocalDateTime date;
-
+    String id;
+static int numId=0;
 
     @SuppressLint("NewApi")
-    public Notice(int imgNotice, String titleNotice) {
+    public Notice(Object imgNotice, String titleNotice,String contentNotice) {
+        this.id=id;
         this.imgNotice = imgNotice;
         this.titleNotice = titleNotice;
+        this.contentNotice= contentNotice;
         if(date==null)
 
                 date=LocalDateTime.now();
+
+        id=String.valueOf(numId+1);
+        numId+=1;
 
     }
     public Notice(){
@@ -28,6 +34,16 @@ public class Notice implements Serializable {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 date=LocalDateTime.now();
             }
+        id=String.valueOf(numId+1);
+        numId+=1;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public LocalDateTime getDate() {
@@ -46,11 +62,11 @@ public class Notice implements Serializable {
         this.contentNotice = contentNotice;
     }
 
-    public int getImgNotice() {
+    public Object getImgNotice() {
         return imgNotice;
     }
 
-    public void setImgNotice(int imgNotice) {
+    public void setImgNotice(Object imgNotice) {
         this.imgNotice = imgNotice;
     }
 

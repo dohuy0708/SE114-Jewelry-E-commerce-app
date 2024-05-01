@@ -2,12 +2,17 @@ package com.example.jewelryecommerceapp.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,17 +29,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.jewelryecommerceapp.AlarmReceiver;
 import com.example.jewelryecommerceapp.Models.Notice;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.time.format.DateTimeFormatter;
 @RequiresApi(api = Build.VERSION_CODES.O)
 
 public class NoticeAddActivity extends AppCompatActivity {
-
+    private static final int PICK_IMAGE_REQUEST = 1;
     Notice notice;
 
     ImageView img_back,bt_time,bt_date,imgToNotice;
@@ -42,7 +51,8 @@ public class NoticeAddActivity extends AppCompatActivity {
     TextView time_notice,date_notice;
     EditText txt_title;
     Button bt_add,select_img;
-    private LocalDateTime selectedDateTime;
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
@@ -57,6 +67,7 @@ public class NoticeAddActivity extends AppCompatActivity {
         });
         img_back = findViewById(R.id.img_back);
         imgToNotice=findViewById(R.id.imgToNotice);
+        imgToNotice.setTag((Object)"");
         select_img=findViewById(R.id.select_img);
         time_notice=findViewById(R.id.time_notice);
         bt_time=findViewById(R.id.bt_time);
@@ -93,7 +104,6 @@ public class NoticeAddActivity extends AppCompatActivity {
                openDate();
             }
         });
-
         bt_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,10 +112,19 @@ public class NoticeAddActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
     void getImageFromDevice(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+            setImageInView(imgToNotice,selectedImageUri);
+            imgToNotice.setTag(selectedImageUri);
 
+        }
     }
     void addNotice(){
         LocalDateTime dateTime  = getLocalDateTimeFromTextViews();
@@ -119,15 +138,38 @@ public class NoticeAddActivity extends AppCompatActivity {
                 // thêm notice vào list
                 notice.setContentNotice(txt_content.getText().toString());
                 notice.setTitleNotice(txt_title.getText().toString());
-
+                notice.setDate(dateTime);
+                String imgUri= imgToNotice.getTag().toString();
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("notice",notice);// key và value của kết quả muốn truyền về Main Activity
+                resultIntent.putExtra("newnotice",notice);// key và value của kết quả muốn truyền về Main Activity
+                Toast.makeText(this, imgUri, Toast.LENGTH_SHORT).show();
+                resultIntent.putExtra("uri",imgUri);
                 setResult(Activity.RESULT_OK, resultIntent);
+
+                LocalDateTime localDateTime = notice.getDate(); // Lấy đối tượng LocalDateTime từ notice
+                ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault()); // Chuyển đổi thành ZonedDateTime với múi giờ hệ thống
+                long timeMillis = zonedDateTime.toInstant().toEpochMilli();
+
+                Intent intent = new Intent(NoticeAddActivity.this,AlarmReceiver.class);
+                intent.putExtra("id",notice.getId());
+                intent.setAction("noticeAction");
+                alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+                pendingIntent=PendingIntent.getBroadcast(NoticeAddActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmManager.set(AlarmManager.RTC_WAKEUP,timeMillis,pendingIntent);
                 finish(); // Kết thúc Sub Activity và trở về Main Activity
             }
         }
         else
             Toast.makeText(this, "Lỗi khi nhận thời gian", Toast.LENGTH_SHORT).show();
+    }
+    public void setImageInView(ImageView imageView, Object imageObject) {
+        if (imageObject instanceof Uri) {
+            // Nếu là Uri, đặt ảnh từ Uri vào ImageView
+            imageView.setImageURI((Uri) imageObject);
+        } else if (imageObject instanceof Integer) {
+            // Nếu là resource ID (int), đặt ảnh từ resource ID vào ImageView
+            imageView.setImageResource((Integer) imageObject);
+        }
     }
     // LẤY THỜI GIAN TỪ CÁC TEXT VIEW
     LocalDateTime getLocalDateTimeFromTextViews() {
@@ -145,9 +187,7 @@ public class NoticeAddActivity extends AppCompatActivity {
             return null;
         }
     }
-
-    //
-    private void updateLocalDateTime(LocalDateTime newDateTime) {
+    private void updateLocalDateTime(LocalDateTime selectedDateTime,LocalDateTime newDateTime) {
         if (newDateTime != null) {
             // Thiết lập lại các giá trị cho LocalDateTime
             selectedDateTime = selectedDateTime

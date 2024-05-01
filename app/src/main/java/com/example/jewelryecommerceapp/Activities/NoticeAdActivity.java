@@ -1,7 +1,11 @@
 package com.example.jewelryecommerceapp.Activities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -19,9 +23,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jewelryecommerceapp.Adapters.NoticeAdapter;
+import com.example.jewelryecommerceapp.AlarmReceiver;
+import com.example.jewelryecommerceapp.Interfaces.SelectNotice;
 import com.example.jewelryecommerceapp.Models.Notice;
 import com.example.jewelryecommerceapp.R;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class NoticeAdActivity extends AppCompatActivity {
@@ -31,6 +39,8 @@ public class NoticeAdActivity extends AppCompatActivity {
     NoticeAdapter noticeAdapter;
     Button add_notice;
     ArrayList<Notice> noticeList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +56,22 @@ public class NoticeAdActivity extends AppCompatActivity {
         rc_notice=findViewById(R.id.rc_notice);
         add_notice=findViewById(R.id.add_notice);
         noticeList= initNoticeList(noticeList);
-        noticeAdapter = new NoticeAdapter(this,noticeList);
+        noticeAdapter = new NoticeAdapter(this, noticeList, new SelectNotice() {
+            @Override
+            public void onNoticeSelect(Notice notice) {
+                Intent intent= new Intent(NoticeAdActivity.this, NoticeDetailActivity.class);
+                notice.setImgNotice(notice.getImgNotice().toString());
+                intent.putExtra("notice",notice);
+
+                String img = notice.getImgNotice().toString();
+                intent.putExtra("img",img);
+                startActivity(intent);
+            }
+        },1);
         rc_notice.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rc_notice.setHasFixedSize(true);
         rc_notice.setAdapter(noticeAdapter);
+        noticeAdapter.notifyDataSetChanged();
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,16 +88,21 @@ public class NoticeAdActivity extends AppCompatActivity {
                 startActivityForResult(intent,REQUEST_CODE_SUB_ACTIVITY);
             }
         });
+
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_SUB_ACTIVITY && resultCode == Activity.RESULT_OK) {
-            if (data != null && data.hasExtra("notice")) {
-                Notice newNotice = (Notice) data.getSerializableExtra("notice"); // Lấy đối tượng Notice từ Intent
+            if (data != null && data.hasExtra("newnotice")) {
+                Notice newNotice = (Notice) data.getSerializableExtra("newnotice"); // Lấy đối tượng Notice từ Intent
+                String receivedString = data.getStringExtra("uri");
                 if (newNotice != null) {
-                    Toast.makeText(this,"láy được",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,receivedString,Toast.LENGTH_SHORT).show();
+                    if(!receivedString.equals(""))
+                      newNotice.setImgNotice(Uri.parse(receivedString));
                     noticeList.add(0,newNotice);
                     noticeAdapter.notifyDataSetChanged();
                 }
@@ -86,12 +113,6 @@ public class NoticeAdActivity extends AppCompatActivity {
     }
      ArrayList<Notice> initNoticeList(ArrayList<Notice> list){
         list= new ArrayList<>();
-        list.add(new Notice(R.drawable.ic_notice,"Sản phẩm mới dành cho phái nữ"));
-        list.add(new Notice(R.drawable.ic_notice,"Sản phẩm mới dành cho phái nữ"));
-        list.add(new Notice(R.drawable.ic_notice,"Sản phẩm mới dành cho phái nữ"));
-        list.add(new Notice(R.drawable.ic_notice,"Sản phẩm mới dành cho phái nữ"));
-        list.add(new Notice(R.drawable.ic_notice,"Sản phẩm mới dành cho phái nữ"));
-        list.add(new Notice(R.drawable.ic_notice,"Sản phẩm mới dành cho phái nữ"));
 
         return list;
     }
