@@ -110,41 +110,73 @@ public class HomeFragment extends Fragment {
 
     ImageView img_notice;
 
-    ArrayList<Product> myTrendList, myNewList;
+    ArrayList<Product> myTrendList, myNewList, myDiamondList, myPearlList, myRubyList, myRingList, myAlbumList;
 
     RecyclerView rc_trend;
-
     RecyclerView rc_new;
-    ProductAdapter myAdapterTrend, myAdapterNew;
+    RecyclerView rc_diamond, rc_pearl, rc_ruby, rc_ring, rc_album;
+    ProductAdapter myAdapterTrend, myAdapterNew, myAdapterDiamond, myAdapterPearl, myAdapterRuby, myAdapterRing, myAdapterAlbum;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         myTrendList= new ArrayList<>();
-        //initProduct(myList);
-
         myAdapterTrend = new ProductAdapter(getContext(),myTrendList);
-        myNewList= new ArrayList<>();
-        //initProduct(myList);
-
-
-        myAdapterNew= new ProductAdapter(getContext(),myNewList);
-
         GetTrendListFromDataBase();
-        GetNewListFromDataBase();
-
         rc_trend=view.findViewById(R.id.rc_trend);
         rc_trend.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_trend.setHasFixedSize(true);
         rc_trend.setAdapter(myAdapterTrend);
 
+        myNewList= new ArrayList<>();
+        myAdapterNew= new ProductAdapter(getContext(),myNewList);
+        GetNewListFromDataBase();
         rc_new=view.findViewById(R.id.rc_new);
-        //newList.setLayoutManager(new GridLayoutManager(getContext(),2));
         rc_new.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_new.setHasFixedSize(true);
         rc_new.setAdapter(myAdapterNew);
-        myAdapterNew.notifyDataSetChanged();
+       // myAdapterNew.notifyDataSetChanged();
+
+        myDiamondList= new ArrayList<>();
+        myAdapterDiamond=new ProductAdapter(getContext(),myDiamondList);
+        GetDiamondListFromDataBase();
+        rc_diamond=view.findViewById(R.id.rc_diamond);
+        rc_diamond.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rc_diamond.setHasFixedSize(true);
+        rc_diamond.setAdapter(myAdapterNew);
+
+        myPearlList= new ArrayList<>();
+        myAdapterPearl=new ProductAdapter(getContext(),myPearlList);
+        GetPearlListFromDataBase();
+        rc_pearl=view.findViewById(R.id.rc_pearl);
+        rc_pearl.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rc_pearl.setHasFixedSize(true);
+        rc_pearl.setAdapter(myAdapterPearl);
+
+        myRubyList= new ArrayList<>();
+        myAdapterRuby=new ProductAdapter(getContext(),myRubyList);
+        GetRubyListFromDataBase();
+        rc_ruby=view.findViewById(R.id.rc_ruby);
+        rc_ruby.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rc_ruby.setHasFixedSize(true);
+        rc_ruby.setAdapter(myAdapterRuby);
+
+        myRingList= new ArrayList<>();
+        myAdapterRing =new ProductAdapter(getContext(),myRingList);
+        GetRingListFromDataBase();
+        rc_ring=view.findViewById(R.id.rc_ring);
+        rc_ring.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rc_ring.setHasFixedSize(true);
+        rc_ring.setAdapter(myAdapterRing);
+
+        myAlbumList= new ArrayList<>();
+        myAdapterAlbum=new ProductAdapter(getContext(),myAlbumList);
+        GetAlbumListFromDataBase();
+        rc_album=view.findViewById(R.id.rc_album);
+        rc_album.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        rc_album.setHasFixedSize(true);
+        rc_album.setAdapter(myAdapterAlbum);
 
         //
         img_notice=view.findViewById(R.id.img_notice);
@@ -218,6 +250,86 @@ public class HomeFragment extends Fragment {
             }
         });
         
+    }
+    private  void GetDiamondListFromDataBase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private  void GetPearlListFromDataBase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private  void GetRubyListFromDataBase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private  void GetRingListFromDataBase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private  void GetAlbumListFromDataBase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     /*public void initProduct(ArrayList<Product> myList){
