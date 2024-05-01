@@ -20,7 +20,9 @@
             android:exported="false" />
         <activity
             android:name=".Activities.Payment"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:name=".Activities.NoticeActivity"
             android:exported="false" />
@@ -28,7 +30,11 @@
             android:name=".Activities.AdminHomeActivity"
             android:exported="true">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -37,11 +43,7 @@
         <activity
             android:name=".Activities.HomeActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity

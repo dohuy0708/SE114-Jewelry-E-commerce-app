@@ -5,29 +5,39 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Adapters.OrderTabItemAdapter;
 import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
 import com.example.jewelryecommerceapp.Models.Order;
 import com.example.jewelryecommerceapp.R;
+import com.example.jewelryecommerceapp.TabItems.AceptedTabItem;
+import com.example.jewelryecommerceapp.TabItems.ShippedTabItem;
+import com.example.jewelryecommerceapp.TabItems.WaitAceptTabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AdOrderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@SuppressWarnings("deprecation")
 public class AdOrderFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,7 +91,7 @@ public class AdOrderFragment extends Fragment {
     ImageView logo;
     TextView title;
     TabLayout tablayout;
-    ViewPager2 viewPager2;
+    ViewPager2 viewPager;
     OrderTabItemAdapter adt;
 
 
@@ -92,13 +102,15 @@ public class AdOrderFragment extends Fragment {
         logo=view.findViewById(R.id.logooo0);
         title=view.findViewById(R.id.cardt);
         tablayout=view.findViewById(R.id.tab_layout);
-        viewPager2=view.findViewById(R.id.view_pager);
+        viewPager=view.findViewById(R.id.view_pager);
         adt=new OrderTabItemAdapter(this);
-        viewPager2.setAdapter(adt);
+        viewPager.setAdapter(adt);
+
         tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2.setCurrentItem(tab.getPosition());
+
+                    viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -111,7 +123,7 @@ public class AdOrderFragment extends Fragment {
 
             }
         });
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -120,6 +132,5 @@ public class AdOrderFragment extends Fragment {
         });
 
     }
-
 
 }

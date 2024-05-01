@@ -98,7 +98,7 @@ public class CartFragment extends Fragment {
         initProduct(Pros);
         Adt=new CartProductsAdapter(getContext(),Pros);
         inCartPros=view.findViewById(R.id.Cartt);
-        inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         inCartPros.setHasFixedSize(true);
         inCartPros.setAdapter(Adt);
 
@@ -109,7 +109,7 @@ public class CartFragment extends Fragment {
         promotee=view.findViewById(R.id.promote);
         ordernoww=view.findViewById(R.id.ordernow);
         totalll=view.findViewById(R.id.tccc);
-        totalll.setText("Tổng cộng: "+ String.valueOf(Integer.parseInt(tienspp.getText().toString())-Integer.parseInt(promotee.getText().toString())));
+        totalll.setText("Tổng cộng: ");//+ String.valueOf(Integer.parseInt(tienspp.getText().toString())-Integer.parseInt(promotee.getText().toString())));
         ordernoww.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

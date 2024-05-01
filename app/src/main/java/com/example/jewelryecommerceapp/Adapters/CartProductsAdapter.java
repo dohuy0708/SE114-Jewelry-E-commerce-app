@@ -2,6 +2,9 @@ package com.example.jewelryecommerceapp.Adapters;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,27 +47,42 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         holder.imgPro.setImageResource(pro.getImg());
         String s=holder.numm.getText().toString();
         int numb=Integer.parseInt(s);
-        holder.pricee.setText("Tổng giá: "+ pro.getProductPrice()*numb);
+        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice()*numb);
         holder.pluss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int numb=Integer.parseInt(holder.numm.getText().toString());
-                numb++;
-                holder.numm.setText(String.valueOf(numb));
+                String nt=holder.numm.getText().toString();
+                if(!TextUtils.isEmpty(nt))
+                {
+                    int numb=Integer.parseInt(nt);
+                    numb++;
+                    holder.numm.setText(String.valueOf(numb));
+                }
+                else
+                {
+                    holder.numm.setError("Vui lòng nhập số!");
+                }
             }
         });
         holder.minuss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int numb=Integer.parseInt(holder.numm.getText().toString());
-                numb--;
-                if(numb>=1)
+                if(!TextUtils.isEmpty(holder.numm.getText().toString()))
                 {
-                    holder.numm.setText(String.valueOf(numb));
+                    int numb=Integer.parseInt(holder.numm.getText().toString());
+                    numb--;
+                    if(numb>=1)
+                    {
+                        holder.numm.setText(String.valueOf(numb));
+                    }
+                    else
+                    {
+                        holder.numm.setText("1");
+                    }
                 }
                 else
                 {
-                    listPro.remove(pro);
+                    holder.numm.setError("Vui lòng nhập số!");
                 }
             }
         });
@@ -83,7 +101,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
     }
 
 
-    public class ProductViewHolder extends RecyclerView.ViewHolder{
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imgPro;
         TextView namePro;
@@ -93,16 +111,17 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         EditText numm;
         CheckBox check;
         ImageView binn;
+
         public ProductViewHolder(@NonNull View view) {
             super(view);
-            imgPro=view.findViewById(R.id.pic);
-            namePro=view.findViewById(R.id.titletext);
-            pricee=view.findViewById(R.id.price);
-            pluss=view.findViewById(R.id.plusbtn);
-            minuss=view.findViewById(R.id.minusbtn);
-            numm=view.findViewById(R.id.number);
-            check=view.findViewById(R.id.checking);
-            binn=view.findViewById(R.id.bin);
+            imgPro = view.findViewById(R.id.pic);
+            namePro = view.findViewById(R.id.titletext);
+            pricee = view.findViewById(R.id.price);
+            pluss = view.findViewById(R.id.plusbtn);
+            minuss = view.findViewById(R.id.minusbtn);
+            numm = view.findViewById(R.id.number);
+            check = view.findViewById(R.id.checking);
+            binn = view.findViewById(R.id.bin);
             numm.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -111,13 +130,9 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!s.toString().isEmpty())
+                    if(s.toString()=="0")
                     {
-                        int numb=Integer.parseInt(s.toString());
-                        if(numb<=0)
-                        {
-                            numm.setError("Vui lòng chọn số nguyên lớn hơn 0");
-                        }
+                        numm.setText("1");
                     }
                 }
 
@@ -126,6 +141,36 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
 
                 }
             });
+            numm.setFilters(new InputFilter[]{new InputFilter() {
+                @Override
+                public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                    for (int i = start; i < end; i++) {
+                        if (!isValidCharacter(source.charAt(i))) {
+                            return "";
+                        }
+                    }
+                    return null;
+                }
+            }});
+//        }
+//    }
+//
+//    private boolean isValidInput(String string) {
+//        try
+//        {
+//            int i=Integer.parseInt(string);
+//            return i>=1;
+//        }
+//        catch(NumberFormatException e)
+//        {
+//            return false;
+//        }
+//    }
+        }
+
+        private boolean isValidCharacter(char c) {
+            return Character.isDigit(c);
         }
     }
 }
+
