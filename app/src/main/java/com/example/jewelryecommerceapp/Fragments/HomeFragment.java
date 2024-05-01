@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,25 +82,37 @@ public class HomeFragment extends Fragment {
 
         ///  Đẩy dữ liệu lên firebase
       //  StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-     /*   String uri = "https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Screenshot%202024-03-07%20150607.png?alt=media&token=5848514f-5f7e-4d61-9574-083ec5f67e0b";
+        ArrayList<String> imagelist = new ArrayList<>();
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_e3758ea112c84d298615e66534243eba.webp?alt=media&token=e34834a1-7653-44a9-a7ba-41370c0fa940");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_3_c89ebbfbfc7f49dabb1cba750440a536.webp?alt=media&token=13a28ef3-87cb-4bae-a5f9-9f9668f6af7c");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_2_4ae654a07a9443ecbf0142315cc2eddc.webp?alt=media&token=338d81b0-eb9b-47d3-b368-ed0d9b666e5d");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample3%2Fbtptb363_1_5157e7a1d2c043a5a620deb78b074354.webp?alt=media&token=15c21f88-bf0e-457d-aa49-2da2a776200f");
+      // imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%C3%B4ng%20tai%2Fsample1%2Fon-gbztxmh000017-bong-tai-vang-14k-dinh-da-synthetic-pnj-hello-kitty-2.jpg?alt=media&token=79eb2c83-05d5-4f1a-8723-733e4b908d37");
 
-        Product testproduct = new Product("3", "Nhẫn Bạc",uri,"","","",100000,"L",10,5,"Nhẫn đẹp",4.5,10,"PNJ","Còn hàng");
+        Map<String,Integer> sizemap = new HashMap<>();
+        sizemap.put("11",10);
+        sizemap.put("12",10);
+        sizemap.put("13",10);
+        sizemap.put("14",10);
+
+
+        Product testproduct = new Product("3", "Bông tai","Bông tai Mặt Trăng đính đá Cubic","Vàng",imagelist,sizemap,"đá Cubic",4.5,4450000,"Sang xịn mịn","H-Jewelry");
 
         FirebaseDatabase data = FirebaseDatabase.getInstance();
-        DatabaseReference ref = data.getReference("Product");
+        DatabaseReference ref = data.getReference("Product").child(testproduct.getType());
 
-        ref.child("5").setValue(testproduct, new DatabaseReference.CompletionListener() {
+        ref.push().setValue(testproduct, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error != null) {
                     // Đã xảy ra lỗi khi đẩy dữ liệu lên Firebase
-                    Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     // Đẩy dữ liệu lên Firebase thành công
                     //Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 }
             }
-        });*/
+        });
 
     }
 
@@ -168,7 +182,7 @@ public class HomeFragment extends Fragment {
         loadingDialog.show();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
+        DatabaseReference ref = database.getReference("Product/Bông tai");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -195,7 +209,7 @@ public class HomeFragment extends Fragment {
 
     private void GetTrendListFromDataBase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
+        DatabaseReference ref = database.getReference("Product/Bông tai");
 
 
         ref.addValueEventListener(new ValueEventListener() {

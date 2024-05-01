@@ -37,7 +37,7 @@ public class TopRateAdapter extends RecyclerView.Adapter<TopRateAdapter.ProductV
         Product product=myList.get(position);
         if(product==null)
             return;
-        holder.img_product.setImageResource(product.getImg());
+        //holder.img_product.setImageResource(product.getImg());
         holder.name_product.setText(product.getProductName());
         double rate=product.getRatingStar();
 

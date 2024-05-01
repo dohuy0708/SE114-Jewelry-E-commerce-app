@@ -330,12 +330,12 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
     void getSameProduct(ArrayList<Product> samePrdList){
 
+        /*samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
-        samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
-        samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
+        samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));*/
     }
 }

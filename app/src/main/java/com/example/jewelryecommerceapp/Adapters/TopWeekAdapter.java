@@ -35,7 +35,7 @@ public class TopWeekAdapter  extends RecyclerView.Adapter<TopWeekAdapter.Product
         Product product=productList.get(position);
         if(product==null)
             return;
-        holder.img_product.setImageResource(product.getImg());
+        //holder.img_product.setImageResource(product.getImg());
         holder.name_product.setText(product.getProductName());
         holder.id_product.setText("Mã sp: "+product.getProductId());
     }

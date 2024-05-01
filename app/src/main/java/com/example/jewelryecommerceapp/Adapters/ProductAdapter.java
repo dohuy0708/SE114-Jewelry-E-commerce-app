@@ -46,12 +46,13 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Product product=productList.get(position);
+        ArrayList<String> imagelist = productList.get(position).getImagelist();
         if(product==null)
             return;
         ProductViewHolder productViewHolder= (ProductViewHolder) holder;
-        Glide.with(context).load(productList.get(position).getProductImage1()).into(((ProductViewHolder) holder).img_product);
+        Glide.with(context).load(imagelist.get(0)).into(((ProductViewHolder) holder).img_product);
         productViewHolder.name_product.setText(product.getProductName());
-        productViewHolder.price_product.setText(product.getProductPrice()+"");
+        productViewHolder.price_product.setText(formatNumber(product.getProductPrice())+" VND");
 
     }
 
@@ -71,5 +72,20 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             name_product=itemView.findViewById(R.id.name_product);
             price_product=itemView.findViewById(R.id.price_product);
         }
+    }
+    public static String formatNumber(int number) {
+        String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
+        int length = strNumber.length(); // Độ dài của chuỗi số
+
+        // Xây dựng chuỗi kết quả từ phải sang trái, thêm dấu chấm sau mỗi 3 ký tự
+        StringBuilder result = new StringBuilder();
+        for (int i = length - 1; i >= 0; i--) {
+            result.insert(0, strNumber.charAt(i));
+            if ((length - i) % 3 == 0 && i != 0) {
+                result.insert(0, ".");
+            }
+        }
+
+        return result.toString(); // Trả về chuỗi kết quả
     }
 }
