@@ -35,7 +35,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         if (pro==null)
             return;
         holder.idPro.setText("Mã sản phẩm: " + pro.getProductId());
-        holder.imgPro.setImageResource(pro.getImg());
+      //  holder.imgPro.setImageResource(pro.getImg());
         holder.namePro.setText(pro.getProductName());
     }
 

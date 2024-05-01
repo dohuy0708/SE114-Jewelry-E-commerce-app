@@ -91,11 +91,11 @@ public class AdHomeFragment extends Fragment {
         //myAdapter = new ProductAdapter(getContext(),myList);
 
         topWeekList = new ArrayList<>();
-        topWeekList.add( new Product(R.drawable.demo,"Nhẫn","A12"));
+       /* topWeekList.add( new Product(R.drawable.demo,"Nhẫn","A12"));
         topWeekList.add(new Product(R.drawable.demo,"Vòng cổ","A14"));
         topWeekList.add(new Product(R.drawable.demo,"Bông tai","A26"));
         topWeekList.add(new Product(R.drawable.demo,"Lắc tay","B88"));
-        topWeekList.add(new Product(R.drawable.demo,"Trâm","B77"));
+        topWeekList.add(new Product(R.drawable.demo,"Trâm","B77"));*/
         rc_topWeak=view.findViewById(R.id.topWeekList);
         topWeekAdapter=new TopWeekAdapter(getContext(),topWeekList);
         rc_topWeak.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
@@ -103,11 +103,11 @@ public class AdHomeFragment extends Fragment {
         rc_topWeak.setAdapter(topWeekAdapter);
 
         topRateList = new ArrayList<>();
-        topRateList.add( new Product(R.drawable.demo,"Nhẫn Vàng",5.0));
+       /* topRateList.add( new Product(R.drawable.demo,"Nhẫn Vàng",5.0));
         topRateList.add(new Product(R.drawable.demo,"Nhẫn Bạc",4.9));
         topRateList.add(new Product(R.drawable.demo,"Nhẫn kim cương",4.9));
         topRateList.add(new Product(R.drawable.demo,"Lắc tay",4.9));
-        topRateList.add(new Product(R.drawable.demo,"Trâm",4.8));
+        topRateList.add(new Product(R.drawable.demo,"Trâm",4.8));*/
         rc_topRate=view.findViewById(R.id.topRateList);
         topRateAdapter=new TopRateAdapter(getContext(),topRateList);
         rc_topRate.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));

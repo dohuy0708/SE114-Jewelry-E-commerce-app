@@ -25,8 +25,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,27 +83,41 @@ public class HomeFragment extends Fragment {
 
 
         ///  Đẩy dữ liệu lên firebase
-      //  StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-     /*   String uri = "https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Screenshot%202024-03-07%20150607.png?alt=media&token=5848514f-5f7e-4d61-9574-083ec5f67e0b";
+    //   StorageReference storageReference = FirebaseStorage.getInstance().getReference("Vòng tay");
 
-        Product testproduct = new Product("3", "Nhẫn Bạc",uri,"","","",100000,"L",10,5,"Nhẫn đẹp",4.5,10,"PNJ","Còn hàng");
+
+      /*  ArrayList<String> imagelist = new ArrayList<>();
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_3_16695c0fe811418682010dc2d0cc717c_master_02785f02098140dea8cdf90a76bfb4fa.webp?alt=media&token=b6522c92-8d9a-4ab9-b580-c93fdae751cc");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_2_9394c175484f43819e0959a9b0a5d72f_master_bbbee07d40ce4dd5a7b2995a381ed7e2.webp?alt=media&token=e507cec7-f5e0-4011-bc42-915a3324ffc8");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2F94c175484f43819e0959a9b0a5d72f_master_bbbee07d40ce4dd5a7b2995a381ed7e2_924a0cf7293942d28e00030fedca30b1.webp?alt=media&token=9d370171-e7b3-4635-91d4-42f38ed3ff4f");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_1_ba2f06bf22414cfc9dd3110232f79350_master_3c8e678e53594dbe9051f0605394180e.webp?alt=media&token=58a34460-1424-4987-9cbe-d28bd1f4f37a");
+
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2F2f06bf22414cfc9dd3110232f79350_master_3c8e678e53594dbe9051f0605394180e_d08755dd78a847c6832f4707821102f8.webp?alt=media&token=355340b5-4f87-470f-9d81-08bb7f5b71f7");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnc466_1_acb49941fe154c22b1cdf524226b3823_master_c105dd97ae4042708fce06c5a15d0da3.webp?alt=media&token=9faf7419-dd0a-4116-8360-c429ef829176");
+        Map<String,Integer> sizemap = new HashMap<>();
+        sizemap.put("14",10);
+        sizemap.put("15",10);
+        sizemap.put("16",10);
+        sizemap.put("17",10);
+
+
+        Product testproduct = new Product("4", "Nhẫn đôi","Nhẫn đôi Vàng đánh Kim Cương NDC15 ","Vàng",imagelist,sizemap,"Kim Cương",12.6,14850000,"Sang xịn mịn","H-Jewelry");
 
         FirebaseDatabase data = FirebaseDatabase.getInstance();
-        DatabaseReference ref = data.getReference("Product");
+        DatabaseReference ref = data.getReference("Product").child(testproduct.getType());
 
-        ref.child("5").setValue(testproduct, new DatabaseReference.CompletionListener() {
+        ref.push().setValue(testproduct, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error != null) {
                     // Đã xảy ra lỗi khi đẩy dữ liệu lên Firebase
-                    Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     // Đẩy dữ liệu lên Firebase thành công
                     //Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 }
             }
         });*/
-
     }
 
 
@@ -168,7 +186,7 @@ public class HomeFragment extends Fragment {
         loadingDialog.show();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
+        DatabaseReference ref = database.getReference("Product/Nhẫn đôi");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -195,7 +213,7 @@ public class HomeFragment extends Fragment {
 
     private void GetTrendListFromDataBase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
+        DatabaseReference ref = database.getReference("Product/Nhẫn đôi");
 
 
         ref.addValueEventListener(new ValueEventListener() {

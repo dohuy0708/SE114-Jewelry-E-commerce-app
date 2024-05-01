@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_product"
     android:layout_width="100dp"
-    android:layout_height="150dp"
+    android:layout_height="155dp"
     android:layout_margin="8dp"
     android:elevation="3dp"
-    app:cardBackgroundColor="#EDEBEB"
+    app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="5dp">
 
 
@@ -28,29 +28,40 @@
             android:backgroundTint="#8E8E8E"
             android:clickable="false"/>
 
-        <TextView
-            android:id="@+id/name_product"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:singleLine="true"
-            android:text="Nhẫn vàng"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="12sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#EDEDED">
 
-        <TextView
-            android:id="@+id/price_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="2.999.000VNĐ"
-            android:textAlignment="center"
-            android:textColor="#F9A503"
-            android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/name_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0.6dp"
+                android:layout_marginHorizontal="4dp"
+                android:singleLine="true"
+                android:text="Nhẫn vàng"
+                android:textAlignment="center"
+                android:maxLines="2"
+                android:inputType="textMultiLine"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/price_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="2.999.000VNĐ"
+                android:textAlignment="center"
+                android:textColor="#F9A503"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
