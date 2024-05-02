@@ -18,11 +18,17 @@ import com.example.jewelryecommerceapp.Models.Product;
 import java.util.ArrayList;
 
 public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private IClickListener mIClicklistener;
+    public interface IClickListener{
+        void OnClickItem(Product product);
+    }
    Context context;
    ArrayList<Product> productList;
 
    int type =0;
-   public ProductAdapter(Context context, ArrayList<Product> productList){
+   public ProductAdapter(Context context, ArrayList<Product> productList, IClickListener listener){
+       this.mIClicklistener = listener;
        this.context=context;
        this.productList=productList;
    }
@@ -54,6 +60,15 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         productViewHolder.name_product.setText(product.getProductName());
         productViewHolder.price_product.setText(formatNumber(product.getProductPrice())+" VND");
 
+
+        // bắt sự kiện click vào cardview
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIClicklistener.OnClickItem(product);
+            }
+        });
+
     }
 
 
@@ -63,6 +78,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{
+
 
         ImageView img_product;
         TextView name_product,price_product;

@@ -3,6 +3,7 @@ package com.example.jewelryecommerceapp.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Activities.LoadingDialog;
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
+import com.example.jewelryecommerceapp.Activities.ProductDetailActivity;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
@@ -147,12 +149,24 @@ public class HomeFragment extends Fragment {
         myTrendList= new ArrayList<>();
         //initProduct(myList);
 
-        myAdapterTrend = new ProductAdapter(getContext(),myTrendList);
+        myAdapterTrend = new ProductAdapter(getContext(), myTrendList, new ProductAdapter.IClickListener() {
+            @Override
+            public void OnClickItem(Product product) {
+                Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+                startActivity(intent);
+            }
+        });
         myNewList= new ArrayList<>();
         //initProduct(myList);
 
 
-        myAdapterNew= new ProductAdapter(getContext(),myNewList);
+        myAdapterNew= new ProductAdapter(getContext(), myNewList, new ProductAdapter.IClickListener() {
+            @Override
+            public void OnClickItem(Product product) {
+                Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+               startActivity(intent);
+            }
+        });
 
         GetTrendListFromDataBase();
         GetNewListFromDataBase();
