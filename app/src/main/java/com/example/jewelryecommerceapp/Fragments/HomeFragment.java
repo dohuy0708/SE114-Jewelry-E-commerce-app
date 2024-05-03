@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
     //   StorageReference storageReference = FirebaseStorage.getInstance().getReference("Vòng tay");
 
 
-      /*  ArrayList<String> imagelist = new ArrayList<>();
+        ArrayList<String> imagelist = new ArrayList<>();
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_3_16695c0fe811418682010dc2d0cc717c_master_02785f02098140dea8cdf90a76bfb4fa.webp?alt=media&token=b6522c92-8d9a-4ab9-b580-c93fdae751cc");
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnckc466_2_9394c175484f43819e0959a9b0a5d72f_master_bbbee07d40ce4dd5a7b2995a381ed7e2.webp?alt=media&token=e507cec7-f5e0-4011-bc42-915a3324ffc8");
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2F94c175484f43819e0959a9b0a5d72f_master_bbbee07d40ce4dd5a7b2995a381ed7e2_924a0cf7293942d28e00030fedca30b1.webp?alt=media&token=9d370171-e7b3-4635-91d4-42f38ed3ff4f");
@@ -103,12 +103,13 @@ public class HomeFragment extends Fragment {
         sizemap.put("17",10);
 
 
-        Product testproduct = new Product("4", "Nhẫn đôi","Nhẫn đôi Vàng đánh Kim Cương NDC15 ","Vàng",imagelist,sizemap,"Kim Cương",12.6,14850000,"Sang xịn mịn","H-Jewelry");
+        Product testproduct = new Product("ND1", "Nhẫn đôi","Nhẫn đôi Vàng đánh Kim Cương NDC15 ","Vàng",imagelist,sizemap,"Kim Cương",12.6,14850000,"Sang xịn mịn","H-Jewelry");
 
         FirebaseDatabase data = FirebaseDatabase.getInstance();
         DatabaseReference ref = data.getReference("Product").child(testproduct.getType());
+        String key = testproduct.getProductId();
 
-        ref.push().setValue(testproduct, new DatabaseReference.CompletionListener() {
+        ref.child(key).setValue(testproduct, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error != null) {
@@ -119,7 +120,7 @@ public class HomeFragment extends Fragment {
                     //Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 }
             }
-        });*/
+        });
     }
 
 
@@ -151,8 +152,11 @@ public class HomeFragment extends Fragment {
 
         myAdapterTrend = new ProductAdapter(getContext(), myTrendList, new ProductAdapter.IClickListener() {
             @Override
-            public void OnClickItem(Product product) {
+            public void OnClickItem(String productType, String productID) {
+
                 Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+                intent.putExtra("type", productType);
+                intent.putExtra("ID", productID);
                 startActivity(intent);
             }
         });
@@ -162,8 +166,10 @@ public class HomeFragment extends Fragment {
 
         myAdapterNew= new ProductAdapter(getContext(), myNewList, new ProductAdapter.IClickListener() {
             @Override
-            public void OnClickItem(Product product) {
+            public void OnClickItem(String productType, String productID) {
                 Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+                intent.putExtra("type", productType);
+                intent.putExtra("ID", productID);
                startActivity(intent);
             }
         });

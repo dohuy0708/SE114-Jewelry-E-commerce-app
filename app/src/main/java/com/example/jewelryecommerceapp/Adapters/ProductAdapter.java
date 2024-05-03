@@ -21,7 +21,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private IClickListener mIClicklistener;
     public interface IClickListener{
-        void OnClickItem(Product product);
+        void OnClickItem(String productType, String productID);
     }
    Context context;
    ArrayList<Product> productList;
@@ -60,12 +60,14 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         productViewHolder.name_product.setText(product.getProductName());
         productViewHolder.price_product.setText(formatNumber(product.getProductPrice())+" VND");
 
-
+        // lấy type và id của sản phảm
+        String productType = product.getType();
+        String productID = product.getProductId();
         // bắt sự kiện click vào cardview
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIClicklistener.OnClickItem(product);
+                mIClicklistener.OnClickItem(productType,productID);
             }
         });
 
