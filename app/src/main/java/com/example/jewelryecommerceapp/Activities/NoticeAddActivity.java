@@ -223,19 +223,19 @@ public class NoticeAddActivity extends AppCompatActivity {
         timePickerDialog.show();
 
     }
-    void  openDate(){
-        Calendar calendar=Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month= calendar.get(Calendar.MONTH);
-        int day= calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                date_notice.setText(formatNumber(dayOfMonth)+"/"+formatNumber(month+1)+"/"+String.valueOf(year));
-            }
-        }, year, month, day);
-        datePickerDialog.show();
-    }
+        void  openDate(){
+            Calendar calendar=Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month= calendar.get(Calendar.MONTH);
+            int day= calendar.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    date_notice.setText(formatNumber(dayOfMonth)+"/"+formatNumber(month+1)+"/"+String.valueOf(year));
+                }
+            }, year, month, day);
+            datePickerDialog.show();
+        }
     void openDialog(){
         Dialog dialog= new Dialog(this);
         dialog.show();
