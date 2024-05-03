@@ -84,7 +84,7 @@ public class CategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rc_necklace=view.findViewById(R.id.serviceList);
+        rc_necklace=view.findViewById(R.id.rc_service);
         serviceList = new ArrayList<>();
 
         //myAdapter = new ProductAdapter(getContext(),myList);

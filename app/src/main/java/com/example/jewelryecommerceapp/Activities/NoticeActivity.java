@@ -1,9 +1,7 @@
 package com.example.jewelryecommerceapp.Activities;
 
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jewelryecommerceapp.Adapters.NoticeAdapter;
+import com.example.jewelryecommerceapp.Interfaces.SelectListener;
+import com.example.jewelryecommerceapp.Interfaces.SelectNotice;
 import com.example.jewelryecommerceapp.Models.Notice;
 import com.example.jewelryecommerceapp.R;
 
@@ -40,11 +40,18 @@ public class NoticeActivity extends AppCompatActivity {
             return insets;
         });
 
-        rc_notice=findViewById(R.id.rc_notice);
+        rc_notice=findViewById(R.id.rc_notice_ad);
         noticeList= new ArrayList<>();
         initNotice(noticeList);
-        noticeAdapter = new NoticeAdapter(this,noticeList);
-        rc_notice.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        noticeAdapter = new NoticeAdapter(this, noticeList, new SelectNotice() {
+            @Override
+            public void onNoticeSelect(Notice notice) {
+                Intent intent= new Intent(NoticeActivity.this, NoticeDetailActivity.class);
+                intent.putExtra("notice",notice);
+                startActivity(intent);
+            }
+        });
+                rc_notice.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rc_notice.setHasFixedSize(true);
         rc_notice.setAdapter(noticeAdapter);
 
@@ -60,11 +67,9 @@ public class NoticeActivity extends AppCompatActivity {
     }
     public void initNotice(ArrayList<Notice> mylist){
 
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3"));
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3"));
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3"));
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3"));
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3"));
+        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3","quá mệt mỏi"));
+        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3","kkkkkkkkk"));
+        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3","giảm giá mua đi"));
 
     }
 }
