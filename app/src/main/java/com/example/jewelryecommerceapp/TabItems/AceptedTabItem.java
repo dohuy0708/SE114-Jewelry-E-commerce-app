@@ -38,7 +38,7 @@ public class AceptedTabItem extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ords=new ArrayList<Order>();
+        ords=new ArrayList<>();
         initOrds(ords);
         Sort=view.findViewById(R.id.btnsort);
         adt=new ShippingOrdsAdapter(getContext(),ords);
@@ -50,6 +50,6 @@ public class AceptedTabItem extends Fragment {
     }
 
     private void initOrds(ArrayList<Order> ords) {
-        ords.add(new Order("abc","acbc","123","",345,"",""));
+
     }
 }

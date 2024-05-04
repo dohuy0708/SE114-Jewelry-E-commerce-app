@@ -39,7 +39,7 @@ public class ShippedTabItem extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ords=new ArrayList<Order>();
+        ords=new ArrayList<>();
         initOrds(ords);
         Sort=view.findViewById(R.id.btnsort);
         adt=new ShippedOrdsAdapter(getContext(),ords);
