@@ -44,6 +44,11 @@ import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -55,7 +60,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     TextView img_number ;
     RecyclerView rc_prd_image,rc_viewpager;
     ImageAdapter imgAdapter;
-    ArrayList<Integer> imgList;
+    ArrayList<String> imgList;
     ViewPagerImageAdapter viewPagerAdapter;
     //
     LinearLayout prd_star;
@@ -74,7 +79,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     Button buy_now;
     BottomSheetDialog dialog;
 
-    Product product ;
+    TextView Prd_name , Prd_price;
+
+
+    Product productdetail = new Product() ;
 
     //
     int price=0;
@@ -89,12 +97,10 @@ public class ProductDetailActivity extends AppCompatActivity {
             return insets;
         });
 
+
+
         initUi();
-
         // lấy dữ liệu vho UI
-
-        SetUi();
-
 
 
         // lấy dữ liệu của product từ màn hình home ;
@@ -106,14 +112,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         // get product detail từ firebase
 
         GetProductDetailFromFireBase( productType, productID);
-
-
-
-
-
-
-
-
 
 
         // nhấn vào xem mô tả
@@ -184,14 +182,61 @@ public class ProductDetailActivity extends AppCompatActivity {
     // lấy chi tiết sản phẩm từ firebase
 
     private void GetProductDetailFromFireBase(String productType, String productID) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product").child(productType);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Product product =  dataSnapshot.getValue(Product.class);
+
+
+                    if( product.getProductId().equals(productID))
+                    {
+                        productdetail= product;
+                        Toast.makeText(ProductDetailActivity.this," get product success", Toast.LENGTH_LONG).show();
+                        ArrayList<String> s = productdetail.getImagelist();
+                        int v = s.size();
+                        Toast.makeText(ProductDetailActivity.this,v+" ", Toast.LENGTH_LONG).show();
+
+                        SetUi();
+
+                    }
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProductDetailActivity.this,"cannot get product", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+
+
 
 
     }
 
     private void SetUi() {
+        imgList = new ArrayList<>( productdetail.getImagelist());
 
-        imgList =  getProductImage(imgList);
+
+
+
+
+       // int s = imgList.size();
+      // Toast.makeText(ProductDetailActivity.this,s+" ", Toast.LENGTH_LONG).show();
+
         img_number.setText(1+"/"+imgList.size());
+
+        Prd_price.setText(formatNumber(productdetail.getProductPrice())+" VND");
+        Prd_name.setText(productdetail.getProductName());
 
         // phần chứa ảnh hiển thị
         viewPagerAdapter = new ViewPagerImageAdapter(imgList, new SelectListener() {
@@ -199,9 +244,9 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onImageItemClicked(int position) {
                 if (position != RecyclerView.NO_POSITION) {
-                    int imageUrl = imgList.get(position);
+                    String  imageUrl = imgList.get(position);
                     Intent intent = new Intent(ProductDetailActivity.this, ImageActivity.class);
-                    intent.putIntegerArrayListExtra(ImageActivity.EXTRA_IMAGE_URL,imgList);
+                    intent.putStringArrayListExtra(ImageActivity.EXTRA_IMAGE_URL,imgList);
                     intent.putExtra("position",position);
                     startActivity(intent);
 
@@ -286,6 +331,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         chat_but=findViewById(R.id.chat_but);
         add_cart_but=findViewById(R.id.add_cart_but);
         buy_now=findViewById(R.id.buy_now_but);
+        Prd_name = findViewById(R.id.prd_name);
+        Prd_price = findViewById(R.id.prd_price);
+
 
 
 

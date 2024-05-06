@@ -10,21 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.jewelryecommerceapp.Interfaces.SelectListener;
 import com.example.jewelryecommerceapp.R;
 
 import java.util.List;
 
 public class ViewPagerImageAdapter extends RecyclerView.Adapter<ViewPagerImageAdapter.ViewHolder> {
-    private List<Integer> images;
+    private List<String> images;
     private SelectListener listener;
 
-    public ViewPagerImageAdapter(List<Integer> images,SelectListener listener) {
+    public ViewPagerImageAdapter(List<String> images,SelectListener listener) {
         this.images = images;
         this.listener=listener;
 
     }
-    public ViewPagerImageAdapter(List<Integer> images) {
+    public ViewPagerImageAdapter(List<String> images) {
         this.images = images;
 
     }
@@ -37,19 +38,23 @@ public class ViewPagerImageAdapter extends RecyclerView.Adapter<ViewPagerImageAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int image = images.get(position);
-        holder.imageView.setImageResource(image);
+        String image = images.get(position);
+        Glide.with(holder.imageView.getContext()).load(image).into(((ViewPagerImageAdapter.ViewHolder) holder).imageView);
+        //  holder.imageView.setImageResource(image);
         holder.img_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onImageItemClicked(holder.getAdapterPosition());
             }
         });
+
     }
 
 
     @Override
     public int getItemCount() {
+        if(images==null)
+            return 0;
         return images.size();
     }
 
