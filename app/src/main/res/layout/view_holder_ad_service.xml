@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+												   android:layout_width="match_parent"
+												   android:layout_height="wrap_content"
+												   android:layout_marginBottom="20dp"
+												   xmlns:tools="http://schemas.android.com/tools"
+												   xmlns:app="http://schemas.android.com/apk/res-auto"
+												  >
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/viewpager_layout"
+			android:layout_width="364dp"
+			android:layout_height="270dp"
+			android:layout_margin="16dp"
+			android:background="@drawable/black_stroke"
+			android:clickable="true"
+			android:focusable="true"
+			tools:ignore="MissingConstraints">
+
+
+		<TextView
+				android:text="Loại dịch vụ: "
+				android:layout_width="96dp"
+				android:layout_height="26dp"
+				android:textColor="@color/black"
+				android:id="@+id/textView37"
+				android:textAlignment="textStart"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.059"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.069"
+				tools:ignore="MissingConstraints"/>
+
+		<TextView
+				android:text="Giá dịch vụ: "
+				android:layout_width="87dp"
+				android:layout_height="23dp"
+				android:textColor="@color/black"
+				android:id="@+id/textView39"
+				android:textAlignment="textStart"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.057"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.449"
+				tools:ignore="MissingConstraints"/>
+
+		<TextView
+				android:text="Mô tả dịch vụ: "
+				android:layout_width="104dp"
+				android:layout_height="23dp"
+				android:textColor="@color/black"
+				android:id="@+id/textView49"
+				android:textAlignment="textStart"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.061"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.603"
+				tools:ignore="MissingConstraints"/>
+
+		<TextView
+				android:text="Mã dịch vụ: "
+				android:layout_width="87dp"
+				android:layout_height="24dp"
+				android:textColor="@color/black"
+				android:id="@+id/textView38"
+				android:textAlignment="textStart"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.057"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.256"
+				tools:ignore="MissingConstraints"/>
+
+		<Button
+				android:id="@+id/button_add"
+				android:layout_width="180dp"
+				android:layout_height="37dp"
+				android:textAlignment="textStart"
+				android:background="@drawable/black_stroke"
+
+				android:hint="chọn loại dịch vụ"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.739"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.050">
+		</Button>
+
+		<EditText
+				android:id="@+id/editText2"
+				android:layout_width="171dp"
+				android:layout_height="27dp"
+				android:background="@drawable/black_stroke"
+				android:hint="điền mã dịch vụ"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.704"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.246">
+		</EditText>
+
+		<EditText
+				android:id="@+id/editText3"
+				android:layout_width="171dp"
+				android:layout_height="27dp"
+				android:background="@drawable/black_stroke"
+				android:hint="giá dịch vụ"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.704"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.44">
+		</EditText>
+
+		<EditText
+				android:id="@+id/editText4"
+				android:layout_width="221dp"
+				android:layout_height="89dp"
+				android:background="@drawable/black_stroke"
+				android:hint="Mô tả"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.951"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.823">
+		</EditText>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

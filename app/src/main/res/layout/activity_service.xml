@@ -53,136 +53,17 @@
 						android:layout_marginStart="116dp"/>
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
-			<androidx.constraintlayout.widget.ConstraintLayout
-					android:id="@+id/viewpager_layout"
-					android:layout_width="364dp"
-					android:layout_height="270dp"
-					android:layout_margin="16dp"
-					android:background="@drawable/black_stroke"
-					android:clickable="true"
-					android:focusable="true">
+			<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/recyclerview2"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="10dp">
 
-
-				<TextView
-						android:text="Loại dịch vụ: "
-						android:layout_width="96dp"
-						android:layout_height="26dp"
-						android:textColor="@color/black"
-						android:id="@+id/textView37"
-						android:textAlignment="center"
-						tools:layout_editor_absoluteY="16dp"
-						tools:layout_editor_absoluteX="16dp"
-						tools:ignore="MissingConstraints"/>
-
-				<TextView
-						android:text="Giá dịch vụ: "
-						android:layout_width="87dp"
-						android:layout_height="23dp"
-						android:textColor="@color/black"
-						android:id="@+id/textView39"
-						android:textAlignment="center"
-						tools:layout_editor_absoluteY="111dp"
-						tools:layout_editor_absoluteX="16dp"
-						tools:ignore="MissingConstraints"/>
-
-				<TextView
-						android:text="Mô tả dịch vụ: "
-						android:layout_width="104dp"
-						android:layout_height="23dp"
-						android:textColor="@color/black"
-						android:id="@+id/textView49"
-						android:textAlignment="center"
-						tools:layout_editor_absoluteY="149dp"
-						tools:layout_editor_absoluteX="16dp"
-						tools:ignore="MissingConstraints"/>
-
-				<TextView
-						android:text="Mã dịch vụ: "
-						android:layout_width="87dp"
-						android:layout_height="24dp"
-						android:textColor="@color/black"
-						android:id="@+id/textView38"
-						android:textAlignment="center"
-						tools:layout_editor_absoluteY="63dp"
-						tools:layout_editor_absoluteX="16dp"
-						tools:ignore="MissingConstraints"/>
-
-				<EditText
-						android:id="@+id/editText"
-						android:layout_width="171dp"
-						android:layout_height="27dp"
-						android:background="@drawable/black_stroke"
-						android:hint="chọn loại dịch vụ"
-						android:paddingLeft="8dp"
-						android:paddingRight="30dp"
-						android:singleLine="true"
-						android:textSize="14dp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintHorizontal_bias="0.704"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintVertical_bias="0.065">
-				</EditText>
-
-				<EditText
-						android:id="@+id/editText2"
-						android:layout_width="171dp"
-						android:layout_height="27dp"
-						android:background="@drawable/black_stroke"
-						android:hint="điền mã dịch vụ"
-						android:paddingLeft="8dp"
-						android:paddingRight="30dp"
-						android:singleLine="true"
-						android:textSize="14dp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintHorizontal_bias="0.704"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintVertical_bias="0.246">
-				</EditText>
-
-				<EditText
-						android:id="@+id/editText3"
-						android:layout_width="171dp"
-						android:layout_height="27dp"
-						android:background="@drawable/black_stroke"
-						android:hint="giá dịch vụ"
-						android:paddingLeft="8dp"
-						android:paddingRight="30dp"
-						android:singleLine="true"
-						android:textSize="14dp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintHorizontal_bias="0.704"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintVertical_bias="0.44">
-				</EditText>
-
-				<EditText
-						android:id="@+id/editText4"
-						android:layout_width="221dp"
-						android:layout_height="89dp"
-						android:background="@drawable/black_stroke"
-						android:hint="Mô tả"
-						android:paddingLeft="8dp"
-						android:paddingRight="30dp"
-						android:singleLine="true"
-						android:textSize="14dp"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintEnd_toEndOf="parent"
-						app:layout_constraintHorizontal_bias="0.951"
-						app:layout_constraintStart_toStartOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintVertical_bias="0.823">
-				</EditText>
-
-			</androidx.constraintlayout.widget.ConstraintLayout>
+			</androidx.recyclerview.widget.RecyclerView>
 
 			<androidx.constraintlayout.widget.ConstraintLayout
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
 
 				<Button
@@ -191,8 +72,11 @@
 						android:layout_height="54dp"
 						android:id="@+id/button8"
 						tools:ignore="MissingConstraints"
-						tools:layout_editor_absoluteY="1dp"
-						tools:layout_editor_absoluteX="224dp"/>
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintHorizontal_bias="1.0"
+						android:layout_marginRight="10dp"
+			/>
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
 			<androidx.constraintlayout.widget.ConstraintLayout
@@ -205,10 +89,15 @@
 						android:layout_height="29dp"
 						android:textColor="@color/black"
 						android:id="@+id/textView50"
-						android:textAlignment="center"
-						tools:layout_editor_absoluteY="56dp"
-						tools:layout_editor_absoluteX="161dp"
-						tools:ignore="MissingConstraints"/>
+						android:textAlignment="textStart"
+						app:layout_constraintTop_toTopOf="parent"
+						android:layout_marginTop="56dp"
+						app:layout_constraintEnd_toEndOf="parent"
+						tools:ignore="MissingConstraints"
+						android:layout_marginEnd="124dp"/>
+
+				"
+						/>
 
 				<TextView
 						android:text="Tổng tiền: "
@@ -216,37 +105,47 @@
 						android:layout_height="28dp"
 						android:textColor="@color/black"
 						android:id="@+id/textView51"
-						android:textAlignment="center"
-						tools:layout_editor_absoluteY="112dp"
-						tools:layout_editor_absoluteX="161dp"
-						tools:ignore="MissingConstraints"/>
+						android:textAlignment="textStart"
+						app:layout_constraintTop_toTopOf="parent"
+						android:layout_marginTop="112dp"
+						app:layout_constraintEnd_toEndOf="parent"
+						tools:ignore="MissingConstraints"
+						android:layout_marginEnd="176dp"/>
 
 				<TextView
 						android:text="2"
 						android:layout_width="49dp"
 						android:layout_height="28dp"
 						android:id="@+id/textView36"
-						tools:layout_editor_absoluteY="56dp"
-						tools:layout_editor_absoluteX="331dp"
-						tools:ignore="MissingConstraints"/>
+
+						app:layout_constraintTop_toTopOf="parent"
+						android:layout_marginTop="56dp"
+						app:layout_constraintEnd_toEndOf="parent"
+						tools:ignore="MissingConstraints"
+						android:layout_marginEnd="28dp"/>
 
 				<TextView
 						android:text="20000000 VND"
 						android:layout_width="105dp"
 						android:layout_height="28dp"
 						android:id="@+id/textView32"
-						tools:layout_editor_absoluteY="112dp"
-						tools:layout_editor_absoluteX="275dp"
-						tools:ignore="MissingConstraints"/>
+						app:layout_constraintTop_toTopOf="parent"
+						android:layout_marginTop="112dp"
+						app:layout_constraintEnd_toEndOf="parent"
+						tools:ignore="MissingConstraints"
+						android:layout_marginEnd="28dp"/>
 
 				<Button
 						android:text="Hoàn thành"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:id="@+id/button9"
-						tools:layout_editor_absoluteY="196dp"
-						tools:layout_editor_absoluteX="148dp"
-						tools:ignore="MissingConstraints"/>
+
+						app:layout_constraintTop_toTopOf="parent"
+						android:layout_marginTop="228dp"
+						app:layout_constraintEnd_toEndOf="parent"
+						tools:ignore="MissingConstraints"
+						android:layout_marginEnd="136dp"/>
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
 
