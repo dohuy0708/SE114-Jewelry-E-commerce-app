@@ -1,26 +1,21 @@
 package com.example.jewelryecommerceapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
+import com.example.jewelryecommerceapp.Activities.SearchActivity;
 import com.example.jewelryecommerceapp.Adapters.CategoryAdapter;
-import com.example.jewelryecommerceapp.Adapters.TopRateAdapter;
-import com.example.jewelryecommerceapp.Adapters.TopWeekAdapter;
 import com.example.jewelryecommerceapp.Models.CategoryItem;
-import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
 
 import java.util.ArrayList;
@@ -72,13 +67,12 @@ public class CategoryFragment extends Fragment {
         }
     }
 
-    @Override
+        @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false);
     }
-    Fragment searchProductFragment;
     RecyclerView rc_category;
     CategoryAdapter categoryAdapter;
     ArrayList<CategoryItem> CategoryList;
@@ -91,7 +85,6 @@ public class CategoryFragment extends Fragment {
         CategoryList.add(new CategoryItem("Nhẫn",R.drawable.ic_back));
         CategoryList.add(new CategoryItem("Nhẫn đôi",R.drawable.ic_back));
         CategoryList.add(new CategoryItem("Dây chuyền",R.drawable.ic_back));
-        CategoryList.add(new CategoryItem("Lắc",R.drawable.ic_back));
         CategoryList.add(new CategoryItem("Vòng",R.drawable.ic_back));
         CategoryList.add(new CategoryItem("Bông tai",R.drawable.ic_back));
         categoryAdapter=new CategoryAdapter(getContext(),CategoryList);
@@ -101,10 +94,11 @@ public class CategoryFragment extends Fragment {
         categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CategoryItem categoryItem) {
-                searchProductFragment = new SearchProductFragment();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.search_frame,searchProductFragment);
-                transaction.commit();
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("categoryitem",categoryItem.getCategoryName());
+                intent.putExtra("categoryname",bundle);
+                startActivity(intent);
             }
         });
     }

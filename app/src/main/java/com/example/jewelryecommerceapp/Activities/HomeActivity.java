@@ -12,8 +12,6 @@ import com.example.jewelryecommerceapp.Adapters.ViewPagerAdapter;
 import com.example.jewelryecommerceapp.Fragments.CartFragment;
 import com.example.jewelryecommerceapp.Fragments.CategoryFragment;
 import com.example.jewelryecommerceapp.Fragments.HomeFragment;
-import com.example.jewelryecommerceapp.Fragments.SearchFragment;
-import com.example.jewelryecommerceapp.Fragments.SearchProductFragment;
 import com.example.jewelryecommerceapp.Fragments.UserFragment;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         fragmentArrayList= new ArrayList<>();
         bottomNav=findViewById(R.id.bottomNav);
         fragmentArrayList.add(new HomeFragment());
-        fragmentArrayList.add(new SearchFragment());
+        fragmentArrayList.add(new CategoryFragment());
         fragmentArrayList.add(new CartFragment());
         fragmentArrayList.add(new UserFragment());
 

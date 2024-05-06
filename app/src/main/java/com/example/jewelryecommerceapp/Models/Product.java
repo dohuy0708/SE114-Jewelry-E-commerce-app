@@ -50,16 +50,18 @@ public class Product {
         this.img=img;
         this.productName=name;
         this.productId=id;
-
     }
     public Product(int img,String name,double rate){
         this.img=img;
         this.productName=name;
         this.ratingStar=rate;
-
     }
-
-
+    public Product(String productId,String name,int remainAmount,int price){
+        this.productId=productId;
+        this.productName=name;
+        this.remainAmount=remainAmount;
+        this.productPrice=price;
+    }
     // dung tam:
     public  int getImg(){
         return  img;

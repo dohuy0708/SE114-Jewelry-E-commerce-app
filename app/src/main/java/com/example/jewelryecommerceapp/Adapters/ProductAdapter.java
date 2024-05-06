@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Models.CategoryItem;
 import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Models.Product;
 
@@ -19,8 +20,9 @@ import java.util.ArrayList;
 public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
    Context context;
    ArrayList<Product> productList;
+    private OnItemClickListener listener;
 
-   int type =0;
+    int type =0;
    public ProductAdapter(Context context, ArrayList<Product> productList){
        this.context=context;
        this.productList=productList;
@@ -51,10 +53,15 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         productViewHolder.img_product.setImageResource(product.getImg());
         productViewHolder.name_product.setText(product.getProductName());
         productViewHolder.price_product.setText(product.getProductPrice()+"");
-
-    }
-
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!= null) {
+                    listener.onItemClick(product);
+                }
+            }
+        });
+        }
     @Override
     public int getItemCount() {
         return productList.size();
@@ -64,11 +71,18 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         ImageView img_product;
         TextView name_product,price_product;
-        public ProductViewHolder(@NonNull View itemView) {
+        public ProductViewHolder(@NonNull    View itemView) {
             super(itemView);
             img_product=itemView.findViewById(R.id.img_product);
             name_product=itemView.findViewById(R.id.name_product);
             price_product=itemView.findViewById(R.id.price_product);
         }
     }
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 }

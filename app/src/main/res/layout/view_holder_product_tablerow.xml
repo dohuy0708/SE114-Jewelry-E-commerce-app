@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/store_id_product"
+        android:layout_width="30sp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/square_black_stroke"
+        android:text="Mã"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/store_name_product"
+        android:layout_width="80sp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/square_black_stroke"
+        android:text="Tên"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/store_price_product"
+        android:layout_width="20sp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/square_black_stroke"
+        android:text="Giá"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+    />
+
+    <TextView
+        android:id="@+id/store_amount_product"
+        android:layout_width="20sp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/square_black_stroke"
+        android:text="Số lượng"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+    />
+</LinearLayout>

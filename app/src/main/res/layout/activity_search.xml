@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="50dp"
+        android:layout_height="25dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,10 +80,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
+            <ImageView
+                android:id="@+id/btnback"
+                android:layout_width="44dp"
+                android:layout_height="59dp"
+                app:srcCompat="@drawable/ic_back" />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/black_stroke"
@@ -107,7 +119,7 @@
                     android:layout_toRightOf="@+id/btnSearch"
                     android:background="@android:color/transparent"
                     android:fontFamily="sans-serif"
-                    android:hint="Search here ..."
+                    android:hint="Search "
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="16dp" />
@@ -125,19 +137,44 @@
 
         </RelativeLayout>
 
-        <FrameLayout
-            android:id="@+id/search_frame"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp" />
+            android:layout_height="25dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/category_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/filter_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/filter_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
