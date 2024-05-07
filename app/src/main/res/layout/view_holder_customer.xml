@@ -30,6 +30,6 @@
                    android:layout_height="25dp"
                    android:layout_gravity="center"
                    android:layout_marginLeft="50dp"
-                   android:src="@drawable/x_icon"/>
+                   android:src="@drawable/chart"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

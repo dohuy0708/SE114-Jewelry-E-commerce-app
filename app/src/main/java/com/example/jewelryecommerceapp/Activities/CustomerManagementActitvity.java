@@ -19,8 +19,8 @@ public class CustomerManagementActitvity extends AppCompatActivity {
     }
     private void initView()
     {
-        Back = findViewById(R.id.imageview_back_Customer_management);
-        recyclerView = findViewById(R.id.customer_recycleView);
+       /* Back = findViewById(R.id.imageview_back_Customer_management);
+        recyclerView = findViewById(R.id.customer_recycleView);*/
     }
     private void setupListener()
     {
