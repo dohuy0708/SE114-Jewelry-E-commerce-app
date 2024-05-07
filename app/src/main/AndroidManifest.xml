@@ -15,7 +15,12 @@
             android:theme="@style/Theme.JewelryEcommerceApp"
             tools:targetApi="31">
         <activity
-                android:name=".ChangePasswords"
+                android:name=".Customer_management"
+                android:exported="false"
+                android:label="@string/title_activity_customer_management"
+                android:theme="@style/Theme.JewelryEcommerceApp"/>
+        <activity
+                android:name=".Activities.ChangePasswordActivity"
                 android:exported="false"
                 android:label="@string/title_activity_change_passwords"
                 android:theme="@style/Theme.JewelryEcommerceApp"/>

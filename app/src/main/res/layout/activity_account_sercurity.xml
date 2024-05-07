@@ -58,7 +58,7 @@
                         android:textSize="15sp"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:hint="Full name"
+                        android:hint="Họ và tên"
                 />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -139,7 +139,7 @@
                         android:textSize="15sp" />
 
                 <ImageView
-                        android:id="@+id/button_changePassword_accountSercurity"
+                        android:id="@+id/imageview_changePassword_accountSercurity"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_alignParentRight="true"

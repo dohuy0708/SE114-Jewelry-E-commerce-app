@@ -43,12 +43,14 @@
                 android:layout_marginTop="10dp"
         >
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageview_avatar_editProfile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/ic_user"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="2dp"
                    />
 
             <ImageView

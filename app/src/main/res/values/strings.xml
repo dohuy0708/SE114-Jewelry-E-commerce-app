@@ -11,4 +11,5 @@
     <string name="title_activity_account_sercurity">Account_Sercurity</string>
     <string name="title_activity_address_book">address_book</string>
     <string name="title_activity_change_passwords">ChangePasswords</string>
+    <string name="title_activity_customer_management">Customer_management</string>
 </resources>
