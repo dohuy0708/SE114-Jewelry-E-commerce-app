@@ -13,12 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
+import com.example.jewelryecommerceapp.Activities.Payment;
+import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -80,27 +90,74 @@ public class CartFragment extends Fragment {
 
     ArrayList<Product> Pros;
     RecyclerView inCartPros;
-    ProductAdapter Adt;
+    CartProductsAdapter Adt;
+    TextView tienspp;
+    TextView totalll;
+    TextView promotee;
+    Button ordernoww;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
         Pros=new ArrayList<>();
         initProduct(Pros);
-      //  Adt=new ProductAdapter(getContext(),Pros);
+        Adt=new CartProductsAdapter(getContext(),Pros);
         inCartPros=view.findViewById(R.id.Cartt);
-        inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         inCartPros.setHasFixedSize(true);
         inCartPros.setAdapter(Adt);
 
-       // Adt.notifyDataSetChanged();
+        Adt.notifyDataSetChanged();
 
         logo=view.findViewById(R.id.logo);
+        tienspp=view.findViewById(R.id.tiensp);
+        promotee=view.findViewById(R.id.promote);
+        ordernoww=view.findViewById(R.id.ordernow);
+        totalll=view.findViewById(R.id.tccc);
+        totalll.setText("Tổng cộng: ");//+ String.valueOf(Integer.parseInt(tienspp.getText().toString())-Integer.parseInt(promotee.getText().toString())));
+        ordernoww.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),Payment.class );
+                startActivity(i);
+            }
+        });
     }
 
     private void initProduct(ArrayList<Product> pros) {
 
 
+       /* Pros.add(new Product(R.drawable.ic_home,"aloalo",2999000));
+        Pros.add(new Product(R.drawable.demo,"assdasd",2999000));*/
+        GetNewListFromDataBase();
     }
 
+    private void GetNewListFromDataBase() {
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product/Nhẫn đôi");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Product product = dataSnapshot.getValue(Product.class);
+                   Pros.add(product);
+
+                }
+                //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+               Adt.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //   Toast.makeText(getActivity(),"Fail",Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 }
