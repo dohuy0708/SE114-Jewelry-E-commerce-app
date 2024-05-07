@@ -79,7 +79,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     Button buy_now;
     BottomSheetDialog dialog;
 
-    TextView Prd_name , Prd_price;
+    TextView Prd_name , Prd_price , prd_sold, prd_rate;
 
 
     Product productdetail = new Product() ;
@@ -238,9 +238,13 @@ public class ProductDetailActivity extends AppCompatActivity {
       // Toast.makeText(ProductDetailActivity.this,s+" ", Toast.LENGTH_LONG).show();
 
         img_number.setText(1+"/"+imgList.size());
-
+// set giá và tên
         Prd_price.setText(formatNumber(productdetail.getProductPrice())+" VND");
         Prd_name.setText(productdetail.getProductName());
+// set số lượng đã bán và ánh giá
+       // prd_sold.setText(productdetail.getSold());
+
+
 
 
         // phần chứa ảnh hiển thị
@@ -339,6 +343,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         Prd_name = findViewById(R.id.prd_name);
         Prd_price = findViewById(R.id.prd_price);
         backhome = findViewById(R.id.backhome_icon);
+        prd_sold = findViewById(R.id.prd_sold_number);
+        prd_rate = findViewById(R.id.prd_rate);
 
 
 
