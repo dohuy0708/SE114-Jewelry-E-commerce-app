@@ -25,9 +25,18 @@
         <activity
             android:name=".Activities.NoticeActivity"
             android:exported="false" />
+        <activity android:name=".Activities.NoticeAdActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.AdminHomeActivity"
             android:exported="true" >
+
         </activity>
         <activity
             android:name=".Activities.SignUpActivity"
@@ -62,11 +71,7 @@
         <activity
             android:name=".Activities.VoucherActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
