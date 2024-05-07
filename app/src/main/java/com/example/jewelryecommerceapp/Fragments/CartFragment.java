@@ -93,7 +93,7 @@ public class CartFragment extends Fragment {
         inCartPros.setHasFixedSize(true);
         inCartPros.setAdapter(Adt);
 
-        Adt.notifyDataSetChanged();
+       // Adt.notifyDataSetChanged();
 
         logo=view.findViewById(R.id.logo);
     }

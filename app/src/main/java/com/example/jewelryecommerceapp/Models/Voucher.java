@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Voucher {
@@ -10,7 +11,7 @@ public class Voucher {
     private Date DateBegin;
     private  Date DateEnd;
 
-    public  Voucher()
+    public  Voucher(String chaomung30T4, double v, LocalDate sDate, LocalDate eDate)
     {
 
     }

@@ -1,14 +1,24 @@
 package com.example.jewelryecommerceapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jewelryecommerceapp.Activities.AdminProductDetailActivity;
+import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
+import com.example.jewelryecommerceapp.Adapters.StoreProductAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,4 +73,36 @@ public class AdStoreFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ad_store, container, false);
     }
+    RecyclerView rc_store_product;
+    StoreProductAdapter storeProductAdapter;
+    ArrayList<Product> productList;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        rc_store_product=view.findViewById(R.id.rc_store_prd);
+        productList = new ArrayList<>();
+/*        productList.add(new Product("abctyityi","abctyityityityit7acd",59,99999));
+        productList.add(new Product("abc","Nhẫn",59,999999782));
+        productList.add(new Product("abc","Nhẫngikỳìtity",59,99999));
+        productList.add(new Product("abc","Nhẫn",386935439,99999));*/
+        storeProductAdapter=new StoreProductAdapter(getContext(),productList);
+        rc_store_product.setHasFixedSize(true);
+        rc_store_product.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        rc_store_product.setAdapter(storeProductAdapter);
+        storeProductAdapter.setOnItemClickListener(new StoreProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                Intent intent = new Intent(getActivity(), AdminProductDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("Title","Update");
+                bundle.putString("ProductID",product.getProductId());
+                intent.putExtra("Product",bundle);
+                startActivity(intent);
+            }
+        });
+
+    }
+
 }
