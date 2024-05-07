@@ -39,11 +39,11 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherV
         Voucher voucher= voucherList.get(position);
         if (voucher==null)
             return;
-        holder.name.setText(voucher.getName().toString());
+       /* holder.name.setText(voucher.getName().toString());
         holder.percent.setText(voucher.getPercent()+"%");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         holder.start.setText(voucher.getStartDay().format(formatter));
-        holder.end.setText(voucher.getEndDay().format(formatter));
+        holder.end.setText(voucher.getEndDay().format(formatter));*/
 
     }
 

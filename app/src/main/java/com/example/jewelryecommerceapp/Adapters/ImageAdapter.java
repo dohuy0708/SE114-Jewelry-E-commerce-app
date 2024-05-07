@@ -29,7 +29,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public ImageAdapter(ArrayList<String> imgList, SelectListener listener ){
         this.imgList=imgList;
         this.listener=listener;
-
     }
 
     @NonNull

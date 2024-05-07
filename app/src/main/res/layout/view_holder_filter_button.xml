@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/filer_button"
+        android:layout_width="93dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@color/blue"
+        android:text="Button"
+        android:textColor="@color/black"
+        android:textSize="10dp" />
+</LinearLayout>
