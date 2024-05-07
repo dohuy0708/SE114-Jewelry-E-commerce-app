@@ -55,7 +55,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     // xem mô tả
     LinearLayout watch_more;
     LinearLayout watch_more_layout;
-    ImageView more_not;
+    ImageView more_not, backhome;
     // ảnh của sản phẩm
     TextView img_number ;
     RecyclerView rc_prd_image,rc_viewpager;
@@ -176,6 +176,14 @@ public class ProductDetailActivity extends AppCompatActivity {
                 dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             }
         });
+
+        // Trở về home
+        backhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -195,10 +203,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                     if( product.getProductId().equals(productID))
                     {
                         productdetail= product;
-                        Toast.makeText(ProductDetailActivity.this," get product success", Toast.LENGTH_LONG).show();
-                        ArrayList<String> s = productdetail.getImagelist();
-                        int v = s.size();
-                        Toast.makeText(ProductDetailActivity.this,v+" ", Toast.LENGTH_LONG).show();
 
                         SetUi();
 
@@ -237,6 +241,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         Prd_price.setText(formatNumber(productdetail.getProductPrice())+" VND");
         Prd_name.setText(productdetail.getProductName());
+
 
         // phần chứa ảnh hiển thị
         viewPagerAdapter = new ViewPagerImageAdapter(imgList, new SelectListener() {
@@ -333,6 +338,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         buy_now=findViewById(R.id.buy_now_but);
         Prd_name = findViewById(R.id.prd_name);
         Prd_price = findViewById(R.id.prd_price);
+        backhome = findViewById(R.id.backhome_icon);
 
 
 
@@ -341,6 +347,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     //
     ArrayList<String> sizeList;
+
+    // Dialof chọn size loại
     private void createDialog(){
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_buy,null,false);
         //dialog.dismiss();
@@ -422,11 +430,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         return  list;
     }
     void getComment(ArrayList<Comment> cmtList){
-        cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));
+      /*  cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));
         cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),3,"Nội dung của phần comment"));
         cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),5,"Nội dung của phần comment"));
         cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),5,"Nội dung của phần comment"));
-        cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));
+        cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));*/
     }
     void getSameProduct(ArrayList<Product> samePrdList){
 
