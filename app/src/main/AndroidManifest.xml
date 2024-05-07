@@ -31,11 +31,7 @@
         <activity
             android:name=".Activities.AdminHomeActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -78,7 +74,11 @@
         <activity
             android:name=".Activities.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/ThemeSpl" >
+            android:theme="@style/ThemeSpl" > <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
               </activity>
 
 

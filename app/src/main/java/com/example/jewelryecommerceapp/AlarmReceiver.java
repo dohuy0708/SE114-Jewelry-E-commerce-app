@@ -34,7 +34,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
             // Hiển thị thông báo
-            notificationManager.notify(1, builder.build());
+//            notificationManager.notify(1, builder.build());
             Intent intentToStartActivity = new Intent(context, NoticeAdActivity.class);
             intentToStartActivity.putExtra("id",id);
             intentToStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Cần thêm flag này nếu không đang trong context của BroadcastReceiver
