@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Interfaces.SelectListener;
 import com.example.jewelryecommerceapp.R;
 
 import java.util.ArrayList;
@@ -17,11 +18,12 @@ import java.util.List;
 public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
     private ArrayList<String> sizes;
     private int selectedPosition = RecyclerView.NO_POSITION;
+    SelectListener listener;
 
-    public SizeAdapter(ArrayList<String> sizes) {
+    public SizeAdapter(ArrayList<String> sizes,SelectListener listener) {
         this.sizes = sizes;
+        this.listener=listener;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,13 +46,19 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
         }
 
         // Xử lý sự kiện khi người dùng nhấn vào một item
-        holder.itemView.setOnClickListener(v -> {
-            int previousSelectedPosition = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(previousSelectedPosition); // Cập nhật giao diện của item trước đó
-            notifyItemChanged(selectedPosition); // Cập nhật giao diện của item mới được chọn
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int previousSelectedPosition = selectedPosition;
+                selectedPosition = holder.getAdapterPosition();
+                notifyItemChanged(previousSelectedPosition); // Cập nhật giao diện của item trước đó
+                notifyItemChanged(selectedPosition); // Cập nhật giao diện của item mới được chọn
+                listener.onImageItemClicked(selectedPosition);
+            }
         });
     }
+
 
     @Override
     public int getItemCount() {

@@ -448,22 +448,22 @@
                         android:id="@+id/prd_rate2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="104dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="4dp"
                         android:text="5/5"
                         android:textColor="#090808"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/prd_star"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView35"
+                        android:id="@+id/prd_rate_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="129dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="4dp"
                         android:text="(5k đánh giá)"
                         android:textColor="#000000"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/prd_rate2"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

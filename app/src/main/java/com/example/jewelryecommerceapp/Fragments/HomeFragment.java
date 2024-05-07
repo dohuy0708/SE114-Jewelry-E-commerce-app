@@ -1,6 +1,7 @@
 package com.example.jewelryecommerceapp.Fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Activities.LoadingDialog;
@@ -147,6 +149,22 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog = new LoadingDialog(getActivity());
 
+        view.findViewById(R.id.bt_gold_price).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://bieudogiavang.vn/";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+
+                // Kiểm tra xem có trình duyệt nào có thể xử lý Intent này không
+                if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                    // Mở trình duyệt với đường dẫn web đã chỉ định
+                    startActivity(intent);
+                } else {
+                    // Xử lý khi không tìm thấy trình duyệt nào
+                    Toast.makeText(requireContext(), "Không tìm thấy trình duyệt.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         myTrendList= new ArrayList<>();
         //initProduct(myList);
 
