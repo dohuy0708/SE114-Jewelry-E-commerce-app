@@ -6,7 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.LoginActivity">
-
+    <ImageView
+        android:id="@+id/back_login"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_back"
+        ></ImageView>
     <ImageView
         android:id="@+id/back_login"
         android:layout_width="30dp"

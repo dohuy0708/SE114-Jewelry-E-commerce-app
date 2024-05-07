@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".Fragments.AccountDetail">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/logo" />
+    <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tài khoản và Bảo mật"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp">
+    <EditText
+            android:layout_height="43dp"
+            android:layout_width="match_parent"
+            android:hint="Tên"/>
+        <EditText
+                android:layout_height="43dp"
+                android:layout_width="match_parent"
+                android:hint="Địa chỉ">
+        </EditText>
+        <EditText
+                android:layout_height="43dp"
+                android:layout_width="match_parent"
+                android:hint="Điện Thoại">
+        </EditText>
+        <EditText
+                android:layout_height="43dp"
+                android:layout_width="match_parent"
+                android:hint="Email">
+        </EditText>
+<Button android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:text="Đổi mật khẩu"
+        android:background="@color/white">
+
+</Button>
+
+    </LinearLayout>
+</FrameLayout>
