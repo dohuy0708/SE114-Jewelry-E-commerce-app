@@ -27,13 +27,15 @@
         <activity
             android:name=".Activities.NoticeDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activities.NoticeAddActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Activities.NoticeAdActivity"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.ForgotPassActivity"
@@ -75,11 +77,7 @@
             android:name=".Activities.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/ThemeSpl" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.VoucherActivity"

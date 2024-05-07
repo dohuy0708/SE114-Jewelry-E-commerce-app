@@ -59,7 +59,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
         if(type==0)
             holder.time.setVisibility(View.INVISIBLE);
         else
-            holder.time.setText(notice.getDate().toString().replace("T"," "));
+            holder.time.setText("Chờ gửi");
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

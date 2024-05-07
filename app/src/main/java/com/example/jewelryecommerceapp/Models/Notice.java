@@ -11,7 +11,6 @@ public class Notice implements Serializable {
     Object imgNotice;
     String titleNotice;
     String contentNotice;
-    LocalDateTime date;
     String id;
 static int numId=0;
 
@@ -21,19 +20,14 @@ static int numId=0;
         this.imgNotice = imgNotice;
         this.titleNotice = titleNotice;
         this.contentNotice= contentNotice;
-        if(date==null)
 
-                date=LocalDateTime.now();
 
         id=String.valueOf(numId+1);
         numId+=1;
 
     }
     public Notice(){
-        if(date==null)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                date=LocalDateTime.now();
-            }
+
         id=String.valueOf(numId+1);
         numId+=1;
     }
@@ -46,13 +40,6 @@ static int numId=0;
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
 
     public String getContentNotice() {
         return contentNotice;
