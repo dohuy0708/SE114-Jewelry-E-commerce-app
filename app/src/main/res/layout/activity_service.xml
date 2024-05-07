@@ -113,10 +113,10 @@
 						android:layout_marginEnd="176dp"/>
 
 				<TextView
-						android:text="2"
+						android:text="0"
 						android:layout_width="49dp"
 						android:layout_height="28dp"
-						android:id="@+id/textView36"
+						android:id="@+id/number_service"
 
 						app:layout_constraintTop_toTopOf="parent"
 						android:layout_marginTop="56dp"
@@ -125,7 +125,7 @@
 						android:layout_marginEnd="28dp"/>
 
 				<TextView
-						android:text="20000000 VND"
+						android:text="0 VND"
 						android:layout_width="105dp"
 						android:layout_height="28dp"
 						android:id="@+id/textView32"
