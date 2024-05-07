@@ -3,7 +3,9 @@ package com.example.jewelryecommerceapp.Activities;
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.example.jewelryecommerceapp.Adapters.CommentAdapter;
 import com.example.jewelryecommerceapp.Adapters.ImageAdapter;
@@ -50,12 +53,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.checkerframework.checker.units.qual.A;
+
 public class ProductDetailActivity extends AppCompatActivity {
 
     // xem mô tả
     LinearLayout watch_more;
     LinearLayout watch_more_layout;
-    ImageView more_not, backhome;
+    ImageView more_not, backhome , cart_but;
     // ảnh của sản phẩm
     TextView img_number ;
     RecyclerView rc_prd_image,rc_viewpager;
@@ -80,6 +85,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     BottomSheetDialog dialog;
 
     TextView Prd_name , Prd_price , prd_sold, prd_rate;
+
 
 
     Product productdetail = new Product() ;
@@ -156,6 +162,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         chat_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Intent to chat
 
             }
         });
@@ -163,11 +170,23 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // nếu chưa đăng nhập thì show dialog
+                // if( chưa đăng nhập)
+                GetDialog();
+                // else (đã đăng nhập)
+               /* dialog= new BottomSheetDialog(ProductDetailActivity.this);
+                createDialog();
+                dialog.show();
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);*/
+
+
             }
         });
         buy_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 dialog= new BottomSheetDialog(ProductDetailActivity.this);
 
 
@@ -177,11 +196,22 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
+
+
         // Trở về home
         backhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        cart_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // nếu chưa đăng nhập thì
+                GetDialog();
+                // nếu đăng nhập rồi thì intent tới Giỏ hàng
             }
         });
     }
@@ -345,6 +375,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         backhome = findViewById(R.id.backhome_icon);
         prd_sold = findViewById(R.id.prd_sold_number);
         prd_rate = findViewById(R.id.prd_rate);
+        cart_but = findViewById(R.id.cart_button);
 
 
 
@@ -368,18 +399,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         bs_image.setImageResource(R.drawable.demo2);
         RecyclerView rc_size= view.findViewById(R.id.rc_size);
         rc_size.setLayoutManager(new GridLayoutManager(this,4));
+
+
         sizeList= new ArrayList<>();
-        sizeList.add("31mm");
-        sizeList.add("32mm");
-        sizeList.add("33mm");
-        sizeList.add("34mm");
-        sizeList.add("35mm");
-        sizeList.add("36mm");
-        sizeList.add("37mm");
+        for (Map.Entry<String, Integer> entry : productdetail.getSizeMap().entrySet()) {
+            sizeList.add(entry.getKey()+"mm ");
+        }
+
+
        SizeAdapter sizeAdapter= new SizeAdapter(sizeList);
         rc_size.setAdapter(sizeAdapter);
         //
-        price=10000000;
+        price= productdetail.getProductPrice();
         bs_price.setText(formatNumber(price));
 
         bs_sub.setOnClickListener(new View.OnClickListener() {
@@ -451,5 +482,27 @@ public class ProductDetailActivity extends AppCompatActivity {
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));
         samePrdList.add(new Product(R.drawable.demo,"Nhẫn naày đẹp vl",2900000));*/
+    }
+
+    void GetDialog()
+    {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(ProductDetailActivity.this);
+        mydialog.setTitle("Thông báo!");
+        mydialog.setMessage("Bạn cần phải đăng nhập!");
+        mydialog.setIcon(R.drawable.ic_alarm);
+        mydialog.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ProductDetailActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        mydialog.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              dialog.cancel();
+            }
+        });
+        mydialog.create().show();
     }
 }

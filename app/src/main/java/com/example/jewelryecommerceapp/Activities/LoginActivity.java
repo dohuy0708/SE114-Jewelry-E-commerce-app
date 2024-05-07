@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         txtForgotpass = findViewById(R.id.txtForgotPass);
         SubText = findViewById(R.id.Subtext_login);
 
-        back_login = findViewById(R.id.back_login);
+       back_login= findViewById(R.id.back_login);
 
 
     }
@@ -113,11 +113,11 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        btnlogin.setOnClickListener(new View.OnClickListener() {
+        back_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                startActivity(intent);*/
                 finish();
             }
         });
