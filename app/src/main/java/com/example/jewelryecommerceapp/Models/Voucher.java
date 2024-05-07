@@ -1,50 +1,57 @@
 package com.example.jewelryecommerceapp.Models;
 
-
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Voucher {
-    String name;
-    double percent;
-    LocalDate startDay;
-    LocalDate endDay;
+    private String ID;
+    private String code;
+    private String content;
+    private int discount;
+    private Date DateBegin;
+    private  Date DateEnd;
 
-    public Voucher(String name, double percent, LocalDate startDay, LocalDate endDay) {
-        this.name = name;
-        this.percent = percent;
-        this.startDay = startDay;
-        this.endDay = endDay;
+    public  Voucher()
+    {
+
+    }
+    public Voucher(String Code, String content, int discount, Date datebegin, Date dateend)
+    {
+        this.code = code;
+        this.content = content;
+        this.DateBegin = datebegin;
+        this.DateEnd = dateend;
+        this.discount = discount;
     }
 
-    public String getName() {
-        return name;
+    public String getID() {
+        return ID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public double getPercent() {
-        return percent;
+    public String getCode() {
+        return code;
     }
 
-    public void setPercent(double percent) {
-        this.percent = percent;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public LocalDate getStartDay() {
-        return startDay;
+    public String getContent() {
+        return content;
     }
 
-    public void setStartDay(LocalDate startDay) {
-        this.startDay = startDay;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public LocalDate getEndDay() {
-        return endDay;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setEndDay(LocalDate endDay) {
-        this.endDay = endDay;
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 }

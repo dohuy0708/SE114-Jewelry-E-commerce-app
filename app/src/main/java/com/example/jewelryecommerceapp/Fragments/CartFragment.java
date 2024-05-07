@@ -87,7 +87,7 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view,savedInstanceState);
         Pros=new ArrayList<>();
         initProduct(Pros);
-        Adt=new ProductAdapter(getContext(),Pros);
+      //  Adt=new ProductAdapter(getContext(),Pros);
         inCartPros=view.findViewById(R.id.Cartt);
         inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
         inCartPros.setHasFixedSize(true);

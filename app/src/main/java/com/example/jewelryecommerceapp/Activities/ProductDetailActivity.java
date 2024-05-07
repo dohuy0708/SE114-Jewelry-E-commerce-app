@@ -44,18 +44,23 @@ import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
     // xem mô tả
     LinearLayout watch_more;
     LinearLayout watch_more_layout;
-    ImageView more_not;
+    ImageView more_not, backhome;
     // ảnh của sản phẩm
     TextView img_number ;
     RecyclerView rc_prd_image,rc_viewpager;
     ImageAdapter imgAdapter;
-    ArrayList<Integer> imgList;
+    ArrayList<String> imgList;
     ViewPagerImageAdapter viewPagerAdapter;
     //
     LinearLayout prd_star;
@@ -74,6 +79,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     Button buy_now;
     BottomSheetDialog dialog;
 
+    TextView Prd_name , Prd_price , prd_sold, prd_rate;
+
+
+    Product productdetail = new Product() ;
+
     //
     int price=0;
     @Override
@@ -87,94 +97,22 @@ public class ProductDetailActivity extends AppCompatActivity {
             return insets;
         });
 
-        img_number=findViewById(R.id.img_number);
-        rc_prd_image=findViewById(R.id.rc_prd_image);
-        watch_more=findViewById(R.id.bt_watch_more);
-        watch_more_layout=findViewById(R.id.watch_more_layout);
-        more_not=findViewById(R.id.more_notmore);
-        rc_cmt=findViewById(R.id.rc_comment);
-        cmt_watch_more=findViewById(R.id.cmt_watch_more);
-        rc_same_prd=findViewById(R.id.rc_same_prd);
-        viewpager_layout=findViewById(R.id.viewpager_layout);
-        rc_viewpager=findViewById(R.id.rc_viewpager);
-        prd_star=findViewById(R.id.prd_star);
-        chat_but=findViewById(R.id.chat_but);
-        add_cart_but=findViewById(R.id.add_cart_but);
-        buy_now=findViewById(R.id.buy_now_but);
 
 
-        imgList =  getProductImage(imgList);
-        img_number.setText(1+"/"+imgList.size());
-        // phần chứa ảnh hiển thị
-        viewPagerAdapter = new ViewPagerImageAdapter(imgList, new SelectListener() {
-            //click xem ảnh
-            @Override
-            public void onImageItemClicked(int position) {
-                if (position != RecyclerView.NO_POSITION) {
-                    int imageUrl = imgList.get(position);
-                    Intent intent = new Intent(ProductDetailActivity.this, ImageActivity.class);
-                    intent.putIntegerArrayListExtra(ImageActivity.EXTRA_IMAGE_URL,imgList);
-                    intent.putExtra("position",position);
-                    startActivity(intent);
+        initUi();
+        // lấy dữ liệu vho UI
 
-                }
-            }
-        });
-        rc_viewpager.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        rc_viewpager.setHasFixedSize(true);
-        rc_viewpager.setAdapter(viewPagerAdapter);
-        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
-        pagerSnapHelper.attachToRecyclerView(rc_viewpager);
-        // vuốt qua lại các ảnh
-        rc_viewpager.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    // Trạng thái cuộn đã kết thúc, vị trí item hiện tại đã được cố định
-                    int position = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                    imgAdapter.setSelectedItem(position);
-                    // Xử lý sự kiện tại vị trí position
-                    img_number.setText(position+1+"/"+imgList.size());
 
-                }
-            }
-        });
+        // lấy dữ liệu của product từ màn hình home ;
 
-        // nhấn mấy cái ảnh nhỏ
-        imgAdapter = new ImageAdapter(imgList, new SelectListener() {
-            @Override
-            // click vào 1 ảnh trong list các ảnh
-            public void onImageItemClicked(int position) {
-                rc_viewpager.smoothScrollToPosition(position);
-                imgAdapter.setSelectedItem(position);
-            }
-        });
-        // phần các ảnh khác của sản phẩm
-        rc_prd_image.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        rc_prd_image.setHasFixedSize(true);
-        rc_prd_image.setAdapter(imgAdapter);
-        // hiển thị số sao đánh giá
-        // Khởi tạo một LinearLayout.LayoutParams với chiều rộng WRAP_CONTENT và chiều cao là 20dp
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                (int) (20 * getResources().getDisplayMetrics().density)
-        );
+        Intent myintent  = getIntent();
+       String productType = myintent.getStringExtra("type");
+       String productID= myintent.getStringExtra("ID");
 
-// Tính toán chiều rộng mong muốn của LinearLayout dựa trên số sao trung bình (đơn vị là dp)
-        float averageRating = 4.5f; // Đây là số đánh giá trung bình, bạn có thể thay đổi
-        int desiredWidthInDp = (int) (20 * averageRating); // Giả sử mỗi sao có chiều rộng 20dp
+        // get product detail từ firebase
 
-// Chuyển đổi từ dp sang px
-        Resources resources = getResources();
-        float density = resources.getDisplayMetrics().density;
-        int desiredWidthInPx = (int) (desiredWidthInDp * density);
+        GetProductDetailFromFireBase( productType, productID);
 
-// Đặt chiều rộng mới tính theo px cho layoutParams
-        layoutParams.width = desiredWidthInPx;
-
-// Đặt lại LayoutParams cho LinearLayout của bạn (prd_star)
-        prd_star.setLayoutParams(layoutParams);
 
         // nhấn vào xem mô tả
         watch_more.setOnClickListener(new View.OnClickListener() {
@@ -238,9 +176,185 @@ public class ProductDetailActivity extends AppCompatActivity {
                 dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             }
         });
+
+        // Trở về home
+        backhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
+
+    // lấy chi tiết sản phẩm từ firebase
+
+    private void GetProductDetailFromFireBase(String productType, String productID) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product").child(productType);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Product product =  dataSnapshot.getValue(Product.class);
+
+
+                    if( product.getProductId().equals(productID))
+                    {
+                        productdetail= product;
+
+                        SetUi();
+
+                    }
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProductDetailActivity.this,"cannot get product", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+
+
+
+
+    }
+
+    private void SetUi() {
+        imgList = new ArrayList<>( productdetail.getImagelist());
+
+
+
+
+
+       // int s = imgList.size();
+      // Toast.makeText(ProductDetailActivity.this,s+" ", Toast.LENGTH_LONG).show();
+
+        img_number.setText(1+"/"+imgList.size());
+// set giá và tên
+        Prd_price.setText(formatNumber(productdetail.getProductPrice())+" VND");
+        Prd_name.setText(productdetail.getProductName());
+// set số lượng đã bán và ánh giá
+       // prd_sold.setText(productdetail.getSold());
+
+
+
+
+        // phần chứa ảnh hiển thị
+        viewPagerAdapter = new ViewPagerImageAdapter(imgList, new SelectListener() {
+            //click xem ảnh
+            @Override
+            public void onImageItemClicked(int position) {
+                if (position != RecyclerView.NO_POSITION) {
+                    String  imageUrl = imgList.get(position);
+                    Intent intent = new Intent(ProductDetailActivity.this, ImageActivity.class);
+                    intent.putStringArrayListExtra(ImageActivity.EXTRA_IMAGE_URL,imgList);
+                    intent.putExtra("position",position);
+                    startActivity(intent);
+
+                }
+            }
+        });
+
+        rc_viewpager.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        rc_viewpager.setHasFixedSize(true);
+        rc_viewpager.setAdapter(viewPagerAdapter);
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(rc_viewpager);
+        // vuốt qua lại các ảnh
+        rc_viewpager.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // Trạng thái cuộn đã kết thúc, vị trí item hiện tại đã được cố định
+                    int position = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                    imgAdapter.setSelectedItem(position);
+                    // Xử lý sự kiện tại vị trí position
+                    img_number.setText(position+1+"/"+imgList.size());
+
+                }
+            }
+        });
+
+
+        // nhấn mấy cái ảnh nhỏ
+        imgAdapter = new ImageAdapter(imgList, new SelectListener() {
+            @Override
+            // click vào 1 ảnh trong list các ảnh
+            public void onImageItemClicked(int position) {
+                rc_viewpager.smoothScrollToPosition(position);
+                imgAdapter.setSelectedItem(position);
+            }
+        });
+        // phần các ảnh khác của sản phẩm
+        rc_prd_image.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        rc_prd_image.setHasFixedSize(true);
+        rc_prd_image.setAdapter(imgAdapter);
+        // hiển thị số sao đánh giá
+        // Khởi tạo một LinearLayout.LayoutParams với chiều rộng WRAP_CONTENT và chiều cao là 20dp
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                (int) (20 * getResources().getDisplayMetrics().density)
+        );
+
+// Tính toán chiều rộng mong muốn của LinearLayout dựa trên số sao trung bình (đơn vị là dp)
+        float averageRating = 4.5f; // Đây là số đánh giá trung bình, bạn có thể thay đổi
+        int desiredWidthInDp = (int) (20 * averageRating); // Giả sử mỗi sao có chiều rộng 20dp
+
+// Chuyển đổi từ dp sang px
+        Resources resources = getResources();
+        float density = resources.getDisplayMetrics().density;
+        int desiredWidthInPx = (int) (desiredWidthInDp * density);
+
+// Đặt chiều rộng mới tính theo px cho layoutParams
+        layoutParams.width = desiredWidthInPx;
+
+// Đặt lại LayoutParams cho LinearLayout của bạn (prd_star)
+        prd_star.setLayoutParams(layoutParams);
+
+
+
+
+    }
+
+    private void initUi() {
+        img_number=findViewById(R.id.img_number);
+        rc_prd_image=findViewById(R.id.rc_prd_image);
+        watch_more=findViewById(R.id.bt_watch_more);
+        watch_more_layout=findViewById(R.id.watch_more_layout);
+        more_not=findViewById(R.id.more_notmore);
+        rc_cmt=findViewById(R.id.rc_comment);
+        cmt_watch_more=findViewById(R.id.cmt_watch_more);
+        rc_same_prd=findViewById(R.id.rc_same_prd);
+        viewpager_layout=findViewById(R.id.viewpager_layout);
+        rc_viewpager=findViewById(R.id.rc_viewpager);
+        prd_star=findViewById(R.id.prd_star);
+        chat_but=findViewById(R.id.chat_but);
+        add_cart_but=findViewById(R.id.add_cart_but);
+        buy_now=findViewById(R.id.buy_now_but);
+        Prd_name = findViewById(R.id.prd_name);
+        Prd_price = findViewById(R.id.prd_price);
+        backhome = findViewById(R.id.backhome_icon);
+        prd_sold = findViewById(R.id.prd_sold_number);
+        prd_rate = findViewById(R.id.prd_rate);
+
+
+
+
+    }
+
     //
     ArrayList<String> sizeList;
+
+    // Dialof chọn size loại
     private void createDialog(){
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_buy,null,false);
         //dialog.dismiss();
@@ -322,11 +436,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         return  list;
     }
     void getComment(ArrayList<Comment> cmtList){
-        cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));
+      /*  cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));
         cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),3,"Nội dung của phần comment"));
         cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),5,"Nội dung của phần comment"));
         cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),5,"Nội dung của phần comment"));
-        cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));
+        cmtList.add(new Comment(new User("User name ",R.drawable.default_avatar),new Product(),4,"Nội dung của phần comment"));*/
     }
     void getSameProduct(ArrayList<Product> samePrdList){
 

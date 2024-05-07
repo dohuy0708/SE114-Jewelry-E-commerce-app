@@ -25,7 +25,7 @@ public class ImageActivity extends AppCompatActivity {
     TextView img_num;
     int position;
     private ViewPager2 viewPager;
-    private List<Integer> imageUrls;
+    private List<String> imageUrls;
     ImageView back_but;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -39,10 +39,10 @@ public class ImageActivity extends AppCompatActivity {
             return insets;
         });
         viewPager = findViewById(R.id.viewPager);
-        imageUrls = getIntent().getIntegerArrayListExtra(EXTRA_IMAGE_URL);
+        imageUrls = getIntent().getStringArrayListExtra(EXTRA_IMAGE_URL);
         position= getIntent().getIntExtra("position",0);
         img_num= findViewById(R.id.img_num);
-        img_num.setText(position+1+"/"+imageUrls.size());
+       // img_num.setText(position+1+"/"+imageUrls.size());
 
         ViewPagerImageAdapter adapter = new ViewPagerImageAdapter(imageUrls, new SelectListener() {
             @Override

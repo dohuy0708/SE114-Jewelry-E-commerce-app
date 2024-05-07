@@ -3,6 +3,7 @@ package com.example.jewelryecommerceapp.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Activities.LoadingDialog;
 import com.example.jewelryecommerceapp.Activities.NoticeActivity;
+import com.example.jewelryecommerceapp.Activities.ProductDetailActivity;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
@@ -101,12 +103,13 @@ public class HomeFragment extends Fragment {
         sizemap.put("17",10);
 
 
-        Product testproduct = new Product("4", "Nhẫn đôi","Nhẫn đôi Vàng đánh Kim Cương NDC15 ","Vàng",imagelist,sizemap,"Kim Cương",12.6,14850000,"Sang xịn mịn","H-Jewelry");
+        Product testproduct = new Product("ND1", "Nhẫn đôi","Nhẫn đôi Vàng đánh Kim Cương NDC15 ","Vàng",imagelist,sizemap,"Kim Cương",12.6,14850000,"Sang xịn mịn","H-Jewelry");
 
         FirebaseDatabase data = FirebaseDatabase.getInstance();
         DatabaseReference ref = data.getReference("Product").child(testproduct.getType());
+        String key = testproduct.getProductId();
 
-        ref.push().setValue(testproduct, new DatabaseReference.CompletionListener() {
+        ref.child(key).setValue(testproduct, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error != null) {
@@ -131,12 +134,12 @@ public class HomeFragment extends Fragment {
 
     ImageView img_notice;
 
-    ArrayList<Product> myTrendList, myNewList, myDiamondList, myPearlList, myRubyList, myRingList, myAlbumList;
+    ArrayList<Product> myTrendList, myNewList;
 
     RecyclerView rc_trend;
+
     RecyclerView rc_new;
-    RecyclerView rc_diamond, rc_pearl, rc_ruby, rc_ring, rc_album;
-    ProductAdapter myAdapterTrend, myAdapterNew, myAdapterDiamond, myAdapterPearl, myAdapterRuby, myAdapterRing, myAdapterAlbum;
+    ProductAdapter myAdapterTrend, myAdapterNew;
 
 
     @Override
@@ -145,61 +148,46 @@ public class HomeFragment extends Fragment {
         loadingDialog = new LoadingDialog(getActivity());
 
         myTrendList= new ArrayList<>();
-        myAdapterTrend = new ProductAdapter(getContext(),myTrendList);
+        //initProduct(myList);
+
+        myAdapterTrend = new ProductAdapter(getContext(), myTrendList, new ProductAdapter.IClickListener() {
+            @Override
+            public void OnClickItem(String productType, String productID) {
+
+                Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+                intent.putExtra("type", productType);
+                intent.putExtra("ID", productID);
+                startActivity(intent);
+            }
+        });
+        myNewList= new ArrayList<>();
+        //initProduct(myList);
+
+
+        myAdapterNew= new ProductAdapter(getContext(), myNewList, new ProductAdapter.IClickListener() {
+            @Override
+            public void OnClickItem(String productType, String productID) {
+                Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+                intent.putExtra("type", productType);
+                intent.putExtra("ID", productID);
+               startActivity(intent);
+            }
+        });
+
         GetTrendListFromDataBase();
+        GetNewListFromDataBase();
+
         rc_trend=view.findViewById(R.id.rc_trend);
         rc_trend.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_trend.setHasFixedSize(true);
         rc_trend.setAdapter(myAdapterTrend);
 
-        myNewList= new ArrayList<>();
-        myAdapterNew= new ProductAdapter(getContext(),myNewList);
-        GetNewListFromDataBase();
         rc_new=view.findViewById(R.id.rc_new);
+        //newList.setLayoutManager(new GridLayoutManager(getContext(),2));
         rc_new.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         rc_new.setHasFixedSize(true);
         rc_new.setAdapter(myAdapterNew);
-       // myAdapterNew.notifyDataSetChanged();
-
-        myDiamondList= new ArrayList<>();
-        myAdapterDiamond=new ProductAdapter(getContext(),myDiamondList);
-        GetDiamondListFromDataBase();
-        rc_diamond=view.findViewById(R.id.rc_diamond);
-        rc_diamond.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rc_diamond.setHasFixedSize(true);
-        rc_diamond.setAdapter(myAdapterNew);
-
-        myPearlList= new ArrayList<>();
-        myAdapterPearl=new ProductAdapter(getContext(),myPearlList);
-        GetPearlListFromDataBase();
-        rc_pearl=view.findViewById(R.id.rc_pearl);
-        rc_pearl.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rc_pearl.setHasFixedSize(true);
-        rc_pearl.setAdapter(myAdapterPearl);
-
-        myRubyList= new ArrayList<>();
-        myAdapterRuby=new ProductAdapter(getContext(),myRubyList);
-        GetRubyListFromDataBase();
-        rc_ruby=view.findViewById(R.id.rc_ruby);
-        rc_ruby.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rc_ruby.setHasFixedSize(true);
-        rc_ruby.setAdapter(myAdapterRuby);
-
-        myRingList= new ArrayList<>();
-        myAdapterRing =new ProductAdapter(getContext(),myRingList);
-        GetRingListFromDataBase();
-        rc_ring=view.findViewById(R.id.rc_ring);
-        rc_ring.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rc_ring.setHasFixedSize(true);
-        rc_ring.setAdapter(myAdapterRing);
-
-        myAlbumList= new ArrayList<>();
-        myAdapterAlbum=new ProductAdapter(getContext(),myAlbumList);
-        GetAlbumListFromDataBase();
-        rc_album=view.findViewById(R.id.rc_album);
-        rc_album.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        rc_album.setHasFixedSize(true);
-        rc_album.setAdapter(myAdapterAlbum);
+        myAdapterNew.notifyDataSetChanged();
 
         //
         img_notice=view.findViewById(R.id.img_notice);
@@ -276,86 +264,6 @@ public class HomeFragment extends Fragment {
             }
         });
         
-    }
-    private  void GetDiamondListFromDataBase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    private  void GetPearlListFromDataBase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    private  void GetRubyListFromDataBase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    private  void GetRingListFromDataBase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    private  void GetAlbumListFromDataBase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     /*public void initProduct(ArrayList<Product> myList){
