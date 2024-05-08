@@ -3,12 +3,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/logo" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H-JEWELRY"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="80dp">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imageView_avatar_userProfile"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginLeft="25dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_user"
+                        app:civ_border_color="@color/black"
+                        app:civ_border_width="2dp"
+                        />
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:gravity="center"
+                          android:text="Tên người dùng"
+                          android:textColor="@color/black"
+                          android:textSize="20sp"/>
+            </LinearLayout>
+
+            <Button
+                    android:id="@+id/edit_profile"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Thông tin cá nhân"
+                    style='@style/UserButtonStyle'
+            />
+
+            <Button
+                    android:id="@+id/account_sercurity"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Tài khoản và bảo mật"
+                    style="@style/UserButtonStyle"/>
+            <Button
+                    android:id="@+id/orderlist"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Đơn hàng"
+                    style="@style/UserButtonStyle"/>
+
+
+            <Button
+                    android:id="@+id/address_book"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Sổ địa chỉ"
+                    style="@style/UserButtonStyle"/>
+            <Button
+                    android:id="@+id/about"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Thông tin"
+                    style="@style/UserButtonStyle"/>
+
+            <Button
+                    android:id="@+id/SignOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Đăng xuất"/>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

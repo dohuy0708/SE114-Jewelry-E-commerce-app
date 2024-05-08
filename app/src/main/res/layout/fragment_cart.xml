@@ -33,14 +33,15 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="49dp"
                 android:layout_weight="1"
-                tools:src="@drawable/ic_cart" />
+                tools:src="@drawable/ic_cart"
+                android:layout_marginRight="50dp"/>
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="307dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"

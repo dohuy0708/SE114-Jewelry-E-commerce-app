@@ -110,7 +110,7 @@ public class AdOrderFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                    viewPager.setCurrentItem(tab.getPosition());
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override

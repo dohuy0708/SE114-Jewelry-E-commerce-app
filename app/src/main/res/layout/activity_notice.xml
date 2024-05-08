@@ -18,12 +18,12 @@
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:srcCompat="@drawable/ic_back" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/title_add"
             android:layout_width="276dp"
             android:layout_height="43dp"
             android:layout_alignParentStart="true"
@@ -40,9 +40,11 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_notice"
-        android:layout_width="wrap_content"
+        android:id="@+id/rc_notice_ad"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
 
 </LinearLayout>

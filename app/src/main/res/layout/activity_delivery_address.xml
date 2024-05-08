@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			xmlns:tools="http://schemas.android.com/tools"
+			android:id="@+id/main"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			  android:orientation="vertical">
+
+
+	<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="51dp">
+
+		<androidx.appcompat.widget.AppCompatButton
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:id="@+id/btn_back"
+				android:background="@drawable/ic_back"
+				android:layout_marginTop="10dp"
+				android:layout_centerVertical="true"/>
+
+		<TextView
+				android:text="Địa chỉ giao hàng"
+				android:layout_width="369dp"
+				android:layout_height="37dp"
+				android:textSize="20dp"
+				android:textStyle="bold"
+				android:textColor="@color/black"
+				android:textAlignment="center"
+				android:layout_marginTop="10dp"
+
+				android:id="@+id/textView17"
+				android:layout_weight="1"/>
+	</LinearLayout>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+		<TextView
+				android:id="@+id/textView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="30dp"
+				android:text="Liên hệ"
+				android:textSize="16sp"
+				android:textStyle="bold"/>
+
+		<EditText
+				android:id="@+id/editText"
+				android:layout_width="match_parent"
+				android:layout_height="47dp"
+				android:background="@drawable/black_stroke"
+				android:hint="họ và tên"
+				android:layout_marginTop="20dp"
+				android:layout_marginHorizontal="20dp"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.254"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+		<EditText
+				android:id="@+id/editText1"
+				android:layout_width="match_parent"
+				android:layout_height="47dp"
+				android:background="@drawable/black_stroke"
+				android:hint="Số điện thoại"
+				android:layout_marginTop="20dp"
+				android:layout_marginHorizontal="20dp"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.254"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+		<TextView
+				android:id="@+id/textView1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="60dp"
+				android:text="Địa chỉ"
+				android:textSize="16sp"
+				android:textStyle="bold"/>
+
+		<EditText
+				android:id="@+id/editText2"
+				android:layout_width="match_parent"
+				android:layout_height="47dp"
+				android:background="@drawable/black_stroke"
+				android:hint="Tỉnh/Thành phố, Quận/Huyện, Phường/Xã"
+				android:layout_marginTop="20dp"
+				android:layout_marginHorizontal="20dp"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.254"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+		<EditText
+				android:id="@+id/editText3"
+				android:layout_width="match_parent"
+				android:layout_height="47dp"
+				android:background="@drawable/black_stroke"
+				android:hint="Tên đường, Tòa nhà, Số nhà....."
+				android:layout_marginTop="20dp"
+				android:layout_marginHorizontal="20dp"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.254"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+		<EditText
+				android:id="@+id/editText4"
+				android:layout_width="match_parent"
+				android:layout_height="47dp"
+				android:background="@drawable/black_stroke"
+				android:hint="Ghi chú cho shipper..."
+				android:layout_marginTop="20dp"
+				android:layout_marginHorizontal="20dp"
+				android:paddingLeft="8dp"
+				android:paddingRight="30dp"
+				android:singleLine="true"
+				android:textSize="14dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.254"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+		<TextView
+				android:id="@+id/title_add"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="60dp"
+				android:text="Cài đặt"
+				android:textSize="16sp"
+				android:textStyle="bold"/>
+
+		<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_marginTop="20dp"
+				android:layout_marginHorizontal="20dp"
+				android:layout_height="wrap_content">
+
+			<TextView
+					android:id="@+id/editText5"
+					android:layout_width="372dp"
+					android:layout_height="47dp"
+					android:background="@drawable/black_stroke"
+					android:hint="Đặt làm địa chỉ mặc định"
+					android:paddingLeft="8dp"
+					android:paddingRight="30dp"
+					android:singleLine="true"
+					android:textSize="14dp">
+
+			</TextView>
+
+			<androidx.appcompat.widget.SwitchCompat
+					android:id="@+id/switch_id"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:layout_centerVertical="true">
+
+			</androidx.appcompat.widget.SwitchCompat>
+
+		</RelativeLayout>
+
+
+		<Button
+				android:text="Hoàn thành"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="30dp"
+				android:layout_marginHorizontal="30dp"
+				android:id="@+id/button6"/>
+	</LinearLayout>
+
+</LinearLayout>

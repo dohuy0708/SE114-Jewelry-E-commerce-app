@@ -1,10 +1,7 @@
 package com.example.jewelryecommerceapp.Activities;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,10 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
 import com.example.jewelryecommerceapp.Adapters.ShippingOrdsAdapter;
 import com.example.jewelryecommerceapp.Models.Order;
-import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
 
 import java.util.ArrayList;

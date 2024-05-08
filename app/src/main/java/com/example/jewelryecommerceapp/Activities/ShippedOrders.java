@@ -1,9 +1,5 @@
 package com.example.jewelryecommerceapp.Activities;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -12,15 +8,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import com.example.jewelryecommerceapp.Adapters.ShippedOrdsAdapter;
-import com.example.jewelryecommerceapp.Adapters.ShippingOrdsAdapter;
 import com.example.jewelryecommerceapp.Models.Order;
 import com.example.jewelryecommerceapp.R;
 
 import java.util.ArrayList;
 
 public class ShippedOrders extends AppCompatActivity {
-
     ImageView back;
     RecyclerView ordds;
     ShippedOrdsAdapter adt;
@@ -29,8 +27,9 @@ public class ShippedOrders extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shipped_orders);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_shippedords);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -58,7 +57,6 @@ public class ShippedOrders extends AppCompatActivity {
             }
         });
     }
-
     private void initlistords(ArrayList<Order> listords) {
     }
 }

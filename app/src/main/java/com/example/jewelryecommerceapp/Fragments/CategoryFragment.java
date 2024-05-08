@@ -1,14 +1,24 @@
 package com.example.jewelryecommerceapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jewelryecommerceapp.Activities.SearchActivity;
+import com.example.jewelryecommerceapp.Adapters.CategoryAdapter;
+import com.example.jewelryecommerceapp.Models.CategoryItem;
 import com.example.jewelryecommerceapp.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +67,40 @@ public class CategoryFragment extends Fragment {
         }
     }
 
-    @Override
+        @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false);
     }
-}
+    RecyclerView rc_category;
+    CategoryAdapter categoryAdapter;
+    ArrayList<CategoryItem> CategoryList;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        rc_category=view.findViewById(R.id.list_category);
+        CategoryList = new ArrayList<>();
+        CategoryList.add(new CategoryItem("Nhẫn",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Nhẫn đôi",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Dây chuyền",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Vòng",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Bông tai",R.drawable.ic_back));
+        categoryAdapter=new CategoryAdapter(getContext(),CategoryList);
+        rc_category.setHasFixedSize(true);
+        rc_category.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        rc_category.setAdapter(categoryAdapter);
+        categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CategoryItem categoryItem) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("categoryitem",categoryItem.getCategoryName());
+                intent.putExtra("categoryname",bundle);
+                startActivity(intent);
+            }
+        });
+    }
+
+    }

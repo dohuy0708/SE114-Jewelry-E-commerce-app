@@ -1,5 +1,7 @@
 package com.example.jewelryecommerceapp.Models;
 
+import java.util.Date;
+
 public class User {
     public static final String COLLECTION_NAME = "users";
 
@@ -7,32 +9,40 @@ public class User {
     private String NAME;
     private String IMG;
     private String EMAIL;
-    private String DOB;
     private String PHONE;
-    private String GENDER;
+    private Date BIRTHDAY;
     private int TYPE;
+
+
+
+
+
 
     public User()   {
 
     }
 
-    public User(String NAME, String IMG ,String EMAIL, String DOB, String PHONE, String GENDER) {
+    public User(String NAME, String EMAIL    ) {
         this.NAME = NAME;
-        this.IMG = IMG;
         this.EMAIL = EMAIL;
-        this.DOB = DOB;
-        this.PHONE = PHONE;
-        this.GENDER = GENDER;
+
         this.TYPE = 1;
     }
 
-    public User(int TYPE, String NAME, String IMG ,String EMAIL, String DOB, String PHONE, String GENDER) {
+    public Date getBIRTHDAY() {
+        return BIRTHDAY;
+    }
+
+    public void setBIRTHDAY(Date BIRTHDAY) {
+        this.BIRTHDAY = BIRTHDAY;
+    }
+
+    public User(int TYPE, String NAME, String IMG , String EMAIL, String PHONE) {
         this.NAME = NAME;
         this.IMG = IMG;
         this.EMAIL = EMAIL;
-        this.DOB = DOB;
+
         this.PHONE = PHONE;
-        this.GENDER = GENDER;
         this.TYPE = TYPE;
     }
 
@@ -52,17 +62,11 @@ public class User {
         this.EMAIL = EMAIL;
     }
 
-    public void setDOB(String DOB) {
-        this.DOB = DOB;
-    }
 
     public void setPHONE(String PHONE) {
         this.PHONE = PHONE;
     }
 
-    public void setGENDER(String GENDER) {
-        this.GENDER = GENDER;
-    }
 
     public void setTYPE(int TYPE) {
         this.TYPE = TYPE;
@@ -76,17 +80,11 @@ public class User {
         return EMAIL;
     }
 
-    public String getDOB() {
-        return DOB;
-    }
 
     public String getPHONE() {
         return PHONE;
     }
 
-    public String getGENDER() {
-        return GENDER;
-    }
 
     public String getIMG() {
         return IMG;
@@ -103,10 +101,8 @@ public class User {
         return "User{" +
                 ", NAME='" + NAME + '\'' +
                 ", EMAIL='" + EMAIL + '\'' +
-                ", DOB='" + DOB + '\'' +
                 ", PHONE='" + PHONE + '\'' +
-                ", GENDER='" + GENDER + '\'' +
-                ", TYPE=" + TYPE +
+                 ", TYPE=" + TYPE +
                 '}';
     }
 
