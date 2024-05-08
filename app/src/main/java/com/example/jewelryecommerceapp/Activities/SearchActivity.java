@@ -44,10 +44,17 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         reference();
         getEvent();
-        Intent intent =getIntent();
-        Bundle bundle =intent.getBundleExtra("categoryname");
-        String categoryname=bundle.getString("categoryitem");
-        categoryName.setText(categoryname);
+
+        //Nhaapjn dữ liệu intent qua
+        Intent myintent =getIntent();
+
+       String categoryname=myintent.getStringExtra("categoryitem");
+       String input = myintent.getStringExtra("input");
+       categoryName.setText(categoryname);
+       if(input!="")
+       {
+           etSearch.setText(input);
+       }
         productList =new ArrayList<>();
         getProduct();
         productAdapter=new ProductAdapter(this,productList,1);

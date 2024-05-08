@@ -82,9 +82,11 @@
 
             <ImageView
                 android:id="@+id/btnback"
-                android:layout_width="44dp"
-                android:layout_height="59dp"
-                app:srcCompat="@drawable/ic_back" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/ic_back"
+                android:layout_marginTop="10dp"
+               />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -113,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/btnFilter"
                     android:layout_toRightOf="@+id/btnSearch"
@@ -139,7 +141,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="15dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -156,7 +158,8 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="20dp"/>
 
                 <Space
                     android:layout_width="match_parent"
