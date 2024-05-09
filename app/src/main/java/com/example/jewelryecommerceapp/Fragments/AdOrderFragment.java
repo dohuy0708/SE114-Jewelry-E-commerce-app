@@ -2,19 +2,42 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.jewelryecommerceapp.Adapters.OrderTabItemAdapter;
+import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
+import com.example.jewelryecommerceapp.Models.Order;
 import com.example.jewelryecommerceapp.R;
+import com.example.jewelryecommerceapp.TabItems.AceptedTabItem;
+import com.example.jewelryecommerceapp.TabItems.ShippedTabItem;
+import com.example.jewelryecommerceapp.TabItems.WaitAceptTabItem;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AdOrderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@SuppressWarnings("deprecation")
 public class AdOrderFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -48,6 +71,8 @@ public class AdOrderFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,4 +88,49 @@ public class AdOrderFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ad_order, container, false);
     }
+    ImageView logo;
+    TextView title;
+    TabLayout tablayout;
+    ViewPager2 viewPager;
+    OrderTabItemAdapter adt;
+
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        logo=view.findViewById(R.id.logooo0);
+        title=view.findViewById(R.id.cardt);
+        tablayout=view.findViewById(R.id.tab_layout);
+        viewPager=view.findViewById(R.id.view_pager);
+        adt=new OrderTabItemAdapter(this);
+        viewPager.setAdapter(adt);
+
+        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tablayout.getTabAt(position).select();
+            }
+        });
+
+    }
+
 }

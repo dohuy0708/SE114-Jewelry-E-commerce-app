@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
+import com.example.jewelryecommerceapp.Models.Voucher;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 
@@ -155,7 +156,7 @@ public class VoucherActivity extends AppCompatActivity {
                // các điều kiện đều thỏa mãn
                 Toast.makeText(VoucherActivity.this, "Thêm hoàn tất", Toast.LENGTH_SHORT).show();
 
-               voucherList.add(0,new Voucher(name.getText().toString(),Double.parseDouble(percent.getText().toString()),startDate,endDate));
+//               voucherList.add(0,new Voucher(name.getText().toString(),Double.parseDouble(percent.getText().toString()),startDate,endDate));
                voucherAdapter.notifyDataSetChanged();
             }
         });
@@ -211,11 +212,11 @@ public class VoucherActivity extends AppCompatActivity {
         list= new ArrayList<>();
         LocalDate sDate= LocalDate.now();
         LocalDate eDate= sDate.plusDays(10);
-        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
+//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
+//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
+//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
+//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
+//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
         return list;
     }
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context=".Fragments.AdminProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/logo" />
+
+    <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H-JEWELRY"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="80dp"
+                android:gravity="center">
+
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageView_avatar_adminProfile"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_marginLeft="25dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_user"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Tên người dùng"
+                          android:textColor="@color/black"
+                          android:textSize="20sp"/>
+            </LinearLayout>
+            <Button
+                    android:id="@+id/rate_button"
+                    android:text="Đơn hàng"
+                    android:textSize="15sp"
+                    style="@style/UserButtonStyle" />
+
+            <Button
+                    android:id="@+id/analysis_button"
+                    android:text="Phân tích bán hàng"
+                    android:textSize="15sp"
+                    style="@style/UserButtonStyle" />
+
+            <Button
+                    android:id="@+id/customers_management_button"
+                    android:text="Quản lý khách hàng"
+                    android:textSize="15sp"
+                    style="@style/UserButtonStyle" />
+
+            <Button
+                    android:id="@+id/edit_profile_admin"
+                    android:text="Thông tin cá nhân"
+                    android:textSize="15sp"
+                    style="@style/UserButtonStyle" />
+            <Button
+                    android:id="@+id/account_sercurity_button"
+                    android:text="Tài khoản và bảo mật"
+                    android:textSize="15sp"
+                    style="@style/UserButtonStyle"/>
+            <Button
+                    android:id="@+id/SignOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Đăng xuất"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

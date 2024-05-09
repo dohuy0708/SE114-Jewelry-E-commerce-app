@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="50dp"
+        android:layout_height="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="30dp"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:gravity="center"-->
+        <!--            android:paddingHorizontal="20dp">-->
+
+        <!--            <androidx.cardview.widget.CardView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="40dp"-->
+        <!--                android:backgroundTint="#F3F3F3"-->
+        <!--                app:cardCornerRadius="10dp">-->
+
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="match_parent"-->
+        <!--                    android:orientation="horizontal"-->
+        <!--                    android:paddingHorizontal="20dp">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:id="@+id/btnSearch"-->
+        <!--                        android:layout_width="20dp"-->
+        <!--                        android:layout_height="20dp"-->
+        <!--                        android:layout_gravity="center_vertical"-->
+        <!--                        android:adjustViewBounds="true"-->
+        <!--                        android:scaleType="fitCenter"-->
+        <!--                        android:src="@drawable/ic_search" />-->
+
+        <!--                    <EditText-->
+        <!--                        android:id="@+id/searchFragment_etSearch"-->
+        <!--                        android:layout_width="150dp"-->
+        <!--                        android:layout_height="match_parent"-->
+        <!--                        android:layout_marginLeft="10dp" />-->
+
+        <!--                    <ImageView-->
+        <!--                        android:id="@+id/btnFilter"-->
+        <!--                        android:layout_width="25dp"-->
+        <!--                        android:layout_height="25dp"-->
+        <!--                        android:layout_gravity="center_vertical"-->
+        <!--                        android:layout_marginLeft="10dp"-->
+        <!--                        android:src="@drawable/filter" />-->
+        <!--                </LinearLayout>-->
+        <!--            </androidx.cardview.widget.CardView>-->
+
+        <!--            <androidx.cardview.widget.CardView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginLeft="30dp"-->
+        <!--                android:backgroundTint="#F3F3F3"-->
+        <!--                app:cardCornerRadius="10dp">-->
+
+        <!--                <ImageView-->
+        <!--                    android:id="@+id/btnCart"-->
+        <!--                    android:layout_width="40dp"-->
+        <!--                    android:layout_height="40dp"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    android:src="@drawable/cart" />-->
+        <!--            </androidx.cardview.widget.CardView>-->
+        <!--        </LinearLayout>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/btnback"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/ic_back"
+                android:layout_marginTop="10dp"
+               />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/black_stroke"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    android:id="@+id/btnSearch"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_search" />
+
+                <EditText
+                    android:id="@+id/searchFragment_etSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/btnFilter"
+                    android:layout_toRightOf="@+id/btnSearch"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif"
+                    android:hint="Search "
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/btnFilter"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/black_stroke" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/category_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="20dp"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/filter_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
