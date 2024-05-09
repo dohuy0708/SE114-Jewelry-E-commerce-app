@@ -42,7 +42,7 @@
                     android:id="@+id/cart_button"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="109dp"
+                    android:layout_marginStart="95dp"
                     android:padding="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView8"
