@@ -391,7 +391,10 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
     ArrayList<String> sizeList;
+    ArrayList<Integer> prdAmountList;
+    ArrayList<String> prdSizeList;
     int curAmount=0;
+    boolean isSizeNull=false;
     boolean isChoose=false;
     // Dialof chọn size loại
     private void createDialog(int type){
@@ -407,6 +410,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         bs_price=view.findViewById(R.id.bs_price);
         bs_number=  view.findViewById(R.id.bs_number);
         bs_remain= view.findViewById(R.id.bs_remain);
+        ConstraintLayout size_layout= view.findViewById(R.id.size_layout);
         // ảnh
         RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.NONE) // Không lưu vào cache
@@ -418,26 +422,35 @@ public class ProductDetailActivity extends AppCompatActivity {
         RecyclerView rc_size= view.findViewById(R.id.rc_size);
         rc_size.setLayoutManager(new GridLayoutManager(this,4));
         // list size
-        sizeList= new ArrayList<>(productdetail.getSizeMap().keySet());
-        // list số lượng các size
-        ArrayList<Integer> prdAmountList = new ArrayList<>(productdetail.getSizeMap().values());
-        ArrayList<String> prdSizeList= new ArrayList<>();
-        for(int i=0;i<sizeList.size();i++){
-            prdSizeList.add(sizeList.get(i)+" mm");
+        // nếu ko có size
+        if(productdetail.getSizeMap()==null){
+            isSizeNull=true;
+            size_layout.setVisibility(View.GONE);
+            bs_remain.setText("Kho :"+productdetail.getTotal());
+
+
         }
-       SizeAdapter sizeAdapter= new SizeAdapter(prdSizeList, new SelectListener() {
-           @Override
-           public void onImageItemClicked(int imgUrl) {//url đây là position thôi
-               bs_remain.setText("Kho :"+prdAmountList.get(imgUrl));
-               curAmount=prdAmountList.get(imgUrl);
-               isChoose=true;
-           }
-       });
-        rc_size.setAdapter(sizeAdapter);
+        else {
+            sizeList= new ArrayList<>(productdetail.getSizeMap().keySet());
+            // list số lượng các size
+            prdAmountList = new ArrayList<>(productdetail.getSizeMap().values());
+            prdSizeList= new ArrayList<>();
+            for(int i=0;i<sizeList.size();i++){
+                prdSizeList.add(sizeList.get(i)+" mm");
+            }
+            SizeAdapter sizeAdapter= new SizeAdapter(prdSizeList, new SelectListener() {
+                @Override
+                public void onImageItemClicked(int imgUrl) {//url đây là position thôi
+                    bs_remain.setText("Kho :"+prdAmountList.get(imgUrl));
+                    curAmount=prdAmountList.get(imgUrl);
+                    isChoose=true;
+                }
+            });
+            rc_size.setAdapter(sizeAdapter);
+        }
         // giá
         price=productdetail.getProductPrice();
         bs_price.setText(formatNumber(price)+" VNĐ");
-        bs_remain.setText("Kho :");
         bs_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -455,11 +468,14 @@ public class ProductDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 int n=Integer.parseInt(bs_number.getText().toString());
-                if(isChoose){
-                    if(curAmount<n+1)
-                    {
-                        Toast.makeText(ProductDetailActivity.this, "Trong kho chỉ còn "+curAmount+" sản phẩm", Toast.LENGTH_SHORT).show();
-                        return;
+                if(!isSizeNull)
+                {
+                    if(isChoose){
+                        if(curAmount<n+1)
+                        {
+                            Toast.makeText(ProductDetailActivity.this, "Trong kho chỉ còn "+curAmount+" sản phẩm", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 }
                 n++;
@@ -470,6 +486,15 @@ public class ProductDetailActivity extends AppCompatActivity {
         bs_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isSizeNull){
+                    if(type==1){
+                        //mua hàng
+                    }
+                    else if(type==2){
+                        // thêm vào giỏ
+                    }
+                }
+                else {
                 if(!isChoose)
                     Toast.makeText(ProductDetailActivity.this, "Vui lòng chọn size sản phẩm", Toast.LENGTH_SHORT).show();
                 else {
@@ -481,7 +506,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                     }
                 }
             }
+            }
         });
+
         dialog.setContentView(view);
     }
 
