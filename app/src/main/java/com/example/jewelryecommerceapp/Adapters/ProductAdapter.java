@@ -32,11 +32,14 @@ public class ProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
        this.context=context;
        this.productList=productList;
    }
-    public ProductAdapter(Context context, ArrayList<Product> productList,int type){
+    public ProductAdapter(Context context, ArrayList<Product> productList,int type,IClickListener listener){
+        this.mIClicklistener = listener;
         this.context=context;
         this.productList=productList;
         this.type=1;
     }
+
+
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

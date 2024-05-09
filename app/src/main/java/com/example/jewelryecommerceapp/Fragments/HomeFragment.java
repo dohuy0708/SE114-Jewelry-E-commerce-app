@@ -341,7 +341,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String category = "Sản phẩm bán chạy";
-                String input = "";
+                String input = " ";
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("input",input);
                 intent.putExtra("categoryitem",category);
@@ -354,7 +354,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String category = "Sản phẩm mới";
-                String input = "";
+                String input = " ";
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("input",input);
                 intent.putExtra("categoryitem",category);
@@ -367,7 +367,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String category = "Trang sức Kim Cương";
-                String input = "";
+                String input = "Kim cương";
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("input",input);
                 intent.putExtra("categoryitem",category);
@@ -380,7 +380,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String category = "Trang sức Ngọc Trai";
-                String input = "";
+                String input = "Ngọc trai";
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("input",input);
                 intent.putExtra("categoryitem",category);
@@ -393,7 +393,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String category = "Nhẫn đôi";
-                String input = "";
+                String input = "Nhẫn đôi";
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("input",input);
                 intent.putExtra("categoryitem",category);
@@ -406,7 +406,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String category = "Bộ trang sức";
-                String input = "";
+                String input = "Bộ trang sức";
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 intent.putExtra("input",input);
                 intent.putExtra("categoryitem",category);

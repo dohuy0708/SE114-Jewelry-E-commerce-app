@@ -129,7 +129,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
         //comment
         cmtList= new ArrayList<>();
-        getComment(cmtList);
+        GetCommentListFromFirebase(productID) ;
         cmtAdapter = new CommentAdapter(cmtList);
         rc_cmt.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rc_cmt.setHasFixedSize(true);
@@ -143,8 +143,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
         // sản phẩm tương tự
         samePrdList = new ArrayList<>();
-        getSameProduct(samePrdList);
-        samePrdAdapter= new ProductAdapter(this,samePrdList,1);
+        GetSameProductFromFireBase(productType);
+        samePrdAdapter= new ProductAdapter(this,samePrdList,1, new ProductAdapter.IClickListener() {
+            @Override
+            public void OnClickItem(String productType, String productID) {
+                Intent intent = new Intent(ProductDetailActivity.this,ProductDetailActivity.class);
+                intent.putExtra("type", productType);
+                intent.putExtra("ID", productID);
+                startActivity(intent);
+                finish();
+            }
+        });
+
        // rc_same_prd.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         rc_same_prd.setLayoutManager(new GridLayoutManager(this,2));
         rc_cmt.setHasFixedSize(true);
@@ -186,7 +196,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         backhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -199,6 +209,37 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void GetCommentListFromFirebase(String productID) {
+    }
+
+    private void GetSameProductFromFireBase(String productType) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product").child(productType) ;
+        ref.addValueEventListener(new ValueEventListener() {
+            int i = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Product product =  dataSnapshot.getValue(Product.class);
+                    if(i<4 && (product.getAccessory().equals(productdetail.getAccessory())||product.getMaterial().equals(productdetail.getMaterial()) ) && product.getProductId()!=productdetail.getProductId() )
+                    {
+                        samePrdList.add(product);
+                        i++;
+                    }
+
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProductDetailActivity.this,"cannot get product", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     // lấy chi tiết sản phẩm từ firebase
     private void GetProductDetailFromFireBase(String productType, String productID) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -250,7 +291,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         rc_viewpager.setHasFixedSize(true);
         rc_viewpager.setAdapter(viewPagerAdapter);
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
-        pagerSnapHelper.attachToRecyclerView(rc_viewpager);
+    //    pagerSnapHelper.attachToRecyclerView(rc_viewpager);
         // vuốt qua lại các ảnh
         rc_viewpager.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
