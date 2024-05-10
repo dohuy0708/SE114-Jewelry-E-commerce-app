@@ -1,6 +1,7 @@
 package com.example.jewelryecommerceapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Activities.FeedbackActivity;
 import com.example.jewelryecommerceapp.Models.Order;
 import com.example.jewelryecommerceapp.R;
 
@@ -51,7 +53,10 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.Orde
         holder.userJudge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Context context1=v.getContext();
+                Intent i=new Intent(context1, FeedbackActivity.class);
+                Intent[] intents={i};
+                context1.startActivities(intents);
             }
         });
     }

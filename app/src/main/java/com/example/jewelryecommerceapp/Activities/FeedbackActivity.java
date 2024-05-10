@@ -23,6 +23,7 @@ public class FeedbackActivity extends AppCompatActivity {
     ImageView star5;
     EditText feedback;
     Button send;
+    int Rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class FeedbackActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         star1=findViewById(R.id.star1);
         star2=findViewById(R.id.star2);
         star3=findViewById(R.id.star3);
@@ -56,6 +58,8 @@ public class FeedbackActivity extends AppCompatActivity {
         star3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                star3.setImageResource(R.drawable.add_image);
+                Rate=3;
 
             }
         });
@@ -77,5 +81,6 @@ public class FeedbackActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }
