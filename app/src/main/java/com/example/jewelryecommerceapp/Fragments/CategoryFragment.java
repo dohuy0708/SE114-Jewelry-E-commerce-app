@@ -82,11 +82,12 @@ public class CategoryFragment extends Fragment {
 
         rc_category=view.findViewById(R.id.list_category);
         CategoryList = new ArrayList<>();
-        CategoryList.add(new CategoryItem("Nhẫn",R.drawable.ic_back));
-        CategoryList.add(new CategoryItem("Nhẫn đôi",R.drawable.ic_back));
-        CategoryList.add(new CategoryItem("Dây chuyền",R.drawable.ic_back));
-        CategoryList.add(new CategoryItem("Vòng",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Nhẫn",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Nhẫn đôi",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Dây chuyền",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Vòng tay",R.drawable.ic_back));
         CategoryList.add(new CategoryItem("Bông tai",R.drawable.ic_back));
+        CategoryList.add(new CategoryItem("Bộ trang sức",R.drawable.ic_back));
         categoryAdapter=new CategoryAdapter(getContext(),CategoryList);
         rc_category.setHasFixedSize(true);
         rc_category.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
@@ -95,9 +96,8 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onItemClick(CategoryItem categoryItem) {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putString("categoryitem",categoryItem.getCategoryName());
-                intent.putExtra("categoryname",bundle);
+                intent.putExtra("input",categoryItem.getCategoryName());
+                intent.putExtra("categoryitem",categoryItem.getCategoryName());
                 startActivity(intent);
             }
         });
