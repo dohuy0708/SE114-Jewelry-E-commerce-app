@@ -2,29 +2,31 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
-import com.example.jewelryecommerceapp.Activities.AddressBookActivity;
 import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
+import com.example.jewelryecommerceapp.Activities.LoginActivity;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class UserFragment extends Fragment {
 
-
+    Button btnEditProfile, btnOrderList, btnSignOut , btnAccountSercurity;
+    TextView tvUserName;
     public UserFragment() {
         // Required empty public constructor
     }
@@ -47,7 +49,6 @@ public class UserFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false);
     }
-    Button btnEditProfile, btnOrderList, btnSignOut , btnAccountSercurity, btnAddressBook;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -55,15 +56,17 @@ public class UserFragment extends Fragment {
         btnSignOut = view.findViewById(R.id.SignOut);
         btnEditProfile = view.findViewById(R.id.edit_profile);
         btnAccountSercurity = view.findViewById(R.id.account_sercurity);
-        btnAddressBook = view.findViewById(R.id.address_book);
+        tvUserName = view.findViewById(R.id.tv_username);
+
+        getUserImformation();
         setupButton();
     }
+
     private void setupButton()
     {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ((HomeActivity) getActivity()).ClickSignOut(new HomeFragment());
             }
         });
@@ -79,22 +82,30 @@ public class UserFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfileActivity.class);
                 startActivity(intent);
+
             }
         });
         btnAccountSercurity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(), AccountSercurityActivity.class);
                 startActivity(intent);
+
             }
         });
-        btnAddressBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddressBookActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+    }
+    private void getUserImformation()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null)
+        {
+            return;
+        }
+        String Name = user.getDisplayName();
+        tvUserName.setText(Name);
 
     }
 

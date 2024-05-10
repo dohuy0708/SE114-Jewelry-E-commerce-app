@@ -87,8 +87,6 @@ public class HomeActivity extends AppCompatActivity {
     public void ClickSignOut( Fragment fragment)
     {
         FirebaseAuth.getInstance().signOut();
-
-
         Intent intent = getIntent();
         finish();
         startActivity(intent);
