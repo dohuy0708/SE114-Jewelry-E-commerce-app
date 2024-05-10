@@ -42,7 +42,11 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -74,14 +78,14 @@
         <activity
             android:name=".Activities.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/ThemeSpl" > <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/ThemeSpl" >
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
               </activity>
 
-
+        <activity android:name=".Activities.EditProfileActivity"
+                  android:exported="true"/>
+        <activity android:name=".Activities.AccountSercurityActivity"
+                  android:exported="true"/>
 
     </application>
 
