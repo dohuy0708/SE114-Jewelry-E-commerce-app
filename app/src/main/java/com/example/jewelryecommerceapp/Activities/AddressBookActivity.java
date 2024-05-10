@@ -6,11 +6,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.jewelryecommerceapp.Models.Address;
 import com.example.jewelryecommerceapp.R;
-
-import java.util.ArrayList;
 
 public class AddressBookActivity extends AppCompatActivity {
     private Button btnAddaddress;

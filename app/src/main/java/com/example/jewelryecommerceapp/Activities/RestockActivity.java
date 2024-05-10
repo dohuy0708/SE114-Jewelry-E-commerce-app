@@ -1,7 +1,9 @@
 package com.example.jewelryecommerceapp.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.jewelryecommerceapp.R;
 
 public class RestockActivity extends AppCompatActivity {

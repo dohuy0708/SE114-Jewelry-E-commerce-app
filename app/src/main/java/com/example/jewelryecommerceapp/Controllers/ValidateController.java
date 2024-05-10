@@ -47,7 +47,7 @@ public class ValidateController {
         else
             return true;
     }
-    public static String isValidate(String name, String email, String pass )
+    public static String isValidate(String name, String email, String pass, String s)
     {
         String result ="1";
         // kiem tra có ô nào bị bỏ trông không

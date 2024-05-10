@@ -4,13 +4,12 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.jewelryecommerceapp.Adapters.AdServiceAdapter;
-import com.example.jewelryecommerceapp.Fragments.ServiceFragment;
 import com.example.jewelryecommerceapp.Models.AdService;
 import com.example.jewelryecommerceapp.R;
 
