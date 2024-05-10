@@ -2,9 +2,6 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,10 +9,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.example.jewelryecommerceapp.Activities.AdminProductDetailActivity;
-import com.example.jewelryecommerceapp.Adapters.StoreProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
+import com.example.jewelryecommerceapp.Adapters.StoreProductAdapter;
 
 import java.util.ArrayList;
 
@@ -75,6 +77,7 @@ public class AdStoreFragment extends Fragment {
     RecyclerView rc_store_product;
     StoreProductAdapter storeProductAdapter;
     ArrayList<Product> productList;
+    Button addproduct_btn;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -101,7 +104,18 @@ public class AdStoreFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        addproduct_btn=view.findViewById(R.id.addproduct_btn);
+        addproduct_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AdminProductDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("Title","Thêm sản phẩm mới");
+                intent.putExtra("Product",bundle);
+                startActivity(intent);
 
+            }
+        });
     }
 
 }
