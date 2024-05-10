@@ -1,4 +1,5 @@
 package com.example.jewelryecommerceapp.Fragments;
+
 import static android.content.Context.SEARCH_SERVICE;
 
 import android.app.ProgressDialog;
@@ -20,9 +21,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Adapters.StaffChatFragmentAdapter;
 import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
-import com.example.jewelryecommerceapp.Adapters.StaffChatFragmentAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

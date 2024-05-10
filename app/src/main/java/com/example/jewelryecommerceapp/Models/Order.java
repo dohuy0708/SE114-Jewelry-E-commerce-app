@@ -7,6 +7,7 @@ public class Order {
     private String OrdererSDT;
     private int Money;
     private String Datee;
+    private String Receive;
 
     private String status;
 
@@ -67,7 +68,14 @@ public class Order {
     public void setDatee(String datee) {
         Datee = datee;
     }
-    public Order(String orderID, String ordererName, String ordererAdd, String ordererSDT, int money, String datee, String Status)
+    public String getReceive() {
+        return Receive;
+    }
+
+    public void setReceive(String receive) {
+        Receive = receive;
+    }
+    public Order(String orderID, String ordererName, String ordererAdd, String ordererSDT, int money, String datee, String Status, String receive)
     {
         this.OrderID=orderID;
         this.OrdererName=ordererName;
@@ -76,5 +84,6 @@ public class Order {
         this.Money=money;
         this.Datee=datee;
         this.status=Status;
+        this.Receive=receive;
     }
 }

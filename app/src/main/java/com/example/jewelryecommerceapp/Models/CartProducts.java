@@ -3,25 +3,7 @@ package com.example.jewelryecommerceapp.Models;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.example.jewelryecommerceapp.Models.Product;
-import com.example.jewelryecommerceapp.R;
-
-import java.util.ArrayList;
-import java.util.PrimitiveIterator;
-
-
 
 
 public class CartProducts {

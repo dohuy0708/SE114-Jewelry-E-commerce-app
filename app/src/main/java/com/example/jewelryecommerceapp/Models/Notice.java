@@ -1,10 +1,8 @@
 package com.example.jewelryecommerceapp.Models;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 
 public class Notice implements Serializable {

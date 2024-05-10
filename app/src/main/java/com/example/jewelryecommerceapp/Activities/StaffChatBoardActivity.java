@@ -1,4 +1,5 @@
 package com.example.jewelryecommerceapp.Activities;
+
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -8,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Adapters.StaffChatBoardAdapter;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.jewelryecommerceapp.R;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 public class StaffChatBoardActivity extends AppCompatActivity {
     TabLayout tabLayout;

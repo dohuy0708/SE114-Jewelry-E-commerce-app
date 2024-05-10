@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jewelryecommerceapp.Adapters.NoticeAdapter;
-import com.example.jewelryecommerceapp.Interfaces.SelectListener;
 import com.example.jewelryecommerceapp.Interfaces.SelectNotice;
 import com.example.jewelryecommerceapp.Models.Notice;
 import com.example.jewelryecommerceapp.R;
