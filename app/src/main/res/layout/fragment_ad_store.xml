@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/adstorefragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.AdStoreFragment">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:text="Kho hàng"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/store_btn_ring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#fff"
+                android:text="Nhẫn"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/store_btn_cpring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#fff"
+                android:text="Nhẫn đôi"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/store_btn_necklace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#fff"
+                android:text="Dây Chuyền"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/store_btn_bracelet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#fff"
+                android:text="Vòng"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/store_btn_earring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#fff"
+                android:text="Bông Tai"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="30sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/square_black_stroke"
+            android:gravity="center"
+            android:text="Mã"
+            android:textAlignment="center"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="80sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/square_black_stroke"
+            android:gravity="center"
+            android:text="Tên"
+            android:textAlignment="center"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="20sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/square_black_stroke"
+            android:gravity="center"
+            android:text="Giá"
+            android:textAlignment="center"
+            android:textSize="18dp" />
+        />
+
+        <TextView
+            android:layout_width="20sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/square_black_stroke"
+            android:gravity="center"
+            android:text="Số lượng"
+            android:textAlignment="center"
+            android:textSize="18dp" />
+        />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_store_prd"
+        android:layout_width="match_parent"
+        android:layout_height="558dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+    </LinearLayout>
+</LinearLayout>

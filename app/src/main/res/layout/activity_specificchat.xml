@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:app="http://schemas.android.com/apk/res-auto"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="#ECE5DD"
+				tools:context=".Activities.StaffSpecificChatActivity"
+				>
+
+
+
+	<androidx.appcompat.widget.Toolbar
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:layout_marginTop="0dp"
+			android:background="@color/white"
+			android:id="@+id/toolbarofspecificchat">
+
+		<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center_vertical">
+
+			<androidx.appcompat.widget.AppCompatButton
+					android:layout_width="30dp"
+					android:layout_height="30dp"
+					android:id="@+id/backbuttonofspecificchat"
+					android:background="@drawable/ic_back"
+					android:layout_centerVertical="true"/>
+
+
+
+			<androidx.cardview.widget.CardView
+					android:layout_width="35dp"
+					android:layout_height="35dp"
+					android:id="@+id/cardviewofspeficuser"
+					android:layout_marginLeft="10dp"
+					android:layout_toRightOf="@id/backbuttonofspecificchat"
+					android:layout_centerVertical="true"
+					app:cardCornerRadius="35dp">
+
+
+				<ImageView
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:src="@drawable/default_user"
+						android:id="@+id/specificuserimageinimageview"
+						android:scaleType="centerCrop">
+
+				</ImageView>
+
+
+
+			</androidx.cardview.widget.CardView>
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Name of User"
+					android:textSize="20sp"
+					android:layout_toRightOf="@id/cardviewofspeficuser"
+					android:id="@+id/Nameofspecificuser"
+					android:layout_marginLeft="10dp"
+
+					android:layout_centerVertical="true"
+					android:textStyle="bold"
+					android:textColor="@color/black">
+
+			</TextView>
+
+
+		</RelativeLayout>
+
+
+
+
+	</androidx.appcompat.widget.Toolbar>
+
+	<androidx.recyclerview.widget.RecyclerView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_above="@id/getmessage"
+			android:id="@+id/recyclerviewofspecific"
+			android:layout_below="@id/toolbarofspecificchat"
+			android:background="#E7E7E4"
+			android:padding="5dp">
+
+	</androidx.recyclerview.widget.RecyclerView>
+
+	<EditText
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:hint="Type a message"
+			android:layout_marginLeft="5dp"
+			android:layout_marginBottom="5dp"
+			android:paddingLeft="20dp"
+
+			android:paddingEnd="10dp"
+			android:textSize="18sp"
+			android:background="@drawable/send_background"
+			android:textAlignment="textStart"
+			android:layout_alignParentBottom="true"
+			android:layout_marginRight="55dp"
+			android:textColor="@color/black"
+			android:textColorHint="#A8A7A7"
+			android:id="@+id/getmessage" />
+
+
+	<androidx.cardview.widget.CardView
+			android:layout_width="45dp"
+			android:layout_height="45dp"
+			android:id="@+id/carviewofsendmessage"
+			android:layout_toRightOf="@id/getmessage"
+			android:layout_marginLeft="-50dp"
+			android:layout_marginBottom="5dp"
+			android:background="@drawable/background_circle_send"
+			android:layout_alignParentBottom="true"
+			app:cardCornerRadius="45dp">
+
+		<LinearLayout
+				android:layout_width="45dp"
+				android:layout_height="45dp"
+				android:background="@drawable/background_circle_send"
+				android:padding="8dp"
+				android:id="@+id/imageviewsendmessage"
+				android:layout_marginEnd="8dp"
+				>
+			<ImageView
+
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:layout_gravity="center"
+					android:src="@drawable/ic_send"
+					android:tint="@color/white"
+					android:layout_weight="1"
+					tools:ignore="UseAppTint" />
+
+		</LinearLayout>
+
+
+
+	</androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>
