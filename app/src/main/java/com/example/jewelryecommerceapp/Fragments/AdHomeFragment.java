@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.jewelryecommerceapp.Activities.CustomerViewChatActivity;
 import com.example.jewelryecommerceapp.Activities.NoticeAdActivity;
+import com.example.jewelryecommerceapp.Activities.StaffChatBoardActivity;
 import com.example.jewelryecommerceapp.Adapters.ServiceAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopRateAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopWeekAdapter;
@@ -202,7 +204,14 @@ public class AdHomeFragment extends Fragment {
         rc_service.setHasFixedSize(true);
         rc_service.setAdapter(serviceAdapter);
 
-
+        ad_chat = view.findViewById(R.id.ad_chat);
+        ad_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), StaffChatBoardActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

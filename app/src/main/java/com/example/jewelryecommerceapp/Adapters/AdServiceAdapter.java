@@ -72,7 +72,6 @@ public class AdServiceAdapter extends RecyclerView.Adapter<AdServiceAdapter.AdSe
                     }
                 });
 
-                // Hiển thị PopupMenu
                 popupMenu.show();
             }
         });
@@ -90,15 +89,13 @@ public class AdServiceAdapter extends RecyclerView.Adapter<AdServiceAdapter.AdSe
                 String inputText = s.toString();
                 if (inputText.length() > 1 && inputText.startsWith("0") && !inputText.startsWith("0.")) {
                     s.delete(0, 1);
-                        AdService adService = serviceList.get(position);
-                        adService.setServicePrice((int) Double.parseDouble(s.toString()));
-
-                        Log.d("QWER","VALUE"+(int) Double.parseDouble(s.toString()));
-                        Log.d("ABBCCCC","Value"+service.getServicePrice());
-                        calculateTotalValue();
                     }
+                AdService adService = serviceList.get(position);
+                adService.setServicePrice((int) Double.parseDouble(s.toString()));
+                calculateTotalValue();
             }
         });
+
 
     };
 
@@ -120,7 +117,7 @@ public class AdServiceAdapter extends RecyclerView.Adapter<AdServiceAdapter.AdSe
         for (AdService service : serviceList) {
             totalValue += service.getServicePrice();
         }
-        //Log.d("TotalValue", "Total value: " + totalValue);
+        totalValueTextView.setText(String.valueOf(totalValue));
 
         return totalValue;
 

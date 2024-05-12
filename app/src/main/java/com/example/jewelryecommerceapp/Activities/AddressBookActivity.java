@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ public class AddressBookActivity extends AppCompatActivity {
     private ImageView Back;
     private ListView lvAddressBook;
     private ArrayAdapter<Address> addresses=null;
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -41,9 +43,7 @@ public class AddressBookActivity extends AppCompatActivity {
     }
     private void setupListView()
     {
-
         lvAddressBook = findViewById(R.id.listview_addressBook);
-
     }
 
 

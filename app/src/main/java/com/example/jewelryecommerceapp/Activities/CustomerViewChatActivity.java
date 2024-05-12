@@ -1,6 +1,7 @@
 package com.example.jewelryecommerceapp.Activities;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -62,6 +63,7 @@ public class CustomerViewChatActivity extends AppCompatActivity {
     adapter_message messagesAdapter;
     ArrayList<message_object> messagesArrayList;
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +102,7 @@ public class CustomerViewChatActivity extends AppCompatActivity {
                 child("chats").child(senderroom).child("messages");
         messagesAdapter = new adapter_message(CustomerViewChatActivity.this, messagesArrayList);
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesArrayList.clear();

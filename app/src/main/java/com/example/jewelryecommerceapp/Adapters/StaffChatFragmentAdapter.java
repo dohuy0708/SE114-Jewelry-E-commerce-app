@@ -1,8 +1,10 @@
 package com.example.jewelryecommerceapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,40 +35,33 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
         this.arrayListOld = objects;
     }
 
-    public StaffChatFragmentAdapter.NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StaffChatFragmentAdapter.@NotNull NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_user_row, parent, false);
         return new NoteViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int position) {
-        User firebasemodel = arrayList.get(position);
-        if(firebasemodel == null)
+        User firebaseModel = arrayList.get(position);
+       /* if(firebaseModel == null)
         {
             return;
-        }
-        noteViewHolder.particularusername.setText(firebasemodel.getNAME());
-        String uri=firebasemodel.getIMG();
+        }*/
+        noteViewHolder.particularusername.setText(firebaseModel.getNAME());
+        String uri=firebaseModel.getIMG();
 
         Picasso.get().load(uri).into(noteViewHolder.mimageviewofuser);
-        /*if(firebasemodel.getStatus().equals("Online"))
-        {
-            noteViewHolder.statusofuser.setText(firebasemodel.getStatus());
-            noteViewHolder.statusofuser.setTextColor(Color.GREEN);
-        }
-        else
-        {
-            noteViewHolder.statusofuser.setText(firebasemodel.getStatus());
-        }*/
 
         noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userID = arrayList.get(position).getUID();
                 Intent intent=new Intent(view.getContext(), StaffSpecificChatActivity.class);
-                intent.putExtra("name",firebasemodel.getNAME());
-                intent.putExtra("receiveruid",firebasemodel.getUID());
-                intent.putExtra("imageuri",firebasemodel.getIMG());
-                intent.putExtra("type",firebasemodel.getTYPE());
+                intent.putExtra("NAME",firebaseModel.getNAME());
+                intent.putExtra("UID",firebaseModel.getUID());
+                intent.putExtra("IMG",firebaseModel.getIMG());
+
+                //intent.putExtra("type",firebaseModel.getTYPE());
                 view.getContext().startActivity(intent);
             }
         });
@@ -78,10 +73,13 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
     }
     @Override
     public int getItemCount() {
+        Log.d("size","value"+arrayList.size());
+        Log.d("size","value"+arrayListOld.size());
         if(arrayList!=null)
             return arrayList.size();
         return 0;
     }
+
 
     @Override
     public Filter getFilter() {
@@ -107,6 +105,7 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
                 return filterResults;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 arrayList = (ArrayList<User>) filterResults.values;
@@ -114,7 +113,7 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
             }
         };
     }
-
+    @SuppressLint("NotifyDataSetChanged")
     public void setData(ArrayList<User> arrayList)
     {
         this.arrayList=arrayList;
@@ -131,7 +130,6 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             particularusername=itemView.findViewById(R.id.nameofuser);
-            statusofuser=itemView.findViewById(R.id.statusofuser);
             mimageviewofuser=itemView.findViewById(R.id.imageviewofuser);
         }
     }

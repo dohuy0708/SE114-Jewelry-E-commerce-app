@@ -13,7 +13,6 @@ public class AdService {
         this.serviceDescription = serviceDescription;
     }
 
-    // Getter and setter for serviceType
     public String getServiceType() {
         return serviceType;
     }
@@ -22,7 +21,6 @@ public class AdService {
         this.serviceType = serviceType;
     }
 
-    // Getter and setter for serviceCode
     public String getServiceCode() {
         return serviceCode;
     }
@@ -31,7 +29,6 @@ public class AdService {
         this.serviceCode = serviceCode;
     }
 
-    // Getter and setter for servicePrice
     public int getServicePrice() {
         return servicePrice;
     }
@@ -40,11 +37,9 @@ public class AdService {
         this.servicePrice = servicePrice;
     }
 
-    // Getter and setter for serviceDescription
     public String getServiceDescription() {
         return serviceDescription;
     }
-
     public void setServiceDescription(String serviceDescription) {
         this.serviceDescription = serviceDescription;
     }

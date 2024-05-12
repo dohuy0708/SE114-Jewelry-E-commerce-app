@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,6 @@ import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Adapters.adapter_message;
 import com.example.jewelryecommerceapp.item.message_object;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,8 +28,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 
@@ -59,6 +57,7 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
     adapter_message messagesAdapter;
     ArrayList<message_object> messagesArrayList;
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,15 +82,15 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
 
         setSupportActionBar(mtoolbarofspecificchat);
 
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
         calendar=Calendar.getInstance();
         simpleDateFormat=new SimpleDateFormat("hh:mm a");
 
 
-        msenderuid=firebaseAuth.getUid();
+        msenderuid= firebaseAuth.getUid();
         type = intent.getStringExtra("type");
-        mrecieveruid=getIntent().getStringExtra("receiveruid");
+        mrecieveruid=getIntent().getStringExtra("receiverUID");
         mrecievername=getIntent().getStringExtra("name");
 
         try {
@@ -112,6 +111,7 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
                 child("chats").child(senderroom).child("messages");
         messagesAdapter=new adapter_message(StaffSpecificChatActivity.this,messagesArrayList);
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesArrayList.clear();
@@ -140,7 +140,7 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
         });
 
         mnameofspecificuser.setText(mrecievername);
-        String uri=intent.getStringExtra("imageuri");
+        String uri=intent.getStringExtra("IMG");
         try{
             if(uri.isEmpty())
             {
