@@ -41,7 +41,7 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int position) {
+    public void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, @SuppressLint("RecyclerView") int position) {
         User firebaseModel = arrayList.get(position);
        /* if(firebaseModel == null)
         {
