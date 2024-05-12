@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
+import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
 
@@ -25,7 +27,7 @@ public class Payment extends AppCompatActivity {
     ImageView back;
     RecyclerView pross;
     CartProductsAdapter adt;
-    ArrayList<Product> listpro;
+    ArrayList<CartItem> listpro;
     TextView add;
     TextView shipmoney;
     TextView totalpro;
@@ -41,6 +43,10 @@ public class Payment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         EdgeToEdge.enable(this);
+
+        Intent myintent  = getIntent();
+        String productType = myintent.getStringExtra("type");
+        String productID= myintent.getStringExtra("ID");
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -95,6 +101,6 @@ public class Payment extends AppCompatActivity {
             }
         });
     }
-    private void initListPro(ArrayList<Product> listpro) {
+    private void initListPro(ArrayList<CartItem> listpro) {
     }
 }

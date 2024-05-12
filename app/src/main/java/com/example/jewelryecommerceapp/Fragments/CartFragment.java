@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,10 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Activities.LoadingDialog;
 import com.example.jewelryecommerceapp.Activities.Payment;
+import com.example.jewelryecommerceapp.Activities.ProductDetailActivity;
 import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
+import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,6 +78,9 @@ public class CartFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+        // nếu chưa thì show dialog
     }
 
     @Override
@@ -79,11 +88,14 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart, container, false);
+
+
+
     }
 
     ImageView logo;
-
-    ArrayList<Product> Pros;
+    private LoadingDialog loadingDialog;
+    ArrayList<CartItem> Pros;
     RecyclerView inCartPros;
     CartProductsAdapter Adt;
     TextView tienspp;
@@ -93,45 +105,53 @@ public class CartFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view,savedInstanceState);
-        Pros=new ArrayList<>();
-        initProduct(Pros);
-        Adt=new CartProductsAdapter(getContext(),Pros);
-        inCartPros=view.findViewById(R.id.Cartt);
-        inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
-        inCartPros.setHasFixedSize(true);
-        inCartPros.setAdapter(Adt);
+        super.onViewCreated(view, savedInstanceState);
+        loadingDialog = new LoadingDialog(getActivity());
+        Pros = new ArrayList<>();
+        inCartPros = view.findViewById(R.id.Cartt);
 
-        Adt.notifyDataSetChanged();
 
-        logo=view.findViewById(R.id.logo);
-        tienspp=view.findViewById(R.id.tiensp);
-        promotee=view.findViewById(R.id.promote);
-        ordernoww=view.findViewById(R.id.ordernow);
-        totalll=view.findViewById(R.id.tccc);
+
+        logo = view.findViewById(R.id.logo);
+        tienspp = view.findViewById(R.id.tiensp);
+        promotee = view.findViewById(R.id.promote);
+        ordernoww = view.findViewById(R.id.ordernow);
+        totalll = view.findViewById(R.id.tccc);
         totalll.setText("Tổng cộng: ");//+ String.valueOf(Integer.parseInt(tienspp.getText().toString())-Integer.parseInt(promotee.getText().toString())));
         ordernoww.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(),Payment.class );
+                Intent i = new Intent(getActivity(), Payment.class);
                 startActivity(i);
             }
         });
+        //  Kiem tra da dang nhap hay chua
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            // showToastWithIcon(R.drawable.attention_icon,"Bạn cần Đăng nhập để xem Giỏ hàng!");
+
+        } else {
+            String userID = user.getUid();
+            GetCartItemFromFireBase(userID);
+        }
+
+
     }
 
-    private void initProduct(ArrayList<Product> pros) {
+    private void SetUI() {
+        Adt = new CartProductsAdapter(getContext(), Pros);
 
+        inCartPros.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        inCartPros.setHasFixedSize(true);
+        inCartPros.setAdapter(Adt);
 
-       /* Pros.add(new Product(R.drawable.ic_home,"aloalo",2999000));
-        Pros.add(new Product(R.drawable.demo,"assdasd",2999000));*/
-        GetNewListFromDataBase();
     }
 
-    private void GetNewListFromDataBase() {
 
-
+    private void GetCartItemFromFireBase(String userID) {
+        loadingDialog.show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Product/Nhẫn đôi");
+        DatabaseReference ref = database.getReference("Cart").child(userID);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -139,12 +159,15 @@ public class CartFragment extends Fragment {
                 // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    Product product = dataSnapshot.getValue(Product.class);
-                   Pros.add(product);
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                    Pros.add(item);
+
 
                 }
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
-               Adt.notifyDataSetChanged();
+
+                SetUI();
+                loadingDialog.cancel();
 
             }
 
@@ -154,5 +177,28 @@ public class CartFragment extends Fragment {
             }
         });
 
+
+
+    }
+
+
+
+
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(getActivity());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 }
+

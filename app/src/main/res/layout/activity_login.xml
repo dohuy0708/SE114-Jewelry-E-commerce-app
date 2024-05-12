@@ -13,13 +13,7 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_back"
         ></ImageView>
-    <ImageView
-        android:id="@+id/back_login"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_back"
-        ></ImageView>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -94,7 +88,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/textView7"

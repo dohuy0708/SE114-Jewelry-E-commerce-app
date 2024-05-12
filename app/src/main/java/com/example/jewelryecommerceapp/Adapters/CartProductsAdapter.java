@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Models.Product;
 
@@ -27,8 +28,8 @@ import java.util.ArrayList;
 public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapter.ProductViewHolder> {
 
     Context context;
-    ArrayList<Product> listPro;
-    public CartProductsAdapter(Context context, ArrayList<Product> listPro)
+    ArrayList<CartItem> listPro;
+    public CartProductsAdapter(Context context, ArrayList<CartItem> listPro)
     {
         this.context=context;
         this.listPro=listPro;
@@ -41,17 +42,18 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
     }
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position){
-        Product pro=listPro.get(position);
-        ArrayList<String> imagelist = listPro.get(position).getImagelist();
+
+
+        CartItem pro = listPro.get(position);
         if (pro==null)
             return;
         holder.namePro.setText(pro.getProductName());
        // holder.imgPro.setImageResource(pro.getImg());
         CartProductsAdapter.ProductViewHolder productViewHolder= (CartProductsAdapter.ProductViewHolder) holder;
-        Glide.with(context).load(imagelist.get(0)).into(((ProductViewHolder) holder).imgPro);
+        Glide.with(context).load(pro.getImage()).into(((ProductViewHolder) holder).imgPro);
         String s=holder.numm.getText().toString();
         int numb=Integer.parseInt(s);
-        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice());
+        holder.pricee.setText("Giá: "+ pro.getProductPrice()+"đ");
         holder.pluss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +116,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         TextView minuss;
         EditText numm;
         CheckBox check;
-        ImageView binn;
+       TextView binn;
 
         public ProductViewHolder(@NonNull View view) {
             super(view);

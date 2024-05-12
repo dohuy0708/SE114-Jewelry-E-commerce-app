@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_toast_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background= "@drawable/rounded_corner"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    >
+
+    <ImageView
+        android:id="@+id/toast_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/succecss_icon"
+        android:contentDescription="@null"
+        android:layout_marginRight="8dp"/>
+
+    <TextView
+        android:id="@+id/toast_text"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Your message here"
+        android:textColor="#000000"
+        android:textSize="16sp"/>
+
+</LinearLayout>
