@@ -1,26 +1,37 @@
 package com.example.jewelryecommerceapp.Adapters;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Models.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -47,6 +58,27 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         CartItem pro = listPro.get(position);
         if (pro==null)
             return;
+
+        holder.check.setChecked(pro.getIsChoose() == 1);
+
+        // Lắng nghe sự kiện click vào checkbox
+        holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Cập nhật giá trị của isChoose dựa trên trạng thái của checkbox
+                pro.setIsChoose(isChecked ? 1 : 0);
+                // Thông báo cho Adapter biết dữ liệu đã thay đổi để cập nhật giao diện
+                notifyItemChanged(position);
+                // Gọi hàm để cập nhật dữ liệu trên Firebase
+                String userID = pro.getUserID();
+                String productName = pro.getProductName();
+                UpdateCheckInFireBase(userID, productName, pro);
+            }
+        });
+
+
+
+
         holder.namePro.setText(pro.getProductName());
        // holder.imgPro.setImageResource(pro.getImg());
         CartProductsAdapter.ProductViewHolder productViewHolder= (CartProductsAdapter.ProductViewHolder) holder;
@@ -96,15 +128,83 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             @Override
             public void onClick(View v) {
                 listPro.remove(pro);
+                notifyItemChanged(position);
+                String userID = pro.getUserID();
+                String productName = pro.getProductName();
+                RemoveCartItemInFireBase(userID,productName,pro);
             }
         });
 
+        holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            }
+        });
+
+    }
+
+    private void RemoveCartItemInFireBase(String userID, String productName, CartItem pro) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Cart").child(userID);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                    if (item.getProductName().equals(productName)) {
+                        // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
+                        String key = dataSnapshot.getKey();
+                        DatabaseReference itemRef = ref.child(key);
+                        itemRef.setValue(pro); // Cập nhật dữ liệu mới
+                        break; // Kết thúc vòng lặp sau khi cập nhật
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
+
+    private void UpdateCheckInFireBase(String userID, String productName, CartItem pro) {
+        Log.d("FirebaseUpdate", "UpdateCheckInFireBase: Updating product " + productName + " for user " + userID);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Cart").child(userID);
+
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                    if (item.getProductName().equals(productName)) {
+                        // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
+                        String key = dataSnapshot.getKey();
+                        DatabaseReference itemRef = ref.child(key);
+                        itemRef.setValue(pro); // Cập nhật dữ liệu mới
+                        break; // Kết thúc vòng lặp sau khi cập nhật
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi nếu có
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return listPro.size();
     }
+
+
+
 
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
