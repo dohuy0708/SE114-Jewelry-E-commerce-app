@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import com.bumptech.glide.Glide;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -126,6 +127,7 @@ public class EditProfileActivity extends AppCompatActivity {
             avatar.setImageURI(imageUri);
         }
     }
+
     private void getUserImformation()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -140,6 +142,7 @@ public class EditProfileActivity extends AppCompatActivity {
         fullname.getEditText().setText(Name);
         phoneNumber.getEditText().setText(Phone);
         email.getEditText().setText(Email);
+        Glide.with(this).load(imageUri).error(R.drawable.ic_user).into(avatar);
 
     }
     private  void onClickUpdateUserProfile()
