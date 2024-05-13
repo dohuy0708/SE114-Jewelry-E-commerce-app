@@ -139,7 +139,7 @@
 						android:text="Hoàn thành"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:id="@+id/button9"
+						android:id="@+id/addproduct_btn"
 
 						app:layout_constraintTop_toTopOf="parent"
 						android:layout_marginTop="228dp"

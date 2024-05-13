@@ -62,6 +62,16 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        boolean showThirdFragment = getIntent().getBooleanExtra("showCart", false);
+
+        if (showThirdFragment) {
+            // Hiển thị Fragment thứ ba
+            pagerMain.setCurrentItem(2);
+        } else {
+            // Hiển thị Fragment đầu tiên
+            pagerMain.setCurrentItem(0);
+        }
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
