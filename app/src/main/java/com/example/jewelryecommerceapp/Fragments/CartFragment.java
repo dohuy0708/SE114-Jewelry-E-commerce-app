@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -157,15 +159,37 @@ public class CartFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
+               Pros.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     CartItem item = dataSnapshot.getValue(CartItem.class);
                     Pros.add(item);
 
-
                 }
-                //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
 
+                /*// Sử dụng một map để theo dõi số lượng sản phẩm
+                Map<String, CartItem> productMap = new HashMap<>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+
+                    if (item != null) {
+                        // Kiểm tra nếu sản phẩm đã tồn tại trong map
+                        if (productMap.containsKey(item.getProductName())) {
+                            // Tăng amount của sản phẩm đã tồn tại
+                            CartItem existingItem = productMap.get(item.getProductName());
+                            existingItem.setAmount(existingItem.getAmount() + item.getAmount());
+                        } else {
+                            // Thêm sản phẩm mới vào map
+                            productMap.put(item.getProductName(), item);
+                        }
+                    }
+                }
+
+                // Thêm tất cả sản phẩm từ map vào danh sách Pros
+                Pros.addAll(productMap.values());
+
+                //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+*/
                 SetUI();
                 loadingDialog.cancel();
 

@@ -61,14 +61,18 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
 
         holder.check.setChecked(pro.getIsChoose() == 1);
 
+
         // Lắng nghe sự kiện click vào checkbox
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d("Ckickcheckbox","onclick");
                 // Cập nhật giá trị của isChoose dựa trên trạng thái của checkbox
                 pro.setIsChoose(isChecked ? 1 : 0);
+
                 // Thông báo cho Adapter biết dữ liệu đã thay đổi để cập nhật giao diện
                 notifyItemChanged(position);
+
                 // Gọi hàm để cập nhật dữ liệu trên Firebase
                 String userID = pro.getUserID();
                 String productName = pro.getProductName();
@@ -77,19 +81,30 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         });
 
 
-
-
         holder.namePro.setText(pro.getProductName());
        // holder.imgPro.setImageResource(pro.getImg());
         CartProductsAdapter.ProductViewHolder productViewHolder= (CartProductsAdapter.ProductViewHolder) holder;
         Glide.with(context).load(pro.getImage()).into(((ProductViewHolder) holder).imgPro);
-        String s=holder.numm.getText().toString();
-        int numb=Integer.parseInt(s);
-        holder.pricee.setText("Giá: "+ pro.getProductPrice()+"đ");
+
+        // set dữ liệu cho number
+        holder.numm.setText(pro.getAmount()+"");
+
+     /*   String s=holder.numm.getText().toString();
+        int numb=Integer.parseInt(s);*/
+
+        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice()+"đ");
         holder.pluss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nt=holder.numm.getText().toString();
+
+                pro.setAmount(pro.getAmount()+1);
+
+                notifyItemChanged(position);
+                    PlusAmountofIteminFirebase(pro.getUserID(),pro.getProductName(),pro);
+
+
+              //  notifyItemChanged(position);
+                /*String nt=holder.numm.getText().toString();
                 if(!TextUtils.isEmpty(nt))
                 {
                     int numb=Integer.parseInt(nt);
@@ -99,13 +114,13 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                 else
                 {
                     holder.numm.setError("Vui lòng nhập số!");
-                }
+                }*/
             }
         });
         holder.minuss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(holder.numm.getText().toString()))
+               /* if(!TextUtils.isEmpty(holder.numm.getText().toString()))
                 {
                     int numb=Integer.parseInt(holder.numm.getText().toString());
                     numb--;
@@ -121,6 +136,18 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                 else
                 {
                     holder.numm.setError("Vui lòng nhập số!");
+                }*/
+
+                if(pro.getAmount()==1)
+                {
+                    // hiện lỗi gì đó
+                }
+                else
+                {
+                    pro.setAmount(pro.getAmount()-1);
+
+                    notifyItemChanged(position);
+                    SubAmountofIteminFirebase(pro.getUserID(),pro.getProductName(),pro);
                 }
             }
         });
@@ -128,36 +155,112 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             @Override
             public void onClick(View v) {
                 listPro.remove(pro);
-                notifyItemChanged(position);
+                notifyItemRemoved(position);
                 String userID = pro.getUserID();
                 String productName = pro.getProductName();
                 RemoveCartItemInFireBase(userID,productName,pro);
             }
         });
 
-        holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    }
 
+    private void SubAmountofIteminFirebase(String userID, String productName, CartItem pro) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Cart").child(userID);
+        DatabaseReference itemRef = database.getReference("Cart").child(userID);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                    if (item.getProductName().equals(productName)) {
+
+                        // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
+                        String key = dataSnapshot.getKey();
+                        //   DatabaseReference itemRef = ref.child(key);
+                        itemRef.child(key).setValue(pro, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                            }
+                        }); // Cập nhật dữ liệu mới
+                        break; // Kết thúc vòng lặp sau khi cập nhật
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
+
+
+    //////???? đang lam f
+    private void PlusAmountofIteminFirebase(String userID,String productName, CartItem pro) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Cart").child(userID);
+        DatabaseReference itemRef = database.getReference("Cart").child(userID);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                    if (item.getProductName().equals(productName)) {
+
+                        // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
+                        String key = dataSnapshot.getKey();
+                        //   DatabaseReference itemRef = ref.child(key);
+                        itemRef.child(key).setValue(pro, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                            }
+                        }); // Cập nhật dữ liệu mới
+                        break; // Kết thúc vòng lặp sau khi cập nhật
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý lỗi nếu có
             }
         });
 
     }
 
     private void RemoveCartItemInFireBase(String userID, String productName, CartItem pro) {
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Cart").child(userID);
+        DatabaseReference itemRef = database.getReference("Cart").child(userID);
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                     CartItem item = dataSnapshot.getValue(CartItem.class);
+                    // thêm vòng lặp for , tìm hết tất cả sản phẩm có tên giống thì xóa r
                     if (item.getProductName().equals(productName)) {
+
                         // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
                         String key = dataSnapshot.getKey();
-                        DatabaseReference itemRef = ref.child(key);
-                        itemRef.setValue(pro); // Cập nhật dữ liệu mới
+                          itemRef.child(key).removeValue(new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                if (error != null) {
+                                 } else {
+                                 }
+                            }
+                        });
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
@@ -171,21 +274,28 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
     }
 
     private void UpdateCheckInFireBase(String userID, String productName, CartItem pro) {
-        Log.d("FirebaseUpdate", "UpdateCheckInFireBase: Updating product " + productName + " for user " + userID);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Cart").child(userID);
-
+        DatabaseReference itemRef = database.getReference("Cart").child(userID);
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                     CartItem item = dataSnapshot.getValue(CartItem.class);
                     if (item.getProductName().equals(productName)) {
+
                         // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
                         String key = dataSnapshot.getKey();
-                        DatabaseReference itemRef = ref.child(key);
-                        itemRef.setValue(pro); // Cập nhật dữ liệu mới
+                         //   DatabaseReference itemRef = ref.child(key);
+                        itemRef.child(key).setValue(pro, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                            }
+                        }); // Cập nhật dữ liệu mới
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
