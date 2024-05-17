@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,14 +23,37 @@
                 android:text="Chất liệu"
                 android:textSize="20dp" />
 
-            <GridView
-                android:id="@+id/Material_List"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="67dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center"
-                android:nestedScrollingEnabled="true"
-                android:numColumns="3" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/filter_btn_gold"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_background1"
+                    android:text="Vàng" />
+
+                <Button
+                    android:id="@+id/filter_btn_whitegold"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_background1"
+                    android:text="Vàng Trắng" />
+
+                <Button
+                    android:id="@+id/filter_btn_silver"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/button_background1"
+                    android:text="Bạc" />
+            </LinearLayout>
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -38,6 +62,51 @@
                 android:layout_marginVertical="10dp" />
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/filter_btn_diamond"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_background1"
+                    android:text="Kim cương" />
+
+                <Button
+                    android:id="@+id/filter_btn_pearl"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_background1"
+                    android:text="Hột Xoàn" />
+
+                <Button
+                    android:id="@+id/filter_btn_gemstone"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/button_background1"
+                    android:text="Đá Quý" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đính kèm"
+                android:textSize="20dp" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp" />
 
             <TextView
                 android:id="@+id/filter_tvPriceRange"
@@ -73,7 +142,7 @@
                 android:id="@+id/filter_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="100"
+                android:max="100000000"
                 android:progress="100" />
 
             <Button
