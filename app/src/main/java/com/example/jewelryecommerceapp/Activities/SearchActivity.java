@@ -3,6 +3,7 @@ package com.example.jewelryecommerceapp.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,8 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements FilterFragment.OnDataPass {
     private ImageView btnFilter;
+    private Button Apply;
     private FrameLayout filterFrame;
     private Fragment filterFragment;
     private TextView categoryName;
@@ -44,7 +46,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private ProductAdapter productAdapter;
     private LoadingDialog loadingDialog;
-    public static int selectedPrice = 0;
+    private int selectedPrice;
+    private String Material,Mounted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,12 +81,6 @@ public class SearchActivity extends AppCompatActivity {
            GetProductListSearchFromFireBase(input);
        }
 
-
-
-
-
-
-
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +106,7 @@ public class SearchActivity extends AppCompatActivity {
             startActivity(intent);
             }
         });*/
+
     }
 
     private void GetProductListDetailFromFireBase(String categoryname) {
@@ -254,6 +252,7 @@ public class SearchActivity extends AppCompatActivity {
     private void reference() {
         btnFilter = findViewById(R.id.btnFilter);
         etSearch = findViewById(R.id.searchFragment_etSearch);
+        filterFrame=findViewById(R.id.filter_frame);
         rc_product=findViewById(R.id.rc_product);
         categoryName=findViewById(R.id.category_name);
         btnback=findViewById(R.id.btnback);
@@ -272,5 +271,22 @@ public class SearchActivity extends AppCompatActivity {
         productList.add(new Product(R.drawable.demo,"Nhẫn",599999));
         productList.add(new Product(R.drawable.demo,"Nhẫn",599999));*/
     }
+//sự kiện filter
+    @Override
+    public void onDataPass(String material, String mounted, int price) {
+        Material=material;Mounted=mounted;selectedPrice=price;
+        Toast.makeText(this, Material+Mounted+selectedPrice, Toast.LENGTH_SHORT).show();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+        filterFragment = getSupportFragmentManager().findFragmentByTag(FilterFragment.TAG);
+
+        if (filterFragment != null) {
+            if (filterFragment.isVisible()) {
+                transaction.replace(R.id.filter_frame, new Fragment()).addToBackStack(FilterFragment.TAG);
+                transaction.commit();
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
+        }
+    }
 }

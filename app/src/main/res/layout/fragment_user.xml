@@ -88,6 +88,12 @@
                     android:layout_marginTop="10dp"
                     android:text="Thông tin"
                     style="@style/UserButtonStyle"/>
+            <Button
+                    android:id="@+id/help"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Hỗ trợ"
+                    style="@style/UserButtonStyle"/>
 
             <Button
                     android:id="@+id/SignOut"
