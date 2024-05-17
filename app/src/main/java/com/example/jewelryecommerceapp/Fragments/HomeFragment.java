@@ -2,14 +2,17 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import com.example.jewelryecommerceapp.Activities.ProductDetailActivity;
 import com.example.jewelryecommerceapp.Activities.SearchActivity;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
+import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,13 +35,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,12 +89,11 @@ public class HomeFragment extends Fragment {
         }
 
 
-
         ///  Đẩy dữ liệu lên firebase
-    //   StorageReference storageReference = FirebaseStorage.getInstance().getReference("Vòng tay");
+        //   StorageReference storageReference = FirebaseStorage.getInstance().getReference("Vòng tay");
 
 
-      /*  ArrayList<String> imagelist = new ArrayList<>();
+       /* ArrayList<String> imagelist = new ArrayList<>();
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/D%C3%A2y%20chuy%E1%BB%81n%2Fsample6%2Fdcbtcc99-4_e4d63a0e6d5d4ca08f66cd3d1970e0fc.webp?alt=media&token=cb52d84c-0d11-455d-b975-7e0dd7d91f2f");
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/D%C3%A2y%20chuy%E1%BB%81n%2Fsample6%2Fdcbtcc99-5_0314c7f2f8134cc595fd6a98b357f632.webp?alt=media&token=0e47ba48-03ba-49f7-a460-85abdc5a8055");
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/D%C3%A2y%20chuy%E1%BB%81n%2Fsample6%2Fdcbtcc99_1_7583d6be9bf1406ba40c6c369e5d3d94.webp?alt=media&token=e243584a-6fb0-40d0-afb2-2e7834906af2");
@@ -125,10 +131,26 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 }
             }
-        });*/
+        });
+    }*/
+        LocalDate startDate = LocalDate.of(2024, 2, 10);
+        LocalDate endDate = LocalDate.of(2024, 2, 14);
+
+        Voucher voucher = new Voucher("n1","VALENTINE2024", "Nhân ngày Valentine(14/2) cửa hàng khuyến mãi siêu khủng, giảm giá 300k cho hóa đơn trên 5 triệu đồng.", 300, 5000000, startDate, endDate);
+        FirebaseDatabase data = FirebaseDatabase.getInstance();
+        DatabaseReference ref = data.getReference("Voucher");
+        ref.push().setValue(voucher, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                Toast.makeText(getActivity(),"đẩy voucher thành cônng",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+
+
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
