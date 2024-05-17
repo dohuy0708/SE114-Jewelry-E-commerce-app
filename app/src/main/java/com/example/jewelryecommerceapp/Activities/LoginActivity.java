@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnlogin;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         InitUI();
         InitListener();
-
+check();
 
     }
 
@@ -123,7 +124,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
+private void check()
+{
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    if (user==null){
+        return;
+    }
+    else{
+        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+        startActivity(intent);
+    }
+}
 
 
 }

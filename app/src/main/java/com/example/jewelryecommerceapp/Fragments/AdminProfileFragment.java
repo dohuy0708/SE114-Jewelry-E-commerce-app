@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AdminProfileFragment extends Fragment {
 
-    Button btnAccountSercurity,btnCustomerManagement,btnEditProfile;
+    Button btnAccountSercurity,btnCustomerManagement,btnEditProfile, btnSetting;
     TextView tvAdname;
     public  AdminProfileFragment() {}
     public static AdminProfileFragment newInstance(String param1, String param2) {
@@ -43,6 +43,7 @@ public class AdminProfileFragment extends Fragment {
         btnAccountSercurity = view.findViewById(R.id.account_sercurity_button);
         btnCustomerManagement = view.findViewById(R.id.customers_management_button);
         btnEditProfile = view.findViewById(R.id.edit_profile_admin);
+        btnSetting = view.findViewById(R.id.setting_button);
         tvAdname = view.findViewById(R.id.tv_adname);
         getUserImformation();
         setupButton();

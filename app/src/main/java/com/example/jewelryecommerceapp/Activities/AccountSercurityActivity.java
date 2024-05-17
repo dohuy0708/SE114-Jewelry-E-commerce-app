@@ -70,7 +70,6 @@ public class AccountSercurityActivity extends AppCompatActivity
         String Email = user.getEmail();
         String Phone = user.getPhoneNumber();
         fullname.getEditText().setText(Name);
-        phoneNumber.getEditText().setText(Phone);
         email.getEditText().setText(Email);
 
     }
