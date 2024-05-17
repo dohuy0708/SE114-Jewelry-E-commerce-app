@@ -3,8 +3,11 @@ package com.example.jewelryecommerceapp.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -32,12 +35,10 @@ public class Payment extends AppCompatActivity {
     TextView shipmoney;
     TextView totalpro;
     TextView totalord;
-    TextView payway;
-
-    TextView choosevoucher;
     Button pay;
     Button setaddr;
-    Button setpayway;
+    EditText promotee;
+    Spinner choosepay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,19 +64,20 @@ public class Payment extends AppCompatActivity {
         back=findViewById(R.id.btnbackkk);
         pay=findViewById(R.id.btnpay);
         setaddr=findViewById(R.id.btnadd);
-        setpayway=findViewById(R.id.btnwaypay);
         add=findViewById(R.id.addd);
         shipmoney=findViewById(R.id.shipfee);
         totalpro=findViewById(R.id.totalp);
         totalord=findViewById(R.id.totalord);
-        payway=findViewById(R.id.payway);
-        choosevoucher=findViewById(R.id.shipvou);
-        choosevoucher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        promotee = findViewById(R.id.inputvoucher);
+        choosepay=findViewById(R.id.spn);
+        totalpro.setText("Tổng giá trị sản phẩm: ");
+        totalord.setText("Tổng hóa đơn: ");
+        shipmoney.setText("Phí vận chuyển: ");
 
-            }
-        });
+        ArrayAdapter<CharSequence> adapterr=ArrayAdapter.createFromResource(this, R.array.items_array, android.R.layout.simple_spinner_item);
+        adapterr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choosepay.setAdapter(adapterr);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +87,15 @@ public class Payment extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String selectedWay=choosepay.getSelectedItem().toString();
+                if(selectedWay=="Thanh toán trực tiếp")
+                {
 
+                }
+                if(selectedWay=="Thanh toán trực tuyến")
+                {
+
+                }
             }
         });
         setaddr.setOnClickListener(new View.OnClickListener() {
@@ -94,12 +104,8 @@ public class Payment extends AppCompatActivity {
 
             }
         });
-        setpayway.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+
     }
     private void initListPro(ArrayList<CartItem> listpro) {
     }

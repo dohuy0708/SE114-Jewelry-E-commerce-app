@@ -9,8 +9,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <View
             android:id="@+id/view5"
@@ -98,7 +99,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -107,23 +108,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
                     android:layout_marginTop="13dp"
+                    android:layout_weight="1"
                     android:text="Phí vận chuyển: "
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/shipvou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Chọn voucher"
-                    android:textSize="14sp"
-                    android:textStyle="italic"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -148,7 +137,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ttpros"
             android:layout_width="match_parent"
-            android:layout_height="272dp"
+            android:layout_height="233dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp" />
 
@@ -164,16 +153,46 @@
             android:textStyle="bold"
             android:layout_marginTop="13dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Voucher: "
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/inputvoucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Nhập mã tại đây"
+                android:textSize="15dp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/totalord"
             android:layout_width="match_parent"
-            android:layout_height="31dp"
+            android:layout_height="35dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
             android:text="Tổng hóa đơn: "
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -183,49 +202,31 @@
             android:layout_marginRight="13dp"
             android:layout_marginLeft="13dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="238dp"
-                    android:layout_height="31dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_weight="1"
-                    android:text="Phương thức thanh toán"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:ignore="DuplicateIds" />
-
-                <Button
-                    android:id="@+id/btnwaypay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:text="Sửa"
-                    tools:ignore="DuplicateIds" />
-            </LinearLayout>
-
             <TextView
-                android:id="@+id/payway"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:layout_width="238dp"
+                android:layout_height="31dp"
                 android:layout_marginLeft="13dp"
-                android:text="Chuyển tiền ngân hàng"
+                android:layout_weight="1"
+                android:text="Phương thức thanh toán"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
+                tools:ignore="DuplicateIds" />
+
+            <Spinner
+                android:id="@+id/spn"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_weight="1" />
+
         </LinearLayout>
 
         <Button
             android:id="@+id/btnpay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thanh toán"
+            android:text="Đặt hàng"
             android:layout_marginRight="13dp"
             android:layout_marginLeft="13dp"
             android:layout_gravity="center"

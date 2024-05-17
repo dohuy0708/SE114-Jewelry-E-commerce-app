@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,15 +96,14 @@ public class CartFragment extends Fragment {
 
     }
 
-    ImageView logo;
     private LoadingDialog loadingDialog;
     ArrayList<CartItem> Pros;
     RecyclerView inCartPros;
     CartProductsAdapter Adt;
-    TextView tienspp;
     TextView totalll;
-    TextView promotee;
     Button ordernoww;
+    CheckBox checkall;
+    int totalprice;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -111,15 +111,33 @@ public class CartFragment extends Fragment {
         loadingDialog = new LoadingDialog(getActivity());
         Pros = new ArrayList<>();
         inCartPros = view.findViewById(R.id.Cartt);
+        ordernoww = view.findViewById(R.id.buybtn);
+        totalll = view.findViewById(R.id.tongtien);
+        checkall=view.findViewById(R.id.checkBoxall);
+        checkall.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(checkall.isChecked())
+                {
+                    for(CartItem item:Pros)
+                    {
+                        item.setIsChoose(1);
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+        });
 
 
+        for (CartItem item:Pros)
+        {
+            totalprice+=item.getProductPrice();
+        }
 
-        logo = view.findViewById(R.id.logo);
-        tienspp = view.findViewById(R.id.tiensp);
-        promotee = view.findViewById(R.id.promote);
-        ordernoww = view.findViewById(R.id.ordernow);
-        totalll = view.findViewById(R.id.tccc);
-        totalll.setText("Tổng cộng: ");//+ String.valueOf(Integer.parseInt(tienspp.getText().toString())-Integer.parseInt(promotee.getText().toString())));
+        totalll.setText("Tổng cộng: "+totalprice);
         ordernoww.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,37 +177,15 @@ public class CartFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
-               Pros.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
                     CartItem item = dataSnapshot.getValue(CartItem.class);
                     Pros.add(item);
 
+
                 }
-
-                /*// Sử dụng một map để theo dõi số lượng sản phẩm
-                Map<String, CartItem> productMap = new HashMap<>();
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    CartItem item = dataSnapshot.getValue(CartItem.class);
-
-                    if (item != null) {
-                        // Kiểm tra nếu sản phẩm đã tồn tại trong map
-                        if (productMap.containsKey(item.getProductName())) {
-                            // Tăng amount của sản phẩm đã tồn tại
-                            CartItem existingItem = productMap.get(item.getProductName());
-                            existingItem.setAmount(existingItem.getAmount() + item.getAmount());
-                        } else {
-                            // Thêm sản phẩm mới vào map
-                            productMap.put(item.getProductName(), item);
-                        }
-                    }
-                }
-
-                // Thêm tất cả sản phẩm từ map vào danh sách Pros
-                Pros.addAll(productMap.values());
-
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
-*/
+
                 SetUI();
                 loadingDialog.cancel();
 
