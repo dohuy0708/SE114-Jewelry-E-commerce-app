@@ -93,6 +93,12 @@
 
 
         </activity>
+        <activity android:name=".Activities.EditProfileActivity"
+                  android:exported="true"/>
+        <activity android:name=".Activities.AccountSercurityActivity"
+                  android:exported="true"/>
+        <activity android:name=".Activities.ChangePasswordActivity"
+                  android:exported="true"/>
     </application>
 
 </manifest>

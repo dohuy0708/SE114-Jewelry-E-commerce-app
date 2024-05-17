@@ -52,32 +52,49 @@
                         android:textSize="20sp"/>
             </LinearLayout>
             <Button
-                    android:id="@+id/rate_button"
-                    android:text="Đơn hàng"
-                    android:textSize="15sp"
-                    style="@style/UserButtonStyle" />
+                    android:id="@+id/edit_profile"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Thông tin cá nhân"
+                    style='@style/UserButtonStyle'
+            />
 
             <Button
                     android:id="@+id/analysis_button"
                     android:text="Phân tích bán hàng"
                     android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     style="@style/UserButtonStyle" />
 
             <Button
                     android:id="@+id/customers_management_button"
                     android:text="Quản lý khách hàng"
                     android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     style="@style/UserButtonStyle" />
 
             <Button
                     android:id="@+id/edit_profile_admin"
                     android:text="Thông tin cá nhân"
                     android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     style="@style/UserButtonStyle" />
             <Button
                     android:id="@+id/account_sercurity_button"
                     android:text="Tài khoản và bảo mật"
                     android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/UserButtonStyle"/>
+            <Button
+                    android:id="@+id/setting_button"
+                    android:text="Tùy chỉnh"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     style="@style/UserButtonStyle"/>
             <Button
                     android:id="@+id/SignOut"
