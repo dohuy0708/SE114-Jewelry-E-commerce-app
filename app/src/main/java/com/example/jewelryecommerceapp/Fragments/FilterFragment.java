@@ -22,8 +22,8 @@ public class FilterFragment extends Fragment {
     private TextView minPrice,maxPrice;
     public static SeekBar seekBar;
     private Button Applybtn;
-    private ArrayList<Button> MaterialList,MountedList;
-    private String Material,Mounted;
+    private ArrayList<Button> MaterialList,AccessoryList;
+    private String Material,Accessory;
     int Minprice;
     private OnDataPass dataPasser;
 
@@ -40,8 +40,13 @@ public class FilterFragment extends Fragment {
         }
     }
 
-    public void passData(String material,String mounted,int price) {
-        dataPasser.onDataPass(material,mounted,price);
+    public void passData(String material,String accessory,int price) {
+        if(accessory.equals("Hột xoàn")) {
+            accessory = "Xoàn";
+        } else if (accessory.equals("Đá quý")) {
+            accessory = "Đá";
+        }
+        dataPasser.onDataPass(material,accessory,price);
     }
 
     @Override
@@ -68,10 +73,10 @@ public class FilterFragment extends Fragment {
         MaterialList.add(view.findViewById(R.id.filter_btn_gold));
         MaterialList.add(view.findViewById(R.id.filter_btn_whitegold));
         MaterialList.add(view.findViewById(R.id.filter_btn_silver));
-        MountedList=new ArrayList<>();
-        MountedList.add(view.findViewById(R.id.filter_btn_diamond));
-        MountedList.add(view.findViewById(R.id.filter_btn_pearl));
-        MountedList.add(view.findViewById(R.id.filter_btn_gemstone));
+        AccessoryList=new ArrayList<>();
+        AccessoryList.add(view.findViewById(R.id.filter_btn_diamond));
+        AccessoryList.add(view.findViewById(R.id.filter_btn_pearl));
+        AccessoryList.add(view.findViewById(R.id.filter_btn_gemstone));
         minPrice.setText("0");
         maxPrice.setText("100000000");
         seekBar.setMax(100000000);
@@ -86,12 +91,12 @@ public class FilterFragment extends Fragment {
                     }
                 });
             }
-                for(Button button : MountedList){
+                for(Button button : AccessoryList){
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Mounted=button.getText().toString();
-                            setColorButtonMounted(button);
+                            Accessory=button.getText().toString();
+                            setColorButtonAccessory(button);
                         }
                     });
                 }
@@ -115,7 +120,7 @@ public class FilterFragment extends Fragment {
 Applybtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        passData(Material,Mounted,Minprice);
+        passData(Material,Accessory,Minprice);
     }
 });
     }
@@ -128,8 +133,8 @@ Applybtn.setOnClickListener(new View.OnClickListener() {
                 button.setBackgroundColor(Color.parseColor("#EEEEEE"));
             }
     }
-    private void setColorButtonMounted(Button selectedBtn){
-        for(Button button : MountedList)
+    private void setColorButtonAccessory(Button selectedBtn){
+        for(Button button : AccessoryList)
             if(button.equals(selectedBtn))
                 button.setBackgroundColor(Color.parseColor("#FF00C8F0"));
             else
