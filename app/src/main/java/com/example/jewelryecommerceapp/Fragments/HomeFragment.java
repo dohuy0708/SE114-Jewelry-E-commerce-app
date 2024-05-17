@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }*/
-        LocalDate startDate = LocalDate.of(2024, 2, 10);
+       /* LocalDate startDate = LocalDate.of(2024, 2, 10);
         LocalDate endDate = LocalDate.of(2024, 2, 14);
 
         Voucher voucher = new Voucher("n1","VALENTINE2024", "Nhân ngày Valentine(14/2) cửa hàng khuyến mãi siêu khủng, giảm giá 300k cho hóa đơn trên 5 triệu đồng.", 300, 5000000, startDate, endDate);
@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment {
 
 
 
-
+*/
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
