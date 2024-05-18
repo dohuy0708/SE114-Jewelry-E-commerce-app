@@ -93,19 +93,22 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <CheckBox
-            android:id="@+id/checkBoxall"
-            android:layout_width="59dp"
+
+        <TextView
+            android:id="@+id/tong"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="Chọn tất cả" />
+            android:text=" Tổng cộng: "
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:layout_gravity="center"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#D7DBEF"
+            android:background="#EDEDED"
             android:orientation="vertical"
             android:gravity="center">
 
@@ -113,8 +116,9 @@
                 android:id="@+id/tongtien"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" Tổng cộng: "
-                android:textColor="@color/black"
+                android:text=" 100.100đ "
+                android:textSize="17dp"
+                android:textColor="#E6AD00"
                 android:textStyle="bold" />
 
 
@@ -122,11 +126,11 @@
 
         <Button
             android:id="@+id/buybtn"
-            android:layout_width="71dp"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="#ABB4E6"
+
+            android:background="#2196F3"
             android:text="Mua hàng" />
     </LinearLayout>
 

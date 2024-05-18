@@ -1,5 +1,7 @@
 package com.example.jewelryecommerceapp.Models;
 
+import java.util.ArrayList;
+
 public class Order {
     private String OrderID;
     private String OrdererName;
@@ -10,6 +12,7 @@ public class Order {
     private String Receive;
 
     private String status;
+    private ArrayList<Product> ListPurchaseProduct;
 
     public Order(){
 

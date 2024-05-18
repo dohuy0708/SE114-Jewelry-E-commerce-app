@@ -133,23 +133,34 @@ public class HomeFragment extends Fragment {
             }
         });
     }*/
-       /* LocalDate startDate = LocalDate.of(2024, 2, 10);
-        LocalDate endDate = LocalDate.of(2024, 2, 14);
 
-        Voucher voucher = new Voucher("n1","VALENTINE2024", "Nhân ngày Valentine(14/2) cửa hàng khuyến mãi siêu khủng, giảm giá 300k cho hóa đơn trên 5 triệu đồng.", 300, 5000000, startDate, endDate);
+
+     /*   // Tạo đối tượng Voucher với các giá trị ngày dạng String
+        Voucher voucher = new Voucher("n1", "VALENTINE2024",
+                "Nhân ngày Valentine(14/2) cửa hàng khuyến mãi siêu khủng, giảm giá 300k cho hóa đơn trên 5 triệu đồng.",
+                300, 5000000,"2024-02-10", "2024-02-14");
+
+        // Khởi tạo Firebase
         FirebaseDatabase data = FirebaseDatabase.getInstance();
         DatabaseReference ref = data.getReference("Voucher");
+
+        // Đẩy đối tượng Voucher lên Firebase
         ref.push().setValue(voucher, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(getActivity(),"đẩy voucher thành cônng",Toast.LENGTH_LONG).show();
-
+                if (error != null) {
+                    Toast.makeText(getActivity(), "Đẩy voucher thất bại: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "Đẩy voucher thành công", Toast.LENGTH_LONG).show();
+                }
             }
-        });
+        });*/
 
 
 
-*/
+
+
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -464,6 +475,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterPearl.notifyDataSetChanged();
                 loadingDialog.cancel();
+              //  return 0;
             }
 
             @Override
@@ -492,6 +504,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterCouple.notifyDataSetChanged();
                 loadingDialog.cancel();
+              //  return 0;
             }
 
             @Override
@@ -523,6 +536,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterDiamond.notifyDataSetChanged();
                 loadingDialog.cancel();
+                //return 0;
             }
 
             @Override
@@ -552,6 +566,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterSet.notifyDataSetChanged();
                 loadingDialog.cancel();
+              //  return 0;
             }
 
             @Override
@@ -582,6 +597,7 @@ public class HomeFragment extends Fragment {
              //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterNew.notifyDataSetChanged();
               loadingDialog.cancel();
+                //return 0;
             }
 
             @Override
@@ -614,6 +630,7 @@ public class HomeFragment extends Fragment {
                 }
             //    Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterTrend.notifyDataSetChanged();
+              //  return 0;
             }
 
 

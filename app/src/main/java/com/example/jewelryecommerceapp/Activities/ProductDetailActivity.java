@@ -262,6 +262,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                 }
 
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -289,6 +290,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         SetUi();
                     }
                 }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -534,6 +536,13 @@ public class ProductDetailActivity extends AppCompatActivity {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                         Intent intent = new Intent(ProductDetailActivity.this,Payment.class);
+                        intent.putExtra("from",1);
+                        intent.putExtra("productID",ProductID);
+                        intent.putExtra("productType", ProductType);
+                        intent.putExtra("Size",selectedSize);
+                        intent.putExtra("Amount",Integer.parseInt(bs_number.getText().toString()));
+
+
                         /// pust extra
 
                         startActivity(intent);
@@ -578,8 +587,14 @@ public class ProductDetailActivity extends AppCompatActivity {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                         Intent intent = new Intent(ProductDetailActivity.this,Payment.class);
-                        intent.putExtra("type",ProductType);
-                        intent.putExtra("ID", ProductID);
+                        intent.putExtra("from",1);
+                        intent.putExtra("productID",ProductID);
+                        intent.putExtra("productType", ProductType);
+                        intent.putExtra("Size",selectedSize);
+                        intent.putExtra("Amount",Integer.parseInt(bs_number.getText().toString()));
+
+
+                        /// pust extra
 
                         startActivity(intent);
                     }
@@ -643,6 +658,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                             }
                                         });
                                     }
+
                                 }
 
                                 @Override
