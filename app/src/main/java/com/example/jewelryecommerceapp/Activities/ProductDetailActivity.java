@@ -96,6 +96,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        loadingDialog = new LoadingDialog(ProductDetailActivity.this);
         initUi();
         // lấy dữ liệu vho UI
         // lấy dữ liệu của product từ màn hình home ;
@@ -261,6 +262,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                 }
 
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -288,6 +290,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         SetUi();
                     }
                 }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -432,6 +435,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     String productName="";
     int productPrice;
     boolean isChoose=false;
+    private LoadingDialog loadingDialog;
 
 
     // Dialof chọn size loại
@@ -532,6 +536,13 @@ public class ProductDetailActivity extends AppCompatActivity {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                         Intent intent = new Intent(ProductDetailActivity.this,Payment.class);
+                        intent.putExtra("from",1);
+                        intent.putExtra("productID",ProductID);
+                        intent.putExtra("productType", ProductType);
+                        intent.putExtra("Size",selectedSize);
+                        intent.putExtra("Amount",Integer.parseInt(bs_number.getText().toString()));
+
+
                         /// pust extra
 
                         startActivity(intent);
@@ -576,8 +587,14 @@ public class ProductDetailActivity extends AppCompatActivity {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                         Intent intent = new Intent(ProductDetailActivity.this,Payment.class);
-                        intent.putExtra("type",ProductType);
-                        intent.putExtra("ID", ProductID);
+                        intent.putExtra("from",1);
+                        intent.putExtra("productID",ProductID);
+                        intent.putExtra("productType", ProductType);
+                        intent.putExtra("Size",selectedSize);
+                        intent.putExtra("Amount",Integer.parseInt(bs_number.getText().toString()));
+
+
+                        /// pust extra
 
                         startActivity(intent);
                     }
@@ -596,13 +613,58 @@ public class ProductDetailActivity extends AppCompatActivity {
                             String size = selectedSize;
                             String image = Image;
                             CartItem item = new CartItem(userID, productID, productType,amount,size,image,productName,productPrice);
+                            loadingDialog.show();
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference ref = database.getReference("Cart").child(userID);
-                            ref.push().setValue(item, new DatabaseReference.CompletionListener() {
+                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    boolean itemExists = false;
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        CartItem existingItem = dataSnapshot.getValue(CartItem.class);
+                                        if (existingItem != null && existingItem.getProductName().equals(item.getProductName())) {
+                                            itemExists = true;
+                                            String key = dataSnapshot.getKey();
+                                            int newAmount = existingItem.getAmount() + item.getAmount();
+                                            existingItem.setAmount(newAmount);
 
-                                    showToastWithIcon(R.drawable.succecss_icon,"Thêm sản phẩm thành công!");
+                                            // Update the existing item with the new amount
+                                            ref.child(key).setValue(existingItem, new DatabaseReference.CompletionListener() {
+                                                @Override
+                                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                    loadingDialog.cancel();
+                                                    if (error == null) {
+                                                        showToastWithIcon(R.drawable.succecss_icon, "Thêm sản phẩm thành công!");
+                                                    } else {
+                                                        showToastWithIcon(R.drawable.fail_icon, "Thêm sản phẩm thất bại!");
+                                                    }
+                                                }
+                                            });
+                                            break;
+                                        }
+                                    }
+
+                                    if (!itemExists) {
+                                        // Item does not exist, add it to Firebase
+                                        ref.push().setValue(item, new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                loadingDialog.cancel();
+                                                if (error == null) {
+                                                    showToastWithIcon(R.drawable.succecss_icon, "Thêm sản phẩm thành công!");
+                                                } else {
+                                                    showToastWithIcon(R.drawable.fail_icon, "Thêm sản phẩm thất bại!");
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    loadingDialog.cancel();
+                                    showToastWithIcon(R.drawable.fail_icon, "Lỗi khi kiểm tra sản phẩm trong giỏ hàng!");
                                 }
                             });
 
