@@ -1,5 +1,8 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,17 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.jewelryecommerceapp.Controllers.UserControllers;
+import com.example.jewelryecommerceapp.Controllers.ValidateController;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+<<<<<<<<< Temporary merge branch 1
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+=========
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Objects;
+>>>>>>>>> Temporary merge branch 2
 
 public class LoginActivity extends AppCompatActivity {
     Button btnlogin;
@@ -70,14 +75,7 @@ check();
                             .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful() && email.equals("22520573@gm.uit.edu.vn")) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
-                                        startActivity(intent);
-                                        // FirebaseUser user = mAuth.getCurrentUser();
-                                    }
-                                        else if (task.isSuccessful()) {
+                                    if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
@@ -127,10 +125,6 @@ check();
                 finish();
             }
         });
-        back_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {finish();}
-        });
     }
 
 private void check()
@@ -139,11 +133,6 @@ private void check()
     if (user==null){
         return;
     }
-    if (Objects.equals(user.getEmail(), "22520573@gm.uit.edu.vn")){
-        Intent intent = new Intent(LoginActivity.this,AdminHomeActivity.class);
-        startActivity(intent);
-    }
-
     else{
         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
         startActivity(intent);
