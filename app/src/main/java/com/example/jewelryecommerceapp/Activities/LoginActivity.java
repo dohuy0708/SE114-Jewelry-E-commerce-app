@@ -19,6 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
     Button btnlogin;
     TextView txtSignUp, txtForgotpass , SubText;
@@ -68,7 +70,14 @@ check();
                             .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
+                                    if (task.isSuccessful() && email.equals("22520573@gm.uit.edu.vn")) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                        startActivity(intent);
+                                        // FirebaseUser user = mAuth.getCurrentUser();
+                                    }
+                                        else if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
@@ -130,6 +139,11 @@ private void check()
     if (user==null){
         return;
     }
+    if (Objects.equals(user.getEmail(), "22520573@gm.uit.edu.vn")){
+        Intent intent = new Intent(LoginActivity.this,AdminHomeActivity.class);
+        startActivity(intent);
+    }
+
     else{
         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
         startActivity(intent);

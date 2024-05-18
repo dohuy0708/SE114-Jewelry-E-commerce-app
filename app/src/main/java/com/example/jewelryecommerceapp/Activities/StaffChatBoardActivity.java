@@ -46,7 +46,6 @@ public class StaffChatBoardActivity extends AppCompatActivity {
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_baseline_more_vert_24);
         mtoolbar.setOverflowIcon(drawable);
 
-
         adapterChatBoard = new StaffChatBoardAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), this);
         viewPager.setAdapter(adapterChatBoard);
 
@@ -82,8 +81,6 @@ public class StaffChatBoardActivity extends AppCompatActivity {
 
             }
         });
-
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
     }

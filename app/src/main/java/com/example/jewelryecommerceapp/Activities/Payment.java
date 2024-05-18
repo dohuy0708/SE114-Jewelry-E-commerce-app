@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
-import com.example.jewelryecommerceapp.Models.Product;
+import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.R;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class Payment extends AppCompatActivity {
     ImageView back;
     RecyclerView pross;
     CartProductsAdapter adt;
-    ArrayList<Product> listpro;
+    ArrayList<CartItem> listpro;
     TextView add;
     TextView shipmoney;
     TextView totalpro;
@@ -95,6 +95,6 @@ public class Payment extends AppCompatActivity {
             }
         });
     }
-    private void initListPro(ArrayList<Product> listpro) {
+    private void initListPro(ArrayList<CartItem> listpro) {
     }
 }

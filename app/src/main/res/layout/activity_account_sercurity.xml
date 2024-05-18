@@ -49,6 +49,7 @@
             >
 
                 <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edittext_fullname_accountSercurity"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="-15dp"
@@ -71,7 +72,7 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edittext_phoneNumber_accountSercu"
+                    android:id="@+id/edittext_phoneNumber_accountSercurity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintEnabled="false"

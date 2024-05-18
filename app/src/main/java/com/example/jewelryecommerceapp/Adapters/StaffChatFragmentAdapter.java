@@ -50,18 +50,24 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
         noteViewHolder.particularusername.setText(firebaseModel.getNAME());
         String uri=firebaseModel.getIMG();
 
-        Picasso.get().load(uri).into(noteViewHolder.mimageviewofuser);
+        if (uri != null && !uri.isEmpty()) {
+            Picasso.get().load(uri).into(noteViewHolder.mimageviewofuser);
+        } else {
+            noteViewHolder.mimageviewofuser.setImageResource(R.drawable.ic_user); // đặt hình mặc định nếu không có URI
+        }
+
+        //Picasso.get().load(uri).into(noteViewHolder.mimageviewofuser);
 
         noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userID = arrayList.get(position).getUID();
+                Log.d("Value","UID"+userID);
                 Intent intent=new Intent(view.getContext(), StaffSpecificChatActivity.class);
                 intent.putExtra("NAME",firebaseModel.getNAME());
                 intent.putExtra("UID",firebaseModel.getUID());
                 intent.putExtra("IMG",firebaseModel.getIMG());
-
-                //intent.putExtra("type",firebaseModel.getTYPE());
+                intent.putExtra("type",firebaseModel.getTYPE());
                 view.getContext().startActivity(intent);
             }
         });

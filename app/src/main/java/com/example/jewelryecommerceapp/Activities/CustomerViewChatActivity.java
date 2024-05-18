@@ -4,6 +4,7 @@ package com.example.jewelryecommerceapp.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Adapters.adapter_message;
 import com.example.jewelryecommerceapp.item.message_object;
@@ -48,6 +50,8 @@ public class CustomerViewChatActivity extends AppCompatActivity {
     private String enteredmessage;
     Intent intent;
     String mrecievername, sendername, mrecieveruid, msenderuid;
+    private String userName;
+    private String userImage;
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     String senderroom, recieverroom;
@@ -92,7 +96,9 @@ public class CustomerViewChatActivity extends AppCompatActivity {
 
 
         msenderuid = firebaseAuth.getUid();
-        mrecieveruid = "Staff";
+
+
+        mrecieveruid = "budf9eXCvEVnayhfjn8RW3c8vrP2";
 
         senderroom = msenderuid + mrecieveruid;
         recieverroom = mrecieveruid + msenderuid;
@@ -111,6 +117,25 @@ public class CustomerViewChatActivity extends AppCompatActivity {
                     messagesArrayList.add(messages);
                 }
                 messagesAdapter.notifyDataSetChanged();
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("NGUOIDUNG").child(msenderuid);
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                        User user = userSnapshot.getValue(User.class);
+                        if (user != null) {
+                            userName = user.getNAME();
+                            userImage = user.getIMG();
+                            // Bây giờ bạn đã có tên và URL ảnh của người dùng, có thể dùng để tạo đối tượng User mới
+                            Log.d("User Info", "User Name: " + userName + ", User Image: " + userImage);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Xử lý lỗi nếu cần
+                        Log.e("Firebase", "Failed to load user data", error.toException());
+                    }
+                });
             }
 
             @Override
@@ -128,7 +153,7 @@ public class CustomerViewChatActivity extends AppCompatActivity {
             }
         });
 
-        mnameofspecificuser.setText("Staff");
+        mnameofspecificuser.setText("Admin");
 
 
         msendmessagebutton.setOnClickListener(new View.OnClickListener() {
@@ -156,8 +181,11 @@ public class CustomerViewChatActivity extends AppCompatActivity {
                                             .setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-
-                                                }
+                                                    if (task.isSuccessful()) {
+                                                        // Lưu đối tượng User vào "NGUOIDUNG" sau khi gửi tin nhắn
+                                                        User user = new User(msenderuid, userName, userImage);
+                                                        saveUserToFirebase(user);
+                                                }}
                                             });
                                 }
                             });
@@ -170,6 +198,20 @@ public class CustomerViewChatActivity extends AppCompatActivity {
                             mmessagerecyclerview.smoothScrollToPosition(messagesAdapter.getItemCount());
                         }
                     });
+                }
+            }
+        });
+    }
+
+    private void saveUserToFirebase(User user) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NGUOIDUNG");
+        databaseReference.child(user.getUID()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d("Firebase", "User added successfully");
+                } else {
+                    Log.e("Firebase", "Failed to add user", task.getException());
                 }
             }
         });

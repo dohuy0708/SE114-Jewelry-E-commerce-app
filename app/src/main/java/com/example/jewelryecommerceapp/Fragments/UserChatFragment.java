@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -72,7 +74,7 @@ public class UserChatFragment extends Fragment implements AdapterView.OnItemSele
         userArrayList = new ArrayList<>();
         adapterChatFragment = new StaffChatFragmentAdapter(getContext(),userArrayList);
         firebaseAuth=FirebaseAuth.getInstance();
-        firebaseFirestore= FirebaseFirestore.getInstance();
+        //firebaseFirestore= FirebaseFirestore.getInstance();
 
         EventInitListener();
 
@@ -100,32 +102,32 @@ public class UserChatFragment extends Fragment implements AdapterView.OnItemSele
     private void EventInitListener() {
         progressDialog.setTitle("Loading data...");
         progressDialog.show();
-        firebaseFirestore.collection("NGUOIDUNG").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NGUOIDUNG");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
                 userArrayList.clear();
-                for(DocumentSnapshot d : task.getResult())
-                {
-                    User object = d.toObject(User.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User object = snapshot.getValue(User.class);
                     assert object != null;
-                    if(!object.getUID().equals(firebaseAuth.getUid())
-                            ) userArrayList.add(object);
-                    adapterChatFragment.notifyDataSetChanged();
-                    if(progressDialog.isShowing())
-                    {
-                        progressDialog.dismiss();
+                    if (!object.getUID().equals(firebaseAuth.getUid())) {
+                        userArrayList.add(object);
                     }
                 }
+                adapterChatFragment.notifyDataSetChanged();
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 progressDialog.dismiss();
-                Toast.makeText(getContext(),""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     @Override
@@ -142,5 +144,8 @@ public class UserChatFragment extends Fragment implements AdapterView.OnItemSele
     public Filter getFilter() {
         return null;
     }
+
+
+
 
 }
