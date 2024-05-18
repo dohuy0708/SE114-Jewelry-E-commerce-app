@@ -6,19 +6,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
+import org.jetbrains.annotations.NotNull;
 
 public class AccountSercurityActivity extends AppCompatActivity
 {
     private Button btnSave;
     private ImageView Back, editPassword;
     private TextInputLayout fullname,phoneNumber,email;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,7 +32,7 @@ public class AccountSercurityActivity extends AppCompatActivity
         setContentView(R.layout.activity_account_sercurity);
         initView();
         setupClickListener();
-        getUserInformation();
+        getUserImformation();
     }
     private void initView()
     {
@@ -59,19 +65,28 @@ public class AccountSercurityActivity extends AppCompatActivity
             }
         });
     }
-    private void getUserInformation()
+
+    private void getUserImformation()
     {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null)
-        {
-            return;
-        }
-        String Name = user.getDisplayName();
-        String Email = user.getEmail();
-        String Phone = user.getPhoneNumber();
-        fullname.getEditText().setText(Name);
-        email.getEditText().setText(Email);
+        String path = "User/"+user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(path);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                User user1 = dataSnapshot.getValue(User.class);
+                fullname.getEditText().setText(user.getDisplayName());
+                phoneNumber.getEditText().setText(user1.getPHONE());
+                email.getEditText().setText(user.getEmail());
+            }
 
-    }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
 
+            }
+
+
+        });
+
+}
 }
