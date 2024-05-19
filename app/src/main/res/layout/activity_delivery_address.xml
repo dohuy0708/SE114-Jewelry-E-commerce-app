@@ -113,7 +113,39 @@
 				app:layout_constraintHorizontal_bias="0.254"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"/>
-
+		<Spinner
+			android:id="@+id/spinner_province"
+			android:layout_width="match_parent"
+			android:layout_height="47dp"
+			android:background="@drawable/black_stroke"
+			android:paddingRight="30dp"
+			android:autofillHints="Tỉnh/Thành phố"
+			android:layout_marginTop="20dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			/>
+		<Spinner
+			android:id="@+id/spinner_district"
+			android:layout_width="match_parent"
+			android:layout_height="47dp"
+			android:background="@drawable/black_stroke"
+			android:autofillHints="Quận/Huyện"
+			android:paddingRight="30dp"
+			android:layout_marginTop="20dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			/>
+		<Spinner
+			android:id="@+id/spinner_ward"
+			android:layout_width="match_parent"
+			android:layout_height="47dp"
+			android:background="@drawable/black_stroke"
+			android:autofillHints="Phường/Xã"
+			android:paddingRight="30dp"
+			android:layout_marginTop="20dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			/>
 		<EditText
 				android:id="@+id/editText3"
 				android:layout_width="match_parent"
