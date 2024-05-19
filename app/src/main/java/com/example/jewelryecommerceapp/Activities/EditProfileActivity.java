@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,9 +31,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.PrimitiveIterator;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -43,6 +47,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private Button btnSave;
     private TextInputLayout fullname, dob, email, phoneNumber;
     ActivityResultLauncher<Intent> resultLauncher;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -83,6 +89,8 @@ public class EditProfileActivity extends AppCompatActivity {
             {
                 //Nhan thong tin duoc thay doi va luu xuong database
                 onClickUpdateUserProfile();
+                Intent resultIntent = new Intent();
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }
         });
@@ -130,29 +138,40 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void getUserImformation()
     {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null)
-        {
-            Toast.makeText(getApplicationContext(),"You are not signed in",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String Name = user.getDisplayName();
-        String Email = user.getEmail();
-        String Phone = user.getPhoneNumber();
-        fullname.getEditText().setText(Name);
-        phoneNumber.getEditText().setText(Phone);
-        email.getEditText().setText(Email);
-        Glide.with(this).load(imageUri).error(R.drawable.ic_user).into(avatar);
+        String path = "User/"+user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(path);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                User user1 = dataSnapshot.getValue(User.class);
+                fullname.getEditText().setText(user.getDisplayName());
+                phoneNumber.getEditText().setText(user1.getPHONE());
+                email.getEditText().setText(user.getEmail());
+                dob.getEditText().setText(user1.getBIRTHDAY());
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+
+
+        });
+
 
     }
     private  void onClickUpdateUserProfile()
     {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null)
         {
             Toast.makeText(getApplicationContext(), "Update fail", Toast.LENGTH_SHORT).show();
             return;}
         String strFullName = fullname.getEditText().getText().toString();
+        String strEmail = email.getEditText().getText().toString();
+        String strPhone = phoneNumber.getEditText().getText().toString();
+        String strDateofBirth = dob.getEditText().getText().toString();
+        saveUserInfo(strFullName, strEmail, strPhone, strDateofBirth);
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(strFullName)
@@ -169,6 +188,17 @@ public class EditProfileActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    private void saveUserInfo(String name, String email, String number, String dateofbirth)
+    {
+        String UID = user.getUid();
+        String path = "User/"+UID;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(path);
+
+        User user1 = new User(name,number, email,UID,dateofbirth);
+        myRef.setValue(user1);
     }
 }
 
