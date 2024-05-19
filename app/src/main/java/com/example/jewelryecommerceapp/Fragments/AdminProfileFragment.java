@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
+import com.example.jewelryecommerceapp.Activities.CustomerManagementActitvity;
 import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,6 +61,13 @@ public class AdminProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AccountSercurityActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnCustomerManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent((getActivity()), CustomerManagementActitvity.class);
                 startActivity(intent);
             }
         });

@@ -14,11 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jewelryecommerceapp.Controllers.ValidateController;
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText edtEmail, edtNumberPhone, edtName, edtPassword, edtRePassword;
@@ -75,6 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     // If sign in fails, display a message to the user.
                                     if (task.isSuccessful()) {
+                                        saveUserInfo(name,email,sdt);
                                         Toast.makeText(SignUpActivity.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
 
                                     } else
@@ -110,6 +115,18 @@ public class SignUpActivity extends AppCompatActivity {
         subText = findViewById(R.id.SubText);
 
 
+    }
+    private void saveUserInfo(String name, String email, String number)
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String str = user.getUid();
+        String path = "user/"+str;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(path);
+
+        User user1 = new User(name,number,email,str);
+        myRef.setValue(user1);
     }
 
 }

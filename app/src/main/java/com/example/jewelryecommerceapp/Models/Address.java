@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Address  implements Serializable {
     private String province, district, ward, street;
     public String addressId,detail,phoneNumber,fullName;
+
     public Address() {
     }
 

@@ -10,11 +10,9 @@ public class User {
     private String IMG;
     private String EMAIL;
     private String PHONE;
-    private Date BIRTHDAY;
+    private String BIRTHDAY;
+    private int GENDER;
     private int TYPE;
-
-
-
 
 
 
@@ -22,20 +20,28 @@ public class User {
 
     }
 
+    public  User(String Name, String Phone, String Email, String id)
+    {
+        this.NAME = NAME;
+        this.EMAIL = EMAIL;
+        this.PHONE = Phone;
+        this.UID = id;
+    }
+    public  User(String Name, String Phone, String Email, String id, String birthday)
+    {
+        this.BIRTHDAY = birthday;
+        this.NAME = NAME;
+        this.EMAIL = EMAIL;
+        this.PHONE = Phone;
+        this.UID = id;
+    }
     public User(String NAME, String EMAIL    ) {
         this.NAME = NAME;
         this.EMAIL = EMAIL;
-
         this.TYPE = 1;
     }
 
-    public Date getBIRTHDAY() {
-        return BIRTHDAY;
-    }
 
-    public void setBIRTHDAY(Date BIRTHDAY) {
-        this.BIRTHDAY = BIRTHDAY;
-    }
 
     public User(int TYPE, String NAME, String IMG , String EMAIL, String PHONE) {
         this.NAME = NAME;
@@ -62,15 +68,22 @@ public class User {
         this.EMAIL = EMAIL;
     }
 
-
     public void setPHONE(String PHONE) {
         this.PHONE = PHONE;
     }
 
+    public void setBIRTHDAY(String BIRTHDAY) {
+        this.BIRTHDAY = BIRTHDAY;
+    }
 
     public void setTYPE(int TYPE) {
         this.TYPE = TYPE;
     }
+
+    public  void setGENDER(int GENDER){this.GENDER = GENDER;}
+
+
+
 
     public String getNAME() {
         return NAME;
@@ -80,6 +93,9 @@ public class User {
         return EMAIL;
     }
 
+    public String getBIRTHDAY() {
+        return BIRTHDAY;
+    }
 
     public String getPHONE() {
         return PHONE;
@@ -96,6 +112,7 @@ public class User {
         return UID;
     }
 
+    public int getGENDER() {return GENDER;}
     @Override
     public String toString() {
         return "User{" +
