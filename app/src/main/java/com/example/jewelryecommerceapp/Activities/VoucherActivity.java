@@ -158,6 +158,7 @@ public class VoucherActivity extends AppCompatActivity {
 
         dialog.setContentView(view);
     }
+
     void  openDate(TextView textView){
         Calendar calendar=Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);

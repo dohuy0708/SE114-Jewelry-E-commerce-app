@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,10 +29,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jewelryecommerceapp.Adapters.CartProductsAdapter;
 import com.example.jewelryecommerceapp.Adapters.CartPurchaseAdapter;
+import com.example.jewelryecommerceapp.Interfaces.ApiClient;
+import com.example.jewelryecommerceapp.Interfaces.ApiService;
+import com.example.jewelryecommerceapp.Interfaces.District;
+import com.example.jewelryecommerceapp.Interfaces.DistrictResponse;
+import com.example.jewelryecommerceapp.Interfaces.Province;
+import com.example.jewelryecommerceapp.Interfaces.ProvinceResponse;
+import com.example.jewelryecommerceapp.Interfaces.Ward;
+import com.example.jewelryecommerceapp.Interfaces.WardResponse;
+import com.example.jewelryecommerceapp.Models.Address;
 import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +51,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Payment extends AppCompatActivity {
 
@@ -57,8 +77,15 @@ public class Payment extends AppCompatActivity {
     Spinner choosepay;
     ImageView statusvoucher;
 
-    String userid;
-
+    BottomSheetDialog dialog;
+    String userid="";
+    ApiService apiService;
+    Spinner spinnerProvince;
+    Spinner spinnerDistrict;
+    Spinner spinnerWard;
+    List<Province> provinces = new ArrayList<>();
+    List<District> districts = new ArrayList<>();
+    List<Ward> wards = new ArrayList<>();
     int checkvoucher = 0;
     int VoucherSale =0;
     int totalprice =0;
@@ -70,6 +97,7 @@ public class Payment extends AppCompatActivity {
         loadingDialog = new LoadingDialog(Payment.this);
 
         Intent myintent  = getIntent();
+
         int type = myintent.getIntExtra("from",-1);
          totalprice = myintent.getIntExtra("Total",0);
         String productID = myintent.getStringExtra("productID");
@@ -94,8 +122,9 @@ public class Payment extends AppCompatActivity {
         adt=new CartPurchaseAdapter(this, listpro);
       //  initListPro(listpro);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        userid=user.getUid();
-
+        if(user!=null) {
+            userid = user.getUid();
+        }
         if(type==2)// mua tu giở hàng
         {
             if (user == null) {// chưa có người dùng
@@ -115,11 +144,6 @@ public class Payment extends AppCompatActivity {
 
         }
 
-
-
-
-
-
         back=findViewById(R.id.btnbackkk);
         statusvoucher= findViewById(R.id.statusvoucher);
         pay=findViewById(R.id.btnpay);
@@ -132,11 +156,9 @@ public class Payment extends AppCompatActivity {
         choosepay=findViewById(R.id.spn);
         discount= findViewById(R.id.discountvoucher);
 
-
         ArrayAdapter<CharSequence> adapterr=ArrayAdapter.createFromResource(this, R.array.items_array, android.R.layout.simple_spinner_item);
         adapterr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         choosepay.setAdapter(adapterr);
-
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -163,26 +185,105 @@ public class Payment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Payment.this, Delivery_address.class);
-                startActivity(intent);
+                dialog= new BottomSheetDialog(Payment.this);
+                createDialog();
+                dialog.show();
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
             }
         });
-
         appVoucher.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 CheckVoucherInFireBase(totalprice,promotee.getText().toString());
+            }
+        });
+    }
+    void createDialog(){
+        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_address,null,false);
+        EditText name, phone, street, detail ;
+        Button bt_finish;
+        name = view.findViewById(R.id.name);
+        phone = view.findViewById(R.id.phone);
+        street= view.findViewById(R.id.street);
+        detail= view.findViewById(R.id.detail);
+        bt_finish=view.findViewById(R.id.bt_finish);
+        spinnerProvince = view.findViewById(R.id.spinner_province);
+        spinnerDistrict = view.findViewById(R.id.spinner_district);
+        spinnerWard = view.findViewById(R.id.spinner_ward);
+        apiService = ApiClient.getClient().create(ApiService.class);
 
+        // Điền dữ liệu vào Spinner tỉnh
+        populateProvinceSpinner();
+
+        // Xử lý sự kiện khi chọn tỉnh từ Spinner
+        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy tỉnh được chọn từ Spinner
+                Province selectedProvince = provinces.get(position);
+
+                // Gọi API để lấy danh sách quận huyện của tỉnh đã chọn
+                getDistrictsByProvince(selectedProvince.getProvinceId());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Xử lý khi không có tỉnh nào được chọn
+            }
+        });
+        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy quận huyện được chọn từ Spinner
+                District selectedDistrict = districts.get(position);
+
+                // Gọi API để lấy danh sách phường/xã của quận huyện đã chọn
+                getWardsByDistrict(selectedDistrict.getDistrictId());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Xử lý khi không có quận huyện nào được chọn
+            }
+        });
+        bt_finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(name.getText().toString().equals("")||phone.getText().equals("")||street.getText().equals(""))
+                {
+                    showToastWithIcon(R.drawable.attention_icon,"Vui lòng nhập đâ đủ thông tin");
+                }
+                else {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if(user!=null) {
+                        userid = user.getUid();
+                    }
+                    Address address = new Address(userid,name.getText().toString(),(String)spinnerProvince.getSelectedItem(),(String)spinnerDistrict.getSelectedItem(),(String)spinnerWard.getSelectedItem(),street.getText().toString(),detail.getText().toString(),phone.getText().toString());
+                    //
+                    FirebaseDatabase data = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = data.getReference("Address");
+
+                    // Đẩy đối tượng address lên Firebase
+                    ref.push().setValue(address, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            if(error!=null){
+                                showToastWithIcon(R.drawable.fail_icon,"Thêm địa chỉ thất bại");
+                            }
+                            else
+                            {
+                                showToastWithIcon(R.drawable.succecss_icon,"Thêm địa chỉ thành công");
+                                add.setText(address.getFullName()+", sđt: "+address.getPhoneNumber()+"\n"+address.getStreet()+", "+address.getWard()+", "+address.getDistrict()+", "+address.getProvince()+"\n"+"Ghi chú: "+address.getDetail());
+                            }
+                        }
+                    });
+                }
 
             }
         });
-
-
+        dialog.setContentView(view);
     }
-
     private void GetProductBuyNow(String productID, String productType,String Size, int amount) {
         loadingDialog.show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -402,6 +503,96 @@ Log.d("xóa","chạy");
         });
         mydialog.create().show();
     }
+    private void populateProvinceSpinner() {
+        // Gọi API để lấy danh sách tỉnh
+        apiService.getProvinces().enqueue(new Callback<ProvinceResponse>() {
+            @Override
+            public void onResponse(Call<ProvinceResponse> call, Response<ProvinceResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    provinces = response.body().getResults();
 
+                    List<String> provinceNames = new ArrayList<>();
+                    for (Province province : provinces) {
+                        provinceNames.add(province.getProvinceName());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Payment.this,
+                            android.R.layout.simple_spinner_item, provinceNames);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerProvince.setAdapter(adapter);
+                } else {
+                    // Xử lý khi không thành công
+                    Toast.makeText(Payment.this, "Failed to fetch provinces", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProvinceResponse> call, Throwable t) {
+                // Xử lý khi gọi API thất bại
+                Toast.makeText(Payment.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void getDistrictsByProvince(int provinceId) {
+        // Gọi API để lấy danh sách quận huyện của tỉnh với provinceId đã chọn
+        apiService.getDistrictsByProvince(provinceId).enqueue(new Callback<DistrictResponse>() {
+            @Override
+            public void onResponse(Call<DistrictResponse> call, Response<DistrictResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    districts = response.body().getResults();
+
+                    List<String> districtNames = new ArrayList<>();
+                    for (District district : districts) {
+                        districtNames.add(district.getDistrictName());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Payment.this,
+                            android.R.layout.simple_spinner_item, districtNames);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerDistrict.setAdapter(adapter);
+                } else {
+                    // Xử lý khi không thành công
+                    Toast.makeText(Payment.this, "Failed to fetch districts", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DistrictResponse> call, Throwable t) {
+                // Xử lý khi gọi API thất bại
+                Toast.makeText(Payment.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getWardsByDistrict(int districtId) {
+        // Gọi API để lấy danh sách phường/xã của quận huyện với districtId đã chọn
+        apiService.getWardsByDistrict(districtId).enqueue(new Callback<WardResponse>() {
+            @Override
+            public void onResponse(Call<WardResponse> call, Response<WardResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    wards = response.body().getResults();
+
+                    List<String> wardNames = new ArrayList<>();
+                    for (Ward ward : wards) {
+                        wardNames.add(ward.getWardName());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(Payment.this,
+                            android.R.layout.simple_spinner_item, wardNames);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerWard.setAdapter(adapter);
+                } else {
+                    // Xử lý khi không thành công
+                    Toast.makeText(Payment.this, "Failed to fetch wards", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WardResponse> call, Throwable t) {
+                // Xử lý khi gọi API thất bại
+                Toast.makeText(Payment.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }

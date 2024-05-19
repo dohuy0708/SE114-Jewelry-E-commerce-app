@@ -1,14 +1,21 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Interfaces.ApiClient;
@@ -19,7 +26,13 @@ import com.example.jewelryecommerceapp.Interfaces.Province;
 import com.example.jewelryecommerceapp.Interfaces.ProvinceResponse;
 import com.example.jewelryecommerceapp.Interfaces.Ward;
 import com.example.jewelryecommerceapp.Interfaces.WardResponse;
+import com.example.jewelryecommerceapp.Models.Address;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +53,10 @@ public class Delivery_address extends AppCompatActivity {
     private List<Province> provinces = new ArrayList<>();
     private List<District> districts = new ArrayList<>();
     private List<Ward> wards = new ArrayList<>();
+
+    Button bt_finish;
+    String userId;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +67,53 @@ public class Delivery_address extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         street= findViewById(R.id.street);
         detail= findViewById(R.id.detail);
-
+        bt_finish=findViewById(R.id.bt_finish);
         butback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        // nút hoàn thành
+        bt_finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(name.getText().toString().equals("")||phone.getText().equals("")||street.getText().equals(""))
+                {
+                    showToastWithIcon(R.drawable.attention_icon,"Vui lòng nhập đâ đủ thông tin");
+                }
+                else {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if(user!=null) {
+                        userId = user.getUid();
+                    }
+                    Address address = new Address(userId,name.getText().toString(),(String)spinnerProvince.getSelectedItem(),(String)spinnerDistrict.getSelectedItem(),(String)spinnerWard.getSelectedItem(),street.getText().toString(),detail.getText().toString(),phone.getText().toString());
+                    //
+                    FirebaseDatabase data = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = data.getReference("Address");
+
+                    // Đẩy đối tượng address lên Firebase
+                    ref.push().setValue(address, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            if(error!=null){
+                                showToastWithIcon(R.drawable.fail_icon,"Thêm địa chỉ thất bại");
+                            }
+                            else
+                            {
+                                showToastWithIcon(R.drawable.succecss_icon,"Thêm địa chỉ thành công");
+                                Intent intent = new Intent(Delivery_address.this, Payment.class);
+                                intent.putExtra("address", address); // Truyền đối tượng Address
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+
         spinnerProvince = findViewById(R.id.spinner_province);
         spinnerDistrict = findViewById(R.id.spinner_district);
         spinnerWard = findViewById(R.id.spinner_ward);
@@ -97,6 +154,22 @@ public class Delivery_address extends AppCompatActivity {
                 // Xử lý khi không có quận huyện nào được chọn
             }
         });
+    }
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(Delivery_address.this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
     private void populateProvinceSpinner() {
         // Gọi API để lấy danh sách tỉnh

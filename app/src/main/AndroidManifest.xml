@@ -20,11 +20,7 @@
         <activity
             android:name=".Activities.Delivery_address"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.ShippedOrders"
@@ -47,7 +43,9 @@
             android:exported="true" />
         <activity
             android:name=".Activities.AdminHomeActivity"
-            android:exported="true" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".Activities.SignUpActivity"
             android:exported="true" />
@@ -73,7 +71,11 @@
             android:name=".Activities.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/ThemeSpl">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.VoucherActivity"

@@ -533,7 +533,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                     if(type==1){
                         //mua hàng
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                       // FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                         Intent intent = new Intent(ProductDetailActivity.this,Payment.class);
                         intent.putExtra("from",1);
