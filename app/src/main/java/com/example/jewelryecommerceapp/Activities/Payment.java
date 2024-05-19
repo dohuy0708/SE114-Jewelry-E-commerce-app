@@ -1,5 +1,7 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -146,20 +148,23 @@ public class Payment extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String selectedWay=choosepay.getSelectedItem().toString();
-                if(selectedWay=="Thanh toán khi nhận hàng")
-                {
 
-                }
-                if(selectedWay=="Chuyển khoản qua ngân hàng")
-                {
+                // Kiểm tra đã có địa chỉ giao hàng chưa, địa chỉ phải đầy đủ thông tin
 
-                }
+                // nếu có rồi thì cho đặt
+                // nếu getcurrent user khác null thì lấy địa chỉ có user ID bằng user ID này bỏ vô
+
+                GetDialog();
+
+
             }
         });
         setaddr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent = new Intent(Payment.this, Delivery_address.class);
+                startActivity(intent);
 
             }
         });
@@ -313,6 +318,30 @@ public class Payment extends AppCompatActivity {
 
 
     }
+    private void DeleteChosenProducts(String userID) {
+        loadingDialog.show();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Cart").child(userID);
+Log.d("xóa","chạy");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                    if (item != null && item.getIsChoose() == 1) {
+                        dataSnapshot.getRef().removeValue();
+                    }
+                }
+                loadingDialog.cancel();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                loadingDialog.cancel();
+                // Handle the error
+            }
+        });
+    }
     public static String formatNumber(int number) {
         String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
         int length = strNumber.length(); // Độ dài của chuỗi số
@@ -343,6 +372,35 @@ public class Payment extends AppCompatActivity {
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
+    }
+    void GetDialog()
+    {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(Payment.this);
+        mydialog.setTitle("Thông báo!");
+        mydialog.setMessage("Xác nhận đặt đơn hàng");
+        mydialog.setIcon(R.drawable.ic_alarm);
+        mydialog.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                 showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
+                Log.d("dialog","chạy");
+                 // xóa các sản phẩm đã chọn ra khỏi firebase
+                    DeleteChosenProducts(userid);
+
+
+                // trở lại màn hình home
+
+                finish();
+                dialog.dismiss();
+            }
+        });
+        mydialog.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        mydialog.create().show();
     }
 
 
