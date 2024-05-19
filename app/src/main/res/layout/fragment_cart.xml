@@ -62,7 +62,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Cartt"
         android:layout_width="match_parent"
-        android:layout_height="526dp"
+        android:layout_height="560dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="10dp" />

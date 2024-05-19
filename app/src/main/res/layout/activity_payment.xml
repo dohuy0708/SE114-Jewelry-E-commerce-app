@@ -129,7 +129,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ttpros"
             android:layout_width="match_parent"
-            android:layout_height="233dp"
+            android:layout_height="270dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp" />
         <LinearLayout
@@ -174,7 +174,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp"
-            android:layout_marginBottom="5dp"
+
             android:orientation="horizontal">
 
             <TextView
@@ -207,25 +207,26 @@
             <Button
                 android:id="@+id/apply"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:padding="4dp"
                 android:text="Áp dụng"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="30dp">
+
             <TextView
                 android:id="@+id/discountview"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:layout_marginRight="1dp"
                 android:text="Giảm voucher: "
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                 />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/discountvoucher"
                 android:layout_width="match_parent"
@@ -233,11 +234,10 @@
                 android:layout_marginLeft="13dp"
                 android:layout_marginRight="1dp"
 
+                android:layout_marginBottom="3dp"
                 android:textColor="#122693"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="3dp"
-               />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -277,46 +277,49 @@
         android:textStyle="bold" />
 </LinearLayout>
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="13dp"
+        android:layout_marginLeft="1dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:layout_marginRight="13dp"
-            android:layout_marginLeft="1dp">
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="238dp"
-                android:layout_height="31dp"
-                android:layout_marginLeft="13dp"
-                android:layout_weight="1"
-                android:text="Phương thức thanh toán"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:ignore="DuplicateIds" />
-
-            <Spinner
-                android:id="@+id/spn"
-                android:layout_width="match_parent"
-                android:layout_height="39dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnpay"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Đặt hàng"
-            android:layout_marginRight="13dp"
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="228dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="13dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="6dp"
-            android:background="#41ABFF"
-            />
+            android:layout_weight="1"
+            android:text="Phương thức thanh toán"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="DuplicateIds" />
+
+        <Spinner
+            android:id="@+id/spn"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnpay"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="13dp"
+        android:background="#41ABFF"
+        android:text="Đặt hàng" />
+
+</LinearLayout>
+</LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
