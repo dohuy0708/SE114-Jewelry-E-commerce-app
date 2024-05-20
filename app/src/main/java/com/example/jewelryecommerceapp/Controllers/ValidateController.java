@@ -141,17 +141,18 @@ public class ValidateController {
 
 
     public static boolean isEmail(String emailStr) {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
-        return matcher.find();
+       /* Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();*/
+        return true;
     }
     public static boolean isFieldEmpty(String field)    {
         return field.equals("");
     }
     public static boolean isPassword(String pw) {
-        return (checkMin(pw, 8) &&
+        return (checkMin(pw, 8)/* &&
                 checkOneLetterLowercaseInString(pw) &&
                 checkOneLetterUppercaseInString(pw) &&
-                checkOneLetterNumberInString(pw)) ? true : false;
+                checkOneLetterNumberInString(pw)*/) ? true : false;
     }
     public static boolean checkMin(String str, int minLength)  {
         return str.length() >= minLength ? true : false;

@@ -2,6 +2,7 @@ package com.example.jewelryecommerceapp.Activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,12 +81,11 @@ public class SignUpActivity extends AppCompatActivity {
                                     // If sign in fails, display a message to the user.
                                     if (task.isSuccessful()) {
                                         saveUserInfo(name,email,sdt);
-                                        Toast.makeText(SignUpActivity.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
-
+                                        showToastWithIcon(R.drawable.succecss_icon,"Đăng kí thành công");
                                     } else
                                     {
-                                        Toast.makeText(SignUpActivity.this,"Đăng ký thất bại",Toast.LENGTH_SHORT).show();
-                                    }
+                                        showToastWithIcon(R.drawable.fail_icon,"Đăng kí thất bại!");
+                                            }
                                 }
                             });
 
@@ -120,13 +120,29 @@ public class SignUpActivity extends AppCompatActivity {
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String str = user.getUid();
-        String path = "user/"+str;
+        String path = "User/"+str;
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(path);
 
         User user1 = new User(name,number,email,str);
         myRef.setValue(user1);
+    }
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(SignUpActivity.this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 
 }

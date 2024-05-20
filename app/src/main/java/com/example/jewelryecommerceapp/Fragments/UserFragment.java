@@ -131,6 +131,7 @@ public class UserFragment extends Fragment {
         {
             return;
         }
+
         String Name = user.getDisplayName();
         tvUserName.setText(Name);
         Glide.with(this).load(user.getPhotoUrl()).error(R.drawable.ic_user).into(avatar);

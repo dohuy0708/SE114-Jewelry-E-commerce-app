@@ -2,6 +2,7 @@ package com.example.jewelryecommerceapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,7 +72,8 @@ check();
                                     if (task.isSuccessful()) {
 
                                         // Sign in success, update UI with the signed-in user's information
-                                        Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                        showToastWithIcon(R.drawable.succecss_icon,"Đăng nhập thành công!");
                                         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                                         startActivity(intent);
                                         // FirebaseUser user = mAuth.getCurrentUser();
@@ -136,6 +138,23 @@ private void check()
         startActivity(intent);
     }
 }
+
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(LoginActivity.this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
 
 
 }

@@ -115,26 +115,27 @@ public class HomeFragment extends Fragment {
 
 
         // Tạo đối tượng Voucher với các giá trị ngày dạng String
-       /* Voucher voucher = new Voucher("n2", "QTPN83",
+    /*  Voucher voucher = new Voucher("n2", "QTPN83",
                 "Nhân ngày Quốc tế phụ nữ cửa hàng khuyến mãi 250k cho hóa đơn trên 8300000.",
                  250000, 83000000,"2024-03-5", "2024-03-08");
 
         // Khởi tạo Firebase
         FirebaseDatabase data = FirebaseDatabase.getInstance();
-        DatabaseReference ref = data.getReference("Voucher");
+        DatabaseReference ref = data.getReference("Address");
 
         // Đẩy đối tượng Voucher lên Firebase
         ref.push().setValue(voucher, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error != null) {
-                    Toast.makeText(getActivity(), "Đẩy voucher thất bại: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(), "Đẩy voucher thất bại: " + error.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getActivity(), "Đẩy voucher thành công", Toast.LENGTH_LONG).show();
+                    showToastWithIcon(R.drawable.succecss_icon,"Đã cập nhật địa chỉ");
+
                 }
             }
-        });*/
-
+        });
+*/
 
 
 
