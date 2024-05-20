@@ -26,9 +26,12 @@ import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
 import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Activities.LoginActivity;
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
+import org.jetbrains.annotations.NotNull;
 
 
 public class UserFragment extends Fragment {
@@ -91,10 +94,27 @@ public class UserFragment extends Fragment {
     }
     private void setupButton()
     {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null)
+        {
+            btnSignOut.setText("Đăng nhập");
+        }
+        else
+        {
+            btnSignOut.setText("Đăng xuất");
+        }
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((HomeActivity) getActivity()).ClickSignOut(new HomeFragment());
+                if(user!=null)
+                {
+                    ((HomeActivity) getActivity()).ClickSignOut(new HomeFragment());
+                }
+                else
+                {
+                    Intent i = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(i);
+                }
             }
         });
         btnOrderList.setOnClickListener(new View.OnClickListener(){
@@ -127,13 +147,24 @@ public class UserFragment extends Fragment {
     private void getUserImformation()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null)
-        {
-            return;
-        }
-        String Name = user.getDisplayName();
-        tvUserName.setText(Name);
-        Glide.with(this).load(user.getPhotoUrl()).error(R.drawable.ic_user).into(avatar);
+
+        String path = "User/"+user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(path);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                User user1 = dataSnapshot.getValue(User.class);
+                tvUserName.setText(user1.getNAME());
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+
+
+        });
 
     }
 

@@ -10,16 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
-import com.example.jewelryecommerceapp.Activities.CustomerManagementActitvity;
-import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
+import com.example.jewelryecommerceapp.Activities.*;
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
+import org.jetbrains.annotations.NotNull;
 
 public class AdminProfileFragment extends Fragment {
 
-    Button btnAccountSercurity,btnCustomerManagement,btnEditProfile, btnSetting;
+    Button btnAccountSercurity,btnCustomerManagement,btnEditProfile, btnSetting, btnSignOut;
     TextView tvAdname;
     public  AdminProfileFragment() {}
     public static AdminProfileFragment newInstance(String param1, String param2) {
@@ -45,11 +46,21 @@ public class AdminProfileFragment extends Fragment {
         btnCustomerManagement = view.findViewById(R.id.customers_management_button);
         btnEditProfile = view.findViewById(R.id.edit_profile_admin);
         btnSetting = view.findViewById(R.id.setting_button);
+        btnSignOut = view.findViewById(R.id.SignOut);
         tvAdname = view.findViewById(R.id.tv_adname);
         getUserImformation();
         setupButton();
     }
     private void setupButton() {
+
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               FirebaseAuth.getInstance().signOut();
+               Intent intent = new Intent(getActivity(), HomeActivity.class);
+               startActivity(intent);
+            }
+        });
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,13 +86,23 @@ public class AdminProfileFragment extends Fragment {
     private void getUserImformation()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null)
-        {
-            return;
-        }
-        String Name = user.getDisplayName();
-        tvAdname.setText(Name);
 
-    }
+        String path = "User/"+user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(path);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                User user1 = dataSnapshot.getValue(User.class);
+                tvAdname.setText(user1.getNAME());
+            }
 
-}
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+
+
+        });
+
+}}

@@ -1,12 +1,15 @@
 package com.example.jewelryecommerceapp.Activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -34,6 +37,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +53,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextInputLayout fullname, dob, email, phoneNumber;
     ActivityResultLauncher<Intent> resultLauncher;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private int gender;
+    private RadioGroup radioGroupGender;
+    private RadioButton radioButtonMale, radioButtonFemale, radioButtonOther;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,7 +77,10 @@ public class EditProfileActivity extends AppCompatActivity {
         fullname = findViewById(R.id.edittext_fullname_editProfile);
         email = findViewById(R.id.edittext_email_editProfile);
         phoneNumber = findViewById(R.id.edittext_phoneNumber_editProfile);
-
+        radioGroupGender = findViewById(R.id.rdog_gender_editProfile);
+        radioButtonMale = findViewById(R.id.rdo_male_editProfile);
+        radioButtonFemale = findViewById(R.id.rdo_female_editProfile);
+        radioButtonOther = findViewById(R.id.rdo_other_editProfile);
     }
     private void setupListener()
     {
@@ -116,7 +127,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 pickerDialog.show();
             }
+
         });
+
+
     }
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -149,6 +163,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 phoneNumber.getEditText().setText(user1.getPHONE());
                 email.getEditText().setText(user.getEmail());
                 dob.getEditText().setText(user1.getBIRTHDAY());
+                setFieldGender(user1.getGENDER());
             }
 
             @Override
@@ -158,6 +173,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         });
+
 
 
     }
@@ -187,6 +203,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
                     }
                 });
+        finish();
 
     }
     private void saveUserInfo(String name, String email, String number, String dateofbirth)
@@ -194,12 +211,82 @@ public class EditProfileActivity extends AppCompatActivity {
         String UID = user.getUid();
         String path = "User/"+UID;
 
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(path);
 
-        User user1 = new User(name,number, email,UID,dateofbirth);
+        User user1 = new User(name,number, email,UID,dateofbirth, getGender(),avatarUser);
         myRef.setValue(user1);
     }
+
+
+    private int getGender() {
+        int Selectedid = radioGroupGender.getCheckedRadioButtonId();
+        gender = 0;
+
+        if (Selectedid == R.id.rdo_male_editProfile)
+        {
+            gender = 1;
+        } else if (Selectedid == R.id.rdo_female_editProfile)
+        {
+            gender = 2;
+        } else if (Selectedid== R.id.rdo_other_editProfile)
+        {
+            gender = 3;
+        }
+        return  gender;
+
+    }
+    private void setFieldGender(int genderName)  {
+
+            switch (genderName)   {
+                case 1:
+                    radioButtonMale.setChecked(true);
+                    break;
+                case 2:
+                    radioButtonFemale.setChecked(true);
+                    break;
+                case 3:
+                    radioButtonOther.setChecked(true);
+                default:
+                    return;
+            }
+        }
+    public Bitmap getBitmapFromUri(Uri uri, ContentResolver contentResolver) throws IOException {
+        InputStream inputStream = null;
+        try {
+            inputStream = contentResolver.openInputStream(uri);
+            return BitmapFactory.decodeStream(inputStream);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+//    private void RequestPermission() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            openGallery();
+//
+//        }
+//        if(getApplicationContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+//            String [] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+//            this.requestPermissions(permissions, REQUEST_READ_EXTERNAL_STORAGE);
+//        }
+//    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
+//            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    openGallery();
+//            }
+//        }
+//    }
 }
 
 

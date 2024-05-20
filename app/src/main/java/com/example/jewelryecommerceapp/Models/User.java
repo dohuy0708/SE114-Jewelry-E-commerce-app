@@ -1,5 +1,7 @@
 package com.example.jewelryecommerceapp.Models;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class User {
@@ -11,9 +13,11 @@ public class User {
     private String EMAIL;
     private String PHONE;
     private String BIRTHDAY;
+
     private int GENDER;
     private int TYPE;
 
+    private Bitmap avatar;
 
 
     public User()   {
@@ -22,16 +26,18 @@ public class User {
 
     public  User(String Name, String Phone, String Email, String id)
     {
-        this.NAME = NAME;
-        this.EMAIL = EMAIL;
+        this.NAME = Name;
+        this.EMAIL = Email;
         this.PHONE = Phone;
         this.UID = id;
     }
-    public  User(String Name, String Phone, String Email, String id, String birthday)
+    public  User(String Name, String Phone, String Email, String id, String birthday, int gender, Bitmap avatar)
     {
+
+        this.GENDER = gender;
         this.BIRTHDAY = birthday;
-        this.NAME = NAME;
-        this.EMAIL = EMAIL;
+        this.NAME = Name;
+        this.EMAIL = Email;
         this.PHONE = Phone;
         this.UID = id;
     }
@@ -82,7 +88,7 @@ public class User {
 
     public  void setGENDER(int GENDER){this.GENDER = GENDER;}
 
-
+    public  void setAVATAR(Bitmap avatar){this.avatar = avatar;}
 
 
     public String getNAME() {
@@ -113,6 +119,9 @@ public class User {
     }
 
     public int getGENDER() {return GENDER;}
+
+    public Bitmap getAVATAR() {return avatar;}
+
     @Override
     public String toString() {
         return "User{" +
