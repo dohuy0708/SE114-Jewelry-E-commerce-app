@@ -138,7 +138,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
     private void GetProductListSearchFromFireBase(String input) {
         loadingDialog.show();
         // chuẩn hóa dữ liệu search về chữ thường và bỏ dấu
-        String newInput = chuanHoaChuoi(input);
+        String newInput = normalizeVietnameseString(input).toLowerCase().replaceAll("\\s", "");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Product");
@@ -151,7 +151,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
                     for (DataSnapshot productSnapshot : categorySnapshot.getChildren()) {
                         Product product = productSnapshot.getValue(Product.class);
                         // chuẩn hóa tên về chữ thường và bỏ dấu
-                            String newName = (product.getProductName());
+                            String newName = normalizeVietnameseString(product.getProductName()).toLowerCase().replaceAll("\\s", "");
                         //Toast.makeText(SearchActivity.this,newName, Toast.LENGTH_LONG).show();
                         if (product != null && newName.contains(newInput)) {
 
@@ -303,9 +303,6 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
 
         String getMaterial = Material;
         String getAccessory = Accessory;
-        Toast.makeText(SearchActivity.this,getAccessory, Toast.LENGTH_LONG).show();
-
-
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

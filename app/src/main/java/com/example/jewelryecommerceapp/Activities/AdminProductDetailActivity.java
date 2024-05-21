@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class AdminProductDetailActivity extends AppCompatActivity {
@@ -55,7 +56,7 @@ public class AdminProductDetailActivity extends AppCompatActivity {
 
     Product product;
     private TextView admin_productDetail_Title, admin_productDetail_Save, admin_productDetail_Cancel;
-    private EditText admin_product_name, admin_product_ID, admin_product_description, admin_product_price, admin_product_size, admin_product_amount;
+    private EditText admin_product_name, admin_product_ID, admin_product_description, admin_product_price, admin_product_size, admin_product_amount,admind_product_accessory;
     private ImageView admin_product_add_image,qrcode;
     RecyclerView rc_admin_product_image;
     ImageAdapter imageAdapter;
@@ -74,10 +75,19 @@ public class AdminProductDetailActivity extends AppCompatActivity {
         reference();
         getCategory();
         getMaterial();
-    /*    Intent intent = getIntent();
+        Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("Product");
-        String title=bundle.getString("Title");*/
-        admin_productDetail_Title.setText("title");
+        String title=bundle.getString("Title");
+        if(title.equals("Add")){
+            admin_productDetail_Title.setText("Thêm sản phẩm mới");
+
+        }
+        else
+        {
+            admin_productDetail_Title.setText("Cập nhật sản phẩm");
+            admin_product_btnremove.setVisibility(View.VISIBLE);
+            createqr_btn.setVisibility(View.VISIBLE);
+        }
         //btn xóa sản phẩm
         admin_product_btnremove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +169,7 @@ public class AdminProductDetailActivity extends AppCompatActivity {
         admin_product_price=findViewById(R.id.admin_product_price);
         admin_product_size=findViewById(R.id.admin_product_size);
         admin_product_amount=findViewById(R.id.admin_product_amount);
+        admind_product_accessory=findViewById(R.id.admin_product_accessory);
         admin_product_btnremove=findViewById(R.id.admin_product_btnremove);
         admin_product_add_image=findViewById(R.id.admin_product_add_image);
         rc_admin_product_image=findViewById(R.id.rc_admin_prd_image);

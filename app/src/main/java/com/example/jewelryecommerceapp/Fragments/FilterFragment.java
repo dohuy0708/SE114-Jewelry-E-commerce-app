@@ -41,10 +41,12 @@ public class FilterFragment extends Fragment {
     }
 
     public void passData(String material,String accessory,int price) {
-        if(accessory.equals("Hột xoàn")) {
-            accessory = "Xoàn";
-        } else if (accessory.equals("Đá quý")) {
-            accessory = "Đá";
+        if(accessory!=null) {
+            if (accessory.equals("Hột xoàn")) {
+                accessory = "Xoàn";
+            } else if (accessory.equals("Đá quý")) {
+                accessory = "Đá";
+            }
         }
         dataPasser.onDataPass(material,accessory,price);
     }
@@ -121,6 +123,7 @@ Applybtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         passData(Material,Accessory,Minprice);
+        Material=null;Accessory=null;Minprice=0;
     }
 });
     }
