@@ -19,25 +19,29 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                if (user != null) {
-//                    if(Objects.equals(user.getEmail(), "huydq58422@gmail.com"))
-//                    {
-//                        Intent intent = new Intent(SplashScreenActivity.this, AdminHomeActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                    Intent intent = new Intent( SplashScreenActivity.this,HomeActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//                else{
-                  Intent intent = new Intent( SplashScreenActivity.this,HomeActivity.class);
-                startActivity(intent);
-                finish();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    if(Objects.equals(user.getEmail(), "huydq58422@gmail.com"))
+                    {
+                        Intent intent = new Intent(SplashScreenActivity.this, AdminHomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Intent intent = new Intent( SplashScreenActivity.this,HomeActivity.class);
+                        startActivity(intent);
+                        finish();}
+                }
+                else {
+                    Intent intent = new Intent( SplashScreenActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                    finish();}
+
+
 
             }
         },2000);

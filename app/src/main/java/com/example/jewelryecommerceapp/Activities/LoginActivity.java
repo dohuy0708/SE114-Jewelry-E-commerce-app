@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.jewelryecommerceapp.MainActivity;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         InitUI();
         InitListener();
-check();
+
 
     }
 
@@ -72,7 +73,7 @@ check();
 
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, SplashScreenActivity.class);
                                         startActivity(intent);
                                         // FirebaseUser user = mAuth.getCurrentUser();
 
@@ -125,17 +126,6 @@ check();
         });
     }
 
-private void check()
-{
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    if (user==null){
-        return;
-    }
-    else{
-        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-        startActivity(intent);
-    }
-}
 
 
 }

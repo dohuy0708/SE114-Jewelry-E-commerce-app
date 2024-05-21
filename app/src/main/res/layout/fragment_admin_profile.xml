@@ -51,13 +51,6 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"/>
             </LinearLayout>
-            <Button
-                    android:id="@+id/edit_profile"
-                    android:layout_marginTop="20dp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Thông tin cá nhân"
-                    style='@style/UserButtonStyle'
-            />
 
             <Button
                     android:id="@+id/analysis_button"

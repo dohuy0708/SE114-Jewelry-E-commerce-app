@@ -127,18 +127,28 @@ public class UserFragment extends Fragment {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(user!=null)
+                {
                 Intent intent = new Intent(getActivity(), EditProfileActivity.class);
                 activityResultLauncher.launch(intent);
+                }
+                else {
+                    Toast.makeText(getActivity(),"Bạn chưa đăng nhập",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
         btnAccountSercurity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), AccountSercurityActivity.class);
-                startActivity(intent);
-
+                if(user!=null)
+                {
+                    Intent intent = new Intent(getActivity(), AccountSercurityActivity.class);
+                    activityResultLauncher.launch(intent);
+                }
+                else {
+                    Toast.makeText(getActivity(),"Bạn chưa đăng nhập",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -147,24 +157,25 @@ public class UserFragment extends Fragment {
     private void getUserImformation()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null) {
+            String path = "User/" + user.getUid();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(path);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                    User user1 = dataSnapshot.getValue(User.class);
+                    tvUserName.setText(user1.getNAME());
+                }
 
-        String path = "User/"+user.getUid();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(path);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
-                User user1 = dataSnapshot.getValue(User.class);
-                tvUserName.setText(user1.getNAME());
-            }
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-
-            }
+                }
 
 
-        });
+            });
+        }
 
     }
 
