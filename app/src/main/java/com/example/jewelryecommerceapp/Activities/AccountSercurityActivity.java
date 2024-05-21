@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,7 @@ public class AccountSercurityActivity extends AppCompatActivity
         setupClickListener();
         getUserImformation();
     }
+    @SuppressLint("WrongViewCast")
     private void initView()
     {
         btnSave = findViewById(R.id.button_save_account_sercurity);

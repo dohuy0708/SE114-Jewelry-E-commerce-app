@@ -76,12 +76,12 @@ public class adapter_message extends RecyclerView.Adapter<adapter_message.MyView
             holder.layout_rowMessage.setBackgroundResource(background_message_white);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
             holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
-        } else if ("Staff".equals(receiveId)) {
+        } else if ("budf9eXCvEVnayhfjn8RW3c8vrP2".equals(receiveId)) {
             holder.layout_message_item.setGravity(Gravity.LEFT);
             holder.layout_rowMessage.setBackgroundResource(background_message_white);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
             holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
-        } else if ("Staff".equals(senderId)) {
+        } else if ("budf9eXCvEVnayhfjn8RW3c8vrP2".equals(senderId)) {
             holder.layout_message_item.setGravity(Gravity.RIGHT);
             holder.layout_rowMessage.setBackgroundResource(background_message_blue);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context, R.color.white)));

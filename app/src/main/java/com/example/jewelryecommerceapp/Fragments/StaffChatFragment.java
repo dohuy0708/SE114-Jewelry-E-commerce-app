@@ -112,6 +112,7 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
                     User object = d.getValue(User.class);
                     assert object != null;
                     if(!object.getUID().equals(firebaseAuth.getUid())) userArrayList.add(object);
+                    adapterChatFragment.setData(userArrayList);
                     adapterChatFragment.notifyDataSetChanged();
                     if(progressDialog.isShowing())
                     {

@@ -1,5 +1,8 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,15 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.jewelryecommerceapp.Controllers.UserControllers;
+import com.example.jewelryecommerceapp.Controllers.ValidateController;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+<<<<<<<<< Temporary merge branch 1
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+=========
 import com.google.firebase.auth.FirebaseUser;
+>>>>>>>>> Temporary merge branch 2
 
 public class LoginActivity extends AppCompatActivity {
     Button btnlogin;
@@ -120,10 +127,6 @@ check();
                 startActivity(intent);*/
                 finish();
             }
-        });
-        back_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {finish();}
         });
     }
 
