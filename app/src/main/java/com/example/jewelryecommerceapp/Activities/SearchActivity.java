@@ -126,6 +126,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
                 }
                 SetUI();
                 //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -168,6 +169,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
 
                 loadingDialog.cancel();
+
             }
 
             @Override
@@ -215,6 +217,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
                 }
                 SetUI();
            //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

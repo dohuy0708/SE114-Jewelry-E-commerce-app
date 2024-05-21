@@ -2,10 +2,14 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,15 +99,16 @@ public class CartFragment extends Fragment {
 
     }
 
-    ImageView logo;
     private LoadingDialog loadingDialog;
     ArrayList<CartItem> Pros;
     RecyclerView inCartPros;
     CartProductsAdapter Adt;
-    TextView tienspp;
     TextView totalll;
-    TextView promotee;
     Button ordernoww;
+    String userID ="";
+
+    int totalprice =0;
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -111,31 +116,97 @@ public class CartFragment extends Fragment {
         loadingDialog = new LoadingDialog(getActivity());
         Pros = new ArrayList<>();
         inCartPros = view.findViewById(R.id.Cartt);
+        ordernoww = view.findViewById(R.id.buybtn);
+        totalll = view.findViewById(R.id.tongtien);
 
 
 
-        logo = view.findViewById(R.id.logo);
-        tienspp = view.findViewById(R.id.tiensp);
-        promotee = view.findViewById(R.id.promote);
-        ordernoww = view.findViewById(R.id.ordernow);
-        totalll = view.findViewById(R.id.tccc);
-        totalll.setText("Tổng cộng: ");//+ String.valueOf(Integer.parseInt(tienspp.getText().toString())-Integer.parseInt(promotee.getText().toString())));
-        ordernoww.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), Payment.class);
-                startActivity(i);
-            }
-        });
-        //  Kiem tra da dang nhap hay chua
+
+
+
+
+        ordernoww = view.findViewById(R.id.buybtn);
+
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             // showToastWithIcon(R.drawable.attention_icon,"Bạn cần Đăng nhập để xem Giỏ hàng!");
 
         } else {
-            String userID = user.getUid();
+             userID = user.getUid();
             GetCartItemFromFireBase(userID);
         }
+
+
+
+        // tính tổng tiền cộng vào biến Tong ;
+        CaculateTotalPrice(userID);
+        totalll = view.findViewById(R.id.tongtien);
+
+         ordernoww.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    showToastWithIcon(R.drawable.attention_icon,"Vui lòng đăng nhập!");
+                }
+                else {
+                    if(totalprice>0)// xử lí đã chọn sản phẩm hay chưa
+                    {
+
+                        Intent i = new Intent(getActivity(), Payment.class);
+                        i.putExtra("Total",totalprice);
+                        i.putExtra("from",2);
+                        i.putExtra("User",userID);
+
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        showToastWithIcon(R.drawable.attention_icon,"Vui lòng chọn sản phẩm!");
+                    }
+                }
+
+
+            }
+        });
+        //  Kiem tra da dang nhap hay chua
+
+    }
+
+    private void CaculateTotalPrice(String userid) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Cart").child(userid);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
+
+               totalprice=0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+
+                    if (item.getIsChoose() == 1) {
+
+                        totalprice += item.getProductPrice()*item.getAmount();
+                     //   total += item.getProductPrice()*item.getAmount();
+                    }
+
+                }
+                totalll.setText(formatNumber(totalprice) + " VND");
+
+
+              //  return 0;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
@@ -158,15 +229,16 @@ public class CartFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
-               Pros.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                Pros.clear(); // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
                     CartItem item = dataSnapshot.getValue(CartItem.class);
                     Pros.add(item);
 
                 }
 
-                /*// Sử dụng một map để theo dõi số lượng sản phẩm
+              /*  // Sử dụng một map để theo dõi số lượng sản phẩm
                 Map<String, CartItem> productMap = new HashMap<>();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -183,16 +255,17 @@ public class CartFragment extends Fragment {
                             productMap.put(item.getProductName(), item);
                         }
                     }
-                }
+                }*/
 
                 // Thêm tất cả sản phẩm từ map vào danh sách Pros
-                Pros.addAll(productMap.values());
+
 
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
-*/
+
                 SetUI();
                 loadingDialog.cancel();
 
+              //  return 0;
             }
 
             @Override
@@ -223,6 +296,21 @@ public class CartFragment extends Fragment {
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
+    }
+    public static String formatNumber(int number) {
+        String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
+        int length = strNumber.length(); // Độ dài của chuỗi số
+
+        // Xây dựng chuỗi kết quả từ phải sang trái, thêm dấu chấm sau mỗi 3 ký tự
+        StringBuilder result = new StringBuilder();
+        for (int i = length - 1; i >= 0; i--) {
+            result.insert(0, strNumber.charAt(i));
+            if ((length - i) % 3 == 0 && i != 0) {
+                result.insert(0, ".");
+            }
+        }
+
+        return result.toString(); // Trả về chuỗi kết quả
     }
 }
 

@@ -34,7 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,33 +46,15 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -79,8 +63,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
 
 
         }
@@ -91,12 +74,12 @@ public class HomeFragment extends Fragment {
 
 
        /* ArrayList<String> imagelist = new ArrayList<>();
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/D%C3%A2y%20chuy%E1%BB%81n%2Fsample6%2Fdcbtcc99-4_e4d63a0e6d5d4ca08f66cd3d1970e0fc.webp?alt=media&token=cb52d84c-0d11-455d-b975-7e0dd7d91f2f");
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/D%C3%A2y%20chuy%E1%BB%81n%2Fsample6%2Fdcbtcc99-5_0314c7f2f8134cc595fd6a98b357f632.webp?alt=media&token=0e47ba48-03ba-49f7-a460-85abdc5a8055");
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/D%C3%A2y%20chuy%E1%BB%81n%2Fsample6%2Fdcbtcc99_1_7583d6be9bf1406ba40c6c369e5d3d94.webp?alt=media&token=e243584a-6fb0-40d0-afb2-2e7834906af2");
-        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/D%C3%A2y%20chuy%E1%BB%81n%2Fsample6%2Fdcbtcc99_2_2ec518d53b6948659bad70384fcdc9a5.webp?alt=media&token=f0e411b5-249f-4fde-a6d6-f40d0a9e36c3");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-01.png?alt=media&token=c5cdb449-87c4-4607-a227-cd19f4c56417");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-02.png?alt=media&token=659d7394-cc5c-4737-bc69-45617dc033e7");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-03.png?alt=media&token=7641b0f5-e3eb-444c-865f-d0178d971c8c");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-04.jpg?alt=media&token=6158040e-c393-45ca-84f0-c60479ae4d33");
 
-     //   imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/B%E1%BB%99%20trang%20s%E1%BB%A9c%2Fsample4%2Fbo-trang-suc-vang-18k-dinh-da-cz-pnj-005058-002571-01.png?alt=media&token=40d3258d-c409-46a1-aa7b-a75650e0b79f");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-05.jpg?alt=media&token=748836db-7743-4c91-86cc-6ce1c350b4b7");
        // imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnc466_1_acb49941fe154c22b1cdf524226b3823_master_c105dd97ae4042708fce06c5a15d0da3.webp?alt=media&token=9faf7419-dd0a-4116-8360-c429ef829176");
         Map<String,Integer> sizemap = new HashMap<>();
         sizemap.put("14",10);
@@ -106,18 +89,14 @@ public class HomeFragment extends Fragment {
 
 
 
-        Product testproduct = new Product("6", "Dây chuyền","Dây chuyền Vàng đính Ngọc trai Mother Pearl DCB","Vàng",imagelist,sizemap,"Ngọc trai",11.6,7850000,"Sang xịn mịn","H-Jewelry");
-        ArrayList<Product> testlisst = new ArrayList<>();
-        testlisst.add(testproduct);
-        ProductNew productNew = new ProductNew();
+        Product testproduct = new Product("8", "Nhẫn","Nhẫn Vàng trắng đính đá RedPearl ","Vàng trắng",imagelist,sizemap,"đá RedPearl",11.6,6250000,"Sang xịn mịn","H-Jewelry");
 
-        productNew.setListNewProduct(testlisst);
 
         FirebaseDatabase data = FirebaseDatabase.getInstance();
-        DatabaseReference ref = data.getReference() ;
+        DatabaseReference ref = data.getReference("Sản phẩm bán chạy")  ;
 
 
-        ref.push().setValue(productNew, new DatabaseReference.CompletionListener() {
+        ref.push().setValue(testproduct, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error != null) {
@@ -128,26 +107,38 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 }
             }
-        });
-    }*/
-       /* LocalDate startDate = LocalDate.of(2024, 2, 10);
-        LocalDate endDate = LocalDate.of(2024, 2, 14);
+        });*/
+    }
 
-        Voucher voucher = new Voucher("n1","VALENTINE2024", "Nhân ngày Valentine(14/2) cửa hàng khuyến mãi siêu khủng, giảm giá 300k cho hóa đơn trên 5 triệu đồng.", 300, 5000000, startDate, endDate);
+
+        // Tạo đối tượng Voucher với các giá trị ngày dạng String
+    /*  Voucher voucher = new Voucher("n2", "QTPN83",
+                "Nhân ngày Quốc tế phụ nữ cửa hàng khuyến mãi 250k cho hóa đơn trên 8300000.",
+                 250000, 83000000,"2024-03-5", "2024-03-08");
+
+        // Khởi tạo Firebase
         FirebaseDatabase data = FirebaseDatabase.getInstance();
-        DatabaseReference ref = data.getReference("Voucher");
+        DatabaseReference ref = data.getReference("Address");
+
+        // Đẩy đối tượng Voucher lên Firebase
         ref.push().setValue(voucher, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Toast.makeText(getActivity(),"đẩy voucher thành cônng",Toast.LENGTH_LONG).show();
+                if (error != null) {
+                   // Toast.makeText(getActivity(), "Đẩy voucher thất bại: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    showToastWithIcon(R.drawable.succecss_icon,"Đã cập nhật địa chỉ");
 
+                }
             }
         });
-
-
-
 */
-    }
+
+
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -462,6 +453,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterPearl.notifyDataSetChanged();
                 loadingDialog.cancel();
+              //  return 0;
             }
 
             @Override
@@ -490,6 +482,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterCouple.notifyDataSetChanged();
                 loadingDialog.cancel();
+              //  return 0;
             }
 
             @Override
@@ -521,6 +514,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterDiamond.notifyDataSetChanged();
                 loadingDialog.cancel();
+                //return 0;
             }
 
             @Override
@@ -550,6 +544,7 @@ public class HomeFragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterSet.notifyDataSetChanged();
                 loadingDialog.cancel();
+              //  return 0;
             }
 
             @Override
@@ -580,6 +575,7 @@ public class HomeFragment extends Fragment {
              //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterNew.notifyDataSetChanged();
               loadingDialog.cancel();
+                //return 0;
             }
 
             @Override
@@ -612,6 +608,7 @@ public class HomeFragment extends Fragment {
                 }
             //    Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
                 myAdapterTrend.notifyDataSetChanged();
+              //  return 0;
             }
 
 

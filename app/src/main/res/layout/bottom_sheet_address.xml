@@ -7,37 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/btn_comeback"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ic_back" />
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="369dp"
-                android:layout_height="37dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="Địa chỉ giao hàng"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:text="Liên hệ"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -57,9 +26,9 @@
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/black_stroke"
                 android:hint="Họ và tên"
                 android:paddingLeft="8dp"
@@ -76,9 +45,9 @@
             <EditText
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/black_stroke"
                 android:hint="Số điện thoại"
                 android:inputType="number"
@@ -98,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Địa chỉ"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -106,9 +75,9 @@
             <Spinner
                 android:id="@+id/spinner_province"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:autofillHints="Tỉnh/Thành phố"
                 android:background="@drawable/black_stroke"
@@ -117,9 +86,9 @@
             <Spinner
                 android:id="@+id/spinner_district"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:autofillHints="Quận/Huyện"
                 android:background="@drawable/black_stroke"
@@ -128,9 +97,10 @@
             <Spinner
                 android:id="@+id/spinner_ward"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="40dp"
+
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:autofillHints="Phường/Xã"
                 android:background="@drawable/black_stroke"
@@ -139,9 +109,9 @@
             <EditText
                 android:id="@+id/street"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/black_stroke"
                 android:hint="Tên đường, Tòa nhà, Số nhà....."
                 android:paddingLeft="8dp"
@@ -158,9 +128,9 @@
             <EditText
                 android:id="@+id/detail"
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
+                android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/black_stroke"
                 android:hint="Ghi chú cho shipper..."
                 android:paddingLeft="8dp"
@@ -177,15 +147,16 @@
             <Button
                 android:id="@+id/bt_finish"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_corner"
                 android:text="Hoàn thành" />
 
 
         </LinearLayout>
-    </LinearLayout>
+
 
 
 

@@ -111,6 +111,7 @@ public class CustomerViewChatActivity extends AppCompatActivity {
                     messagesArrayList.add(messages);
                 }
                 messagesAdapter.notifyDataSetChanged();
+                //return 0;
             }
 
             @Override

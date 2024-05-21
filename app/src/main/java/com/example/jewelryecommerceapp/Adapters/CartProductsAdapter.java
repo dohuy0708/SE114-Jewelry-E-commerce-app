@@ -71,7 +71,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                 pro.setIsChoose(isChecked ? 1 : 0);
 
                 // Thông báo cho Adapter biết dữ liệu đã thay đổi để cập nhật giao diện
-                notifyItemChanged(position);
+               // notifyItemChanged(position);
 
                 // Gọi hàm để cập nhật dữ liệu trên Firebase
                 String userID = pro.getUserID();
@@ -92,7 +92,8 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
      /*   String s=holder.numm.getText().toString();
         int numb=Integer.parseInt(s);*/
 
-        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice()+"đ");
+        holder.pricee.setText("Đơn giá: "+ formatNumber(pro.getProductPrice())+"đ");
+        holder.sizee.setText("Size: "+pro.getSize());
         holder.pluss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +190,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+                //return 0;
             }
 
             @Override
@@ -225,6 +227,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+              //  return 0;
             }
 
             @Override
@@ -264,6 +267,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+               // return 0;
             }
 
             @Override
@@ -299,6 +303,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+               // return 0;
             }
 
             @Override
@@ -327,6 +332,8 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         EditText numm;
         CheckBox check;
        TextView binn;
+        TextView sizee;
+
 
         public ProductViewHolder(@NonNull View view) {
             super(view);
@@ -338,6 +345,8 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             numm = view.findViewById(R.id.number);
             check = view.findViewById(R.id.checking);
             binn = view.findViewById(R.id.bin);
+            sizee=view.findViewById(R.id.sz);
+
             numm.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -387,6 +396,21 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         private boolean isValidCharacter(char c) {
             return Character.isDigit(c);
         }
+    }
+    public static String formatNumber(int number) {
+        String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
+        int length = strNumber.length(); // Độ dài của chuỗi số
+
+        // Xây dựng chuỗi kết quả từ phải sang trái, thêm dấu chấm sau mỗi 3 ký tự
+        StringBuilder result = new StringBuilder();
+        for (int i = length - 1; i >= 0; i--) {
+            result.insert(0, strNumber.charAt(i));
+            if ((length - i) % 3 == 0 && i != 0) {
+                result.insert(0, ".");
+            }
+        }
+
+        return result.toString(); // Trả về chuỗi kết quả
     }
 }
 

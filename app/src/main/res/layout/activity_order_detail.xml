@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -36,7 +36,7 @@
                 android:layout_height="51dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:text="Thanh toán"
+                android:text="Chi Tiết Đơn Hàng"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="25sp"
@@ -75,18 +75,12 @@
                     android:layout_height="31dp"
                     android:layout_marginLeft="13dp"
                     android:layout_weight="1"
-                    android:text="Thông tin giao hàng"
+                    android:text="Địa chỉ giao hàng"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnadd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:text="Thêm"
-                     android:layout_gravity="center"/>
+
             </LinearLayout>
 
             <TextView
@@ -132,9 +126,11 @@
             android:layout_height="270dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/ttong"
                 android:layout_width="match_parent"
@@ -194,9 +190,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
-                android:hint="Nhập mã tại đây"
+                android:hint=" "
                 android:textSize="15dp"
-                android:textStyle="italic" />
+                android:textStyle="italic"  />
             <ImageView
                 android:id="@+id/statusvoucher"
                 android:layout_width="30dp"
@@ -204,12 +200,7 @@
                 android:layout_gravity="center">
 
             </ImageView>
-            <Button
-                android:id="@+id/apply"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:padding="4dp"
-                android:text="Áp dụng"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -251,75 +242,72 @@
             android:layout_marginBottom="3dp"
             android:background="@color/black" />
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/totrd"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="1dp"
-        android:text="Tổng hóa đơn: "
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/totalord"
-        android:layout_width="200dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="13dp"
-        android:text="100000 "
-        android:textColor="#122693"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-</LinearLayout>
+            <TextView
+                android:id="@+id/totrd"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="1dp"
+                android:text="Tổng hóa đơn: "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/totalord"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:text="100000 "
+                android:textColor="#122693"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginRight="13dp"
-        android:layout_marginLeft="1dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="228dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="13dp"
-            android:layout_weight="1"
-            android:text="Phương thức thanh toán"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:ignore="DuplicateIds" />
+            <LinearLayout
+                android:layout_width="372dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="13dp"
+                android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/spn"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="13dp"
-            android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="228dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_weight="1"
+                    android:text="Phương thức thanh toán:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="228dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_weight="1"
+                    android:text="Thanh toán khi nhận hàng"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
 
+                    tools:ignore="DuplicateIds" />
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnpay"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="13dp"
-        android:background="#41ABFF"
-        android:text="Đặt hàng" />
-
-</LinearLayout>
-</LinearLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

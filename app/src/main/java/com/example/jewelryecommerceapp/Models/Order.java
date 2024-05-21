@@ -1,25 +1,32 @@
 package com.example.jewelryecommerceapp.Models;
 
-public class Order {
-    private String OrderID;
-    private String OrdererName;
-    private String OrdererAdd;
-    private String OrdererSDT;
-    private int Money;
-    private String Datee;
+import java.util.ArrayList;
 
+public class Order {
+
+    private String OrderID;
+    private int voucher;
+    private int Money;
+    private String Date;
     private String status;
+    private Address address;
+    private ArrayList<CartItem> ListPurchaseProduct;
 
     public Order(){
 
     }
+    public   Order(String ID, int voucher, int money,String Date, String status,Address address,ArrayList<CartItem> Listproduct)
+    {
+        this.OrderID = ID;
+        this.voucher = voucher;
+        this.address = address;
+        this.Date= Date;
+        this.Money = money;
 
-    public String getStatus(){
-        return status;
+        this.status = status;
+        this.ListPurchaseProduct= Listproduct;
     }
-    public void setStatus(String Status){
-        this.status=Status;
-    }
+
     public String getOrderID() {
         return OrderID;
     }
@@ -28,28 +35,12 @@ public class Order {
         OrderID = orderID;
     }
 
-    public String getOrdererName() {
-        return OrdererName;
+    public int getVoucher() {
+        return voucher;
     }
 
-    public void setOrdererName(String ordererName) {
-        OrdererName = ordererName;
-    }
-
-    public String getOrdererAdd() {
-        return OrdererAdd;
-    }
-
-    public void setOrdererAdd(String ordererAdd) {
-        OrdererAdd = ordererAdd;
-    }
-
-    public String getOrdererSDT() {
-        return OrdererSDT;
-    }
-
-    public void setOrdererSDT(String ordererSDT) {
-        OrdererSDT = ordererSDT;
+    public void setVoucher(int voucher) {
+        this.voucher = voucher;
     }
 
     public int getMoney() {
@@ -61,20 +52,34 @@ public class Order {
     }
 
     public String getDatee() {
-        return Datee;
+        return Date;
     }
 
     public void setDatee(String datee) {
-        Datee = datee;
+        Date = datee;
     }
-    public Order(String orderID, String ordererName, String ordererAdd, String ordererSDT, int money, String datee, String Status)
-    {
-        this.OrderID=orderID;
-        this.OrdererName=ordererName;
-        this.OrdererAdd=ordererAdd;
-        this.OrdererSDT=ordererSDT;
-        this.Money=money;
-        this.Datee=datee;
-        this.status=Status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public ArrayList<CartItem> getListPurchaseProduct() {
+        return ListPurchaseProduct;
+    }
+
+    public void setListPurchaseProduct(ArrayList<CartItem> listPurchaseProduct) {
+        ListPurchaseProduct = listPurchaseProduct;
     }
 }

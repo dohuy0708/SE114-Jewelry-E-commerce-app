@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,11 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Controllers.ValidateController;
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText edtEmail, edtNumberPhone, edtName, edtPassword, edtRePassword;
@@ -78,12 +83,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     // If sign in fails, display a message to the user.
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUpActivity.this,"Đăng ký thành công",Toast.LENGTH_LONG).show();
-
+                                        saveUserInfo(name,email,sdt);
+                                        showToastWithIcon(R.drawable.succecss_icon,"Đăng kí thành công");
                                     } else
                                     {
-                                        Toast.makeText(SignUpActivity.this,"Đăng ký thất bại",Toast.LENGTH_SHORT).show();
-                                    }
+                                        showToastWithIcon(R.drawable.fail_icon,"Đăng kí thất bại!");
+                                            }
                                 }
                             });
 
@@ -113,6 +118,34 @@ public class SignUpActivity extends AppCompatActivity {
         subText = findViewById(R.id.SubText);
 
 
+    }
+    private void saveUserInfo(String name, String email, String number)
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String str = user.getUid();
+        String path = "User/"+str;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(path);
+
+        User user1 = new User(name,number,email,str);
+        myRef.setValue(user1);
+    }
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(SignUpActivity.this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 
 }
