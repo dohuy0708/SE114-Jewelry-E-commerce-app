@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -28,16 +31,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jewelryecommerceapp.Adapters.NoticeAdapter;
 import com.example.jewelryecommerceapp.Interfaces.SelectNotice;
 import com.example.jewelryecommerceapp.Models.Notice;
+import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class NoticeAdActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SUB_ACTIVITY = 1;
-    private static final int PICK_IMAGE_REQUEST = 1;
-    ImageView img_back,imgToNotice;
+
+    ImageView img_back;
     RecyclerView rc_notice;
     NoticeAdapter noticeAdapter;
     Button add_notice;
@@ -58,28 +67,8 @@ public class NoticeAdActivity extends AppCompatActivity {
         img_back=findViewById(R.id.img_back);
         rc_notice=findViewById(R.id.rc_notice);
         add_notice=findViewById(R.id.add_notice);
-        noticeList= initNoticeList(noticeList);
-        noticeAdapter = new NoticeAdapter(this, noticeList, new SelectNotice() {
-            @Override
-            public void onNoticeSelect(Notice notice) {
-                /*Intent intent= new Intent(NoticeAdActivity.this, NoticeDetailActivity.class);
-                notice.setImgNotice(notice.getImgNotice().toString());
-                intent.putExtra("notice",notice);
+        noticeList= new ArrayList<>();
 
-                String img = notice.getImgNotice().toString();
-                intent.putExtra("img",img);
-                startActivity(intent);*/
-
-                dialog= new BottomSheetDialog(NoticeAdActivity.this);
-                createDetailDialog(notice);
-                dialog.show();
-                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            }
-        },1);
-        rc_notice.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rc_notice.setHasFixedSize(true);
-        rc_notice.setAdapter(noticeAdapter);
-        noticeAdapter.notifyDataSetChanged();
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,19 +90,14 @@ public class NoticeAdActivity extends AppCompatActivity {
         });
 
     }
-@SuppressLint("MissingInflatedId")
-void createDialog(){
+
+    @SuppressLint("MissingInflatedId")
+
+    void createDialog(){
     View view = getLayoutInflater().inflate(R.layout.bottom_sheet_notice,null,false);
     EditText txt_title = view.findViewById(R.id.txt_title);
     TextInputEditText txt_content= view.findViewById(R.id.txt_content);
-    imgToNotice = view.findViewById(R.id.imgToNotice);
-    imgToNotice.setTag("");
-    view.findViewById(R.id.select_img).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            getImageFromDevice();
-        }
-    });
+
     view.findViewById(R.id.bt_add).setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -125,7 +109,6 @@ void createDialog(){
                 Notice notice = new Notice();
                 notice.setTitleNotice(title);
                 notice.setContentNotice(content);
-                notice.setImgNotice(imgToNotice.getTag());
                 noticeList.add(notice);
                 noticeAdapter.notifyDataSetChanged();
                 // Ở đây bạn có thể lưu trữ hoặc xử lý đối tượng 'notice' theo yêu cầu của ứng dụng của bạn
@@ -141,48 +124,37 @@ void createDialog(){
     });
     dialog.setContentView(view);
 
-}
-
-void createDetailDialog(Notice notice){
-    View view = getLayoutInflater().inflate(R.layout.bottom_sheet_notice,null,false);
-    EditText txt_title = view.findViewById(R.id.txt_title);
-    TextInputEditText txt_content= view.findViewById(R.id.txt_content);
-    imgToNotice = view.findViewById(R.id.imgToNotice);
-    TextView title_add= view.findViewById(R.id.title_add);
-    title_add.setText("Thông báo chờ gửi");
-    try {
-        imgToNotice.setImageURI((Uri) notice.getImgNotice());
-    }
-    catch (Exception e){
 
     }
-    txt_content.setText(notice.getContentNotice());
-    txt_title.setText(notice.getTitleNotice());
-    view.findViewById(R.id.select_img).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            getImageFromDevice();
-        }
-    });
-    Button bt_add= view.findViewById(R.id.bt_add);
-    bt_add.setText("Xong");
-    bt_add.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String title = txt_title.getText().toString();
-            String content = txt_content.getText().toString();
-            if (title.isEmpty() || content.isEmpty()) {
-                Toast.makeText(NoticeAdActivity.this, "Vui lòng nhập đủ tiêu đề và nội dung", Toast.LENGTH_SHORT).show();
-            } else {
-                notice.setTitleNotice(title);
-                notice.setContentNotice(content);
-                notice.setImgNotice(imgToNotice.getTag());
-                noticeAdapter.notifyDataSetChanged();
-                // Ở đây bạn có thể lưu trữ hoặc xử lý đối tượng 'notice' theo yêu cầu của ứng dụng của bạn
-                dialog.dismiss();
+
+    void createDetailDialog(Notice notice){
+        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_notice,null,false);
+        EditText txt_title = view.findViewById(R.id.txt_title);
+        TextInputEditText txt_content= view.findViewById(R.id.txt_content);
+        TextView title_add= view.findViewById(R.id.title_add);
+        title_add.setText("Thông báo chờ gửi");
+
+        txt_content.setText(notice.getContentNotice());
+        txt_title.setText(notice.getTitleNotice());
+
+        Button bt_add= view.findViewById(R.id.bt_add);
+        bt_add.setText("Xong");
+        bt_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = txt_title.getText().toString();
+                String content = txt_content.getText().toString();
+                if (title.isEmpty() || content.isEmpty()) {
+                    Toast.makeText(NoticeAdActivity.this, "Vui lòng nhập đủ tiêu đề và nội dung", Toast.LENGTH_SHORT).show();
+                } else {
+                    notice.setTitleNotice(title);
+                    notice.setContentNotice(content);
+                    noticeAdapter.notifyDataSetChanged();
+                    // Ở đây bạn có thể lưu trữ hoặc xử lý đối tượng 'notice' theo yêu cầu của ứng dụng của bạn
+                    dialog.dismiss();
+                }
             }
-        }
-    });
+        });
     view.findViewById(R.id.bt_send).setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -191,33 +163,74 @@ void createDetailDialog(Notice notice){
             if (title.isEmpty() || content.isEmpty()) {
                 Toast.makeText(NoticeAdActivity.this, "Vui lòng nhập đủ tiêu đề và nội dung", Toast.LENGTH_SHORT).show();
             } else {
-
                // Ở đây bạn có thể lưu trữ hoặc xử lý đối tượng 'notice' theo yêu cầu của ứng dụng của bạn
                 dialog.dismiss();
             }
         }
     });
-
     dialog.setContentView(view);
-}
-    void getImageFromDevice(){
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    void pushNoticeToDatabase(Notice notice){
+        FirebaseDatabase data = FirebaseDatabase.getInstance();
+        DatabaseReference ref = data.getReference("Voucher");
 
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            Uri selectedImageUri = data.getData();
-            // Bây giờ bạn có thể làm gì đó với URI của ảnh đã chọn (selectedImageUri)
-            imgToNotice.setImageURI(selectedImageUri);
-            imgToNotice.setTag(selectedImageUri);
-        }
+        // Đẩy đối tượng Voucher lên Firebase
+        ref.push().setValue(notice, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error != null) {
+                    Toast.makeText(NoticeAdActivity.this, "Thêm voucher thất bại", Toast.LENGTH_LONG).show();
+                } else {
+                    showToastWithIcon(R.drawable.succecss_icon,"Thêm voucher thành công");
+                }
+            }
+        });
     }
-     ArrayList<Notice> initNoticeList(ArrayList<Notice> list){
-        list= new ArrayList<>();
+    void getNoticeFromDatabase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Notice")  ;
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                noticeAdapter = new NoticeAdapter(NoticeAdActivity.this, noticeList, new SelectNotice() {
+                    @Override
+                    public void onNoticeSelect(Notice notice) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Voucher voucher = dataSnapshot.getValue(Voucher.class);
+                            noticeList.add(notice);
+                        }
+                        dialog= new BottomSheetDialog(NoticeAdActivity.this);
+                        createDetailDialog(notice);
+                        dialog.show();
+                        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    }
+                },1);
+                rc_notice.setLayoutManager(new LinearLayoutManager(NoticeAdActivity.this,LinearLayoutManager.VERTICAL,false));
+                rc_notice.setHasFixedSize(true);
+                rc_notice.setAdapter(noticeAdapter);
+                noticeAdapter.notifyDataSetChanged();
+            }
 
-        return list;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(NoticeAdActivity.this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 }

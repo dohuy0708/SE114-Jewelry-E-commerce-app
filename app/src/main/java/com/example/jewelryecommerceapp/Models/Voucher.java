@@ -15,6 +15,7 @@ import java.time.LocalDate;
     private String dateBegin; // Lưu trữ ngày dưới dạng chuỗi
     private String dateEnd;   // Lưu trữ ngày dưới dạng chuỗi
 
+
     // Constructors
     public Voucher(String ID, String code, String content, int discount, int InCase, String dateBegin, String dateEnd) {
         this.ID = ID;

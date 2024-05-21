@@ -43,7 +43,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
     @Override
     public NoticeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_notice,parent,false);
-
         return new NoticeViewHolder(view);
     }
 
@@ -53,13 +52,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
         if(notice==null)
             return;
 
-        setImageInView(holder.img_notice,notice.getImgNotice());
         holder.title_notice.setText(notice.getTitleNotice());
         holder.more.setText("xem thêm");
-        if(type==0)
-            holder.time.setVisibility(View.INVISIBLE);
-        else
-            holder.time.setText("Chờ gửi");
+
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,23 +72,14 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
     class NoticeViewHolder extends RecyclerView.ViewHolder {
         ImageView img_notice;
-        TextView title_notice,more,time;
+        TextView title_notice,more;
 
         public NoticeViewHolder(@NonNull View itemView) {
             super(itemView);
             img_notice=itemView.findViewById(R.id.img_notice_item);
             title_notice=itemView.findViewById(R.id.title_notice_item);
             more=itemView.findViewById(R.id.more_notice_item);
-            time=itemView.findViewById(R.id.time_notice_item);
         }
     }
-    public void setImageInView(ImageView imageView, Object imageObject) {
-        if (imageObject instanceof Uri) {
-            // Nếu là Uri, đặt ảnh từ Uri vào ImageView
-            imageView.setImageURI((Uri) imageObject);
-        } else if (imageObject instanceof Integer) {
-            // Nếu là resource ID (int), đặt ảnh từ resource ID vào ImageView
-            imageView.setImageResource((Integer) imageObject);
-        }
-    }
+
 }
