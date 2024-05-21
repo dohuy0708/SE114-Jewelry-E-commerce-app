@@ -31,7 +31,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class SearchActivity extends AppCompatActivity implements FilterFragment.OnDataPass {
     private ImageView btnFilter;
@@ -47,7 +49,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
     private ProductAdapter productAdapter;
     private LoadingDialog loadingDialog;
     private int selectedPrice;
-    private String Material,Mounted;
+    private String Material,Accessory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +141,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
     private void GetProductListSearchFromFireBase(String input) {
         loadingDialog.show();
         // chuẩn hóa dữ liệu search về chữ thường và bỏ dấu
-        String newInput = chuanHoaChuoi(input);
+        String newInput = normalizeVietnameseString(input).toLowerCase().replaceAll("\\s", "");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Product");
@@ -152,7 +154,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
                     for (DataSnapshot productSnapshot : categorySnapshot.getChildren()) {
                         Product product = productSnapshot.getValue(Product.class);
                         // chuẩn hóa tên về chữ thường và bỏ dấu
-                            String newName = (product.getProductName());
+                            String newName = normalizeVietnameseString(product.getProductName()).toLowerCase().replaceAll("\\s", "");
                         //Toast.makeText(SearchActivity.this,newName, Toast.LENGTH_LONG).show();
                         if (product != null && newName.contains(newInput)) {
 
@@ -276,11 +278,10 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
     }
 //sự kiện filter
     @Override
-    public void onDataPass(String material, String mounted, int price) {
-        Material=material;Mounted=mounted;selectedPrice=price;
-        Toast.makeText(this, Material+Mounted+selectedPrice, Toast.LENGTH_SHORT).show();
+    public void onDataPass(String material, String accessory, int price) {
+        GetProductListFilterFromFireBase(material,accessory,price);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
+        productList.clear();
         filterFragment = getSupportFragmentManager().findFragmentByTag(FilterFragment.TAG);
 
         if (filterFragment != null) {
@@ -292,4 +293,67 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
             }
         }
     }
+    private void GetProductListFilterFromFireBase(String material, String accessory, int price) {
+
+            String Material=null,Accessory=null;
+            if(material!=null) {
+                Material =normalizeVietnameseString(material.toLowerCase().replaceAll("\\s", ""));
+            }
+
+            if(accessory!=null) {
+                Accessory = normalizeVietnameseString(accessory.toLowerCase().replaceAll("\\s", ""));
+            }
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product");
+
+        String getMaterial = Material;
+        String getAccessory = Accessory;
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // DataSnapshot là tổng các Product , chứa các item trong đó, khi getChildren() , thì ta sẽ lấy từng item  .
+                for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot productSnapshot : categorySnapshot.getChildren()) {
+                        Product product = productSnapshot.getValue(Product.class);
+                        // chuẩn hóa tên về chữ thường và bỏ dấu
+                        String newMaterial =normalizeVietnameseString( product.getMaterial().toLowerCase().replaceAll("\\s", ""));
+                        String newAccessory =normalizeVietnameseString( product.getAccessory().toLowerCase().replaceAll("\\s", ""));
+                        int newPrice=product.getProductPrice();
+                        if(getMaterial==null&&getAccessory==null){
+                            if (product!=null&&newPrice>price){
+                                productList.add(product);
+                            }
+                        } else if (getMaterial!=null&&getAccessory==null) {
+                            if (product!=null&&newPrice>price&&newMaterial.equalsIgnoreCase(getMaterial)){
+                                productList.add(product);
+                            }
+                        } else if (getMaterial==null&&getAccessory!=null) {
+                            if (product!=null&&newPrice>price&&newAccessory.contains(getAccessory)){
+                                productList.add(product);
+                            }
+                        } else{
+                            if (product!=null&&newPrice>price&&newAccessory.contains(getAccessory)&&newMaterial.equalsIgnoreCase(getMaterial)){
+                                productList.add(product);
+                            }
+                        }
+                    }
+                }
+                productAdapter.notifyDataSetChanged();
+                SetUI();
+                //   Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+                loadingDialog.cancel();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+        public String normalizeVietnameseString(String input) {
+            String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+            return pattern.matcher(normalized).replaceAll("").replaceAll("đ", "d").replaceAll("Đ", "D");
+        }
+
 }
+
+
