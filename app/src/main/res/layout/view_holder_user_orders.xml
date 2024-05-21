@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:layout_marginLeft="15dp"
+			  android:layout_marginTop="8dp"
+			  android:layout_marginRight="15dp"
+			  android:layout_marginBottom="8dp"
+			  android:background="#BED9EF"
+			  android:orientation="vertical">
+
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:layout_marginTop="13dp">
+
+		<TextView
+				android:id="@+id/UserOrderID"
+				android:layout_width="286dp"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="12dp"
+				android:layout_marginRight="12dp"
+				android:text="Mã đơn hàng: "
+				android:textColor="@color/black"
+				android:textSize="18sp"
+				android:textStyle="bold"
+				tools:ignore="MissingConstraints">
+
+		</TextView>
+
+		<Button
+				android:id="@+id/userButtonDtls"
+				android:layout_width="158dp"
+				android:layout_height="40dp"
+				android:layout_marginRight="6dp"
+				android:layout_weight="1"
+				android:text="Chi tiết"
+				android:textSize="7sp" />
+
+	</LinearLayout>
+
+	<TextView
+			android:id="@+id/userOrderDate"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Ngày đặt đơn: "
+			android:layout_marginTop="13dp"
+			android:textSize="14sp"
+			android:textStyle="bold"
+			android:textColor="@color/black"
+			android:layout_marginLeft="13dp"
+			android:layout_marginRight="13dp"/>
+
+	<TextView
+			android:id="@+id/userOrderrRec"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="13dp"
+			android:layout_marginTop="13dp"
+			android:layout_marginRight="13dp"
+			android:text="Ngày nhận hàng: "
+			android:textColor="@color/black"
+			android:textSize="14sp"
+			android:textStyle="bold" />
+
+	<TextView
+			android:id="@+id/userOrderMoney"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Tổng tiền: "
+			android:layout_marginTop="13dp"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			android:textColor="@color/black"
+			android:layout_marginLeft="13dp"
+			android:layout_marginRight="13dp"/>
+
+	<Button
+			android:id="@+id/btnJudge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Đánh giá"
+			android:layout_gravity="center"
+			android:layout_marginLeft="13dp"
+			tools:ignore="ButtonStyle" />
+
+</LinearLayout>

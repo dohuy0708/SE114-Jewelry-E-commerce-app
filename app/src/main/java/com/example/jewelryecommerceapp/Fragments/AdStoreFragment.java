@@ -104,7 +104,7 @@ public class AdStoreFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        addproduct_btn=view.findViewById(R.id.addproduct_btn);
+        addproduct_btn=view.findViewById(R.id.button8);
         addproduct_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

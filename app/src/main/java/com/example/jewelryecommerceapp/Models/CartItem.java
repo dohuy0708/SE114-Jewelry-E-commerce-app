@@ -1,7 +1,4 @@
-
 package com.example.jewelryecommerceapp.Models;
-
-import org.checkerframework.checker.units.qual.N;
 
 public class CartItem {
     String ProductID;

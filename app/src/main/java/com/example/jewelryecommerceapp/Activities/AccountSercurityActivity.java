@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -41,7 +38,7 @@ public class AccountSercurityActivity extends AppCompatActivity
         btnSave = findViewById(R.id.button_save_account_sercurity);
         Back = findViewById(R.id.imageview_back_sercurity);
         editPassword = findViewById(R.id.imageview_changePassword_accountSercurity);
-        fullname = findViewById(R.id.edittext_fullname_accountSercurity);
+        fullname = findViewById(R.id.edittext_fullname_editProfile);
         phoneNumber = findViewById(R.id.edittext_phoneNumber_accountSercurity);
         email = findViewById(R.id.edittext_email_accountSercurity);
     }
