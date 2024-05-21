@@ -26,6 +26,7 @@ import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
 import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
 import com.example.jewelryecommerceapp.Activities.LoginActivity;
+import com.example.jewelryecommerceapp.Activities.View_ListOrder;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -101,6 +102,9 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+                Intent intent = new Intent(getActivity(), View_ListOrder.class);
+                startActivity(intent);
+
             }
 
         });

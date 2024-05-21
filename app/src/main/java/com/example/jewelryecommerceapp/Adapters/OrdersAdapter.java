@@ -18,12 +18,22 @@ import java.util.ArrayList;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
     Context context;
     ArrayList<Order> ListOrder;
+    private  IClickListener mIClicklistener;
+    public interface IClickListener{
+        void OnClickItem(String productType, String productID);
+    }
 
     public OrdersAdapter(Context context, ArrayList<Order> listOrder) {
         this.context = context;
         this.ListOrder = listOrder;
     }
 
+    public OrdersAdapter(Context context, ArrayList<Order> listOrder, IClickListener listener){
+        this.context = context;
+        this.ListOrder = listOrder;
+        this.mIClicklistener = listener;
+
+    }
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int newType)

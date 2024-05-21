@@ -148,7 +148,6 @@ public class Payment extends AppCompatActivity {
         {
                 GetProductBuyNow(productID,productType,Size,amount);
 
-
         }
 
         back=findViewById(R.id.btnbackkk);
@@ -195,10 +194,6 @@ public class Payment extends AppCompatActivity {
                     else {
                         GetDialog();
                     }
-
-
-
-
 
             }
         });
