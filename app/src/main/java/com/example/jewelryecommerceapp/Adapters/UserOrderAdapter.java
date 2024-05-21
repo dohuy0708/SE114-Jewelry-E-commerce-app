@@ -42,7 +42,7 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.Orde
             return;
         holder.userOrderID.setText("Mã đơn hàng: "+ order.getOrderID());
         holder.userOrderDate.setText("Ngày đặt hàng: "+order.getDatee());
-        holder.userOrderRec.setText("Ngày nhận hàng: "+order.getReceive());
+       // holder.userOrderRec.setText("Ngày nhận hàng: "+order.getReceive());
         holder.userOrderMoney.setText("Tổng tiền: "+order.getMoney());
         holder.userBtnDetails.setOnClickListener(new View.OnClickListener() {
             @Override

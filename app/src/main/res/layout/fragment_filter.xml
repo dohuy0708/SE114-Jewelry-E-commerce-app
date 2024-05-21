@@ -84,7 +84,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_background1"
-                    android:text="Hột Xoàn" />
+                    android:text="Hột xoàn" />
 
                 <Button
                     android:id="@+id/filter_btn_gemstone"
@@ -92,7 +92,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/button_background1"
-                    android:text="Đá Quý" />
+                    android:text="Đá quý" />
             </LinearLayout>
 
             <TextView

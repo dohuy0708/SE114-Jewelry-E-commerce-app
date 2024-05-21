@@ -39,6 +39,7 @@ import com.example.jewelryecommerceapp.Interfaces.Ward;
 import com.example.jewelryecommerceapp.Interfaces.WardResponse;
 import com.example.jewelryecommerceapp.Models.Address;
 import com.example.jewelryecommerceapp.Models.CartItem;
+import com.example.jewelryecommerceapp.Models.Order;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
@@ -51,10 +52,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,6 +87,7 @@ public class Payment extends AppCompatActivity {
     Spinner spinnerProvince;
     Spinner spinnerDistrict;
     Spinner spinnerWard;
+    Address Address = new Address();
     List<Province> provinces = new ArrayList<>();
     List<District> districts = new ArrayList<>();
     List<Ward> wards = new ArrayList<>();
@@ -124,6 +129,8 @@ public class Payment extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null) {
             userid = user.getUid();
+            // tìm thử có thông tin địa chỉ chưa
+            GetAddressFromFirebase(userid);
         }
         if(type==2)// mua tu giở hàng
         {
@@ -167,6 +174,8 @@ public class Payment extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Đặt hàng
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,8 +184,20 @@ public class Payment extends AppCompatActivity {
 
                 // nếu có rồi thì cho đặt
                 // nếu getcurrent user khác null thì lấy địa chỉ có user ID bằng user ID này bỏ vô
+                // lấy thông tin giao hàng đã lưu trước đó
+             // nếu chưa đăng nhập
 
-                GetDialog();
+                    if( add.getText().toString().equals("Chưa có địa chỉ giao hàng"))
+                    {
+                        showToastWithIcon(R.drawable.attention_icon, "Vui lòng thêm thông tin giao hàng!");
+
+                    }
+                    else {
+                        GetDialog();
+                    }
+
+
+
 
 
             }
@@ -198,7 +219,52 @@ public class Payment extends AppCompatActivity {
                 CheckVoucherInFireBase(totalprice,promotee.getText().toString());
             }
         });
+
+
     }
+
+    private void GetAddressFromFirebase(String userid) {
+        loadingDialog.show();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Address");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    // Kiểm tra xem key của dataSnapshot có khớp với userid không
+                    if (dataSnapshot.getKey().equals(userid)) {
+                        Address address = dataSnapshot.getValue(Address.class);
+                        Log.d("tìm địa chỉ","tìm");
+                        if (address != null) {
+                            add.setText(address.getFullName() + ", sđt: " + address.getPhoneNumber() + "\n" +
+                                    address.getStreet() + ", " + address.getWard() + ", " +
+                                    address.getDistrict() + ", " + address.getProvince() + "\n" +
+                                    "Ghi chú: " + address.getDetail());
+
+
+                            // sửa tên nút thêmthanfnhf sửa
+                            setaddr.setText("SỬA");
+                            Address=address;
+                        }
+
+
+
+                        break; // Dừng vòng lặp nếu đã tìm thấy địa chỉ phù hợp
+                    }
+                }
+
+                loadingDialog.cancel();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                loadingDialog.cancel();
+            }
+        });
+
+
+    }
+
     void createDialog(){
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_address,null,false);
         EditText name, phone, street, detail ;
@@ -258,26 +324,35 @@ public class Payment extends AppCompatActivity {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user!=null) {
                         userid = user.getUid();
-                    }
-                    Address address = new Address(userid,name.getText().toString(),(String)spinnerProvince.getSelectedItem(),(String)spinnerDistrict.getSelectedItem(),(String)spinnerWard.getSelectedItem(),street.getText().toString(),detail.getText().toString(),phone.getText().toString());
-                    //
-                    FirebaseDatabase data = FirebaseDatabase.getInstance();
-                    DatabaseReference ref = data.getReference("Address");
+                        Address address = new Address(userid,name.getText().toString(),(String)spinnerProvince.getSelectedItem(),(String)spinnerDistrict.getSelectedItem(),(String)spinnerWard.getSelectedItem(),street.getText().toString(),detail.getText().toString(),phone.getText().toString());
+                        //
+                        Address = address;
+                        FirebaseDatabase data = FirebaseDatabase.getInstance();
+                        DatabaseReference ref = data.getReference("Address");
 
-                    // Đẩy đối tượng address lên Firebase
-                    ref.push().setValue(address, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                            if(error!=null){
-                                showToastWithIcon(R.drawable.fail_icon,"Thêm địa chỉ thất bại");
+                        // Đẩy đối tượng address lên Firebase
+                        ref.child(userid).setValue(address, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                if(error!=null){
+                                    showToastWithIcon(R.drawable.fail_icon,"Thêm địa chỉ thất bại");
+                                }
+                                else
+                                {
+                                    showToastWithIcon(R.drawable.succecss_icon,"Thêm địa chỉ thành công");
+                                    add.setText(address.getFullName()+", sđt: "+address.getPhoneNumber()+"\n"+address.getStreet()+", "+address.getWard()+", "+address.getDistrict()+", "+address.getProvince()+"\n"+"Ghi chú: "+address.getDetail());
+                                }
                             }
-                            else
-                            {
-                                showToastWithIcon(R.drawable.succecss_icon,"Thêm địa chỉ thành công");
-                                add.setText(address.getFullName()+", sđt: "+address.getPhoneNumber()+"\n"+address.getStreet()+", "+address.getWard()+", "+address.getDistrict()+", "+address.getProvince()+"\n"+"Ghi chú: "+address.getDetail());
-                            }
-                        }
-                    });
+                        });
+                    }
+                    else {
+                        Address address = new Address(userid,name.getText().toString(),(String)spinnerProvince.getSelectedItem(),(String)spinnerDistrict.getSelectedItem(),(String)spinnerWard.getSelectedItem(),street.getText().toString(),detail.getText().toString(),phone.getText().toString());
+                        showToastWithIcon(R.drawable.succecss_icon,"Thêm địa chỉ thành công");
+                        add.setText(address.getFullName()+", sđt: "+address.getPhoneNumber()+"\n"+address.getStreet()+", "+address.getWard()+", "+address.getDistrict()+", "+address.getProvince()+"\n"+"Ghi chú: "+address.getDetail());
+                         Address = address;
+                    }
+
+
                 }
 
             }
@@ -483,11 +558,41 @@ Log.d("xóa","chạy");
         mydialog.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                 showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
-                Log.d("dialog","chạy");
-                 // xóa các sản phẩm đã chọn ra khỏi firebase
-                    DeleteChosenProducts(userid);
+                 //showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
 
+                 // xóa các sản phẩm đã chọn ra khỏi firebase
+                   // DeleteChosenProducts(userid);
+                // tạo 1 đơn hàng leen firebaseO
+                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null) {
+                    userid = user.getUid();
+                    // lấy ra ngày hiện tại
+                    String currentdate = getCurrentDateString();
+                    // lấy ra tổng tiền
+
+                   Order order = new Order(userid,VoucherSale,totalprice,currentdate,"Chờ xử lý",Address,listpro);
+                    FirebaseDatabase data = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = data.getReference("Đơn hàng");
+
+                    // Đẩy đối tượng address lên Firebase
+                    ref.child(userid).push().setValue(order, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            if(error!=null){
+
+                            }
+                            else
+                            {
+                                showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
+
+                            }
+                        }
+                    });
+                    //
+                }
+                else {
+                    showToastWithIcon(R.drawable.succecss_icon,"Đơn hàng đã được đặt, vui lòng chờ cửa hàng liên hệ để xác nhận!");
+                }
 
                 // trở lại màn hình home
 
@@ -502,6 +607,18 @@ Log.d("xóa","chạy");
             }
         });
         mydialog.create().show();
+    }
+
+
+
+
+    public String getCurrentDateString() {
+        // Định dạng ngày theo ý muốn, ví dụ: "dd/MM/yyyy"
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        // Lấy ngày hiện tại
+        Date currentDate = new Date();
+        // Chuyển đổi ngày hiện tại thành chuỗi
+        return sdf.format(currentDate);
     }
     private void populateProvinceSpinner() {
         // Gọi API để lấy danh sách tỉnh

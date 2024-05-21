@@ -146,20 +146,29 @@ public class CartFragment extends Fragment {
          ordernoww.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(true)// xử lí đã chọn sản phẩm hay chưa
-                {
 
-                    Intent i = new Intent(getActivity(), Payment.class);
-                    i.putExtra("Total",totalprice);
-                    i.putExtra("from",2);
-                    i.putExtra("User",userID);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    showToastWithIcon(R.drawable.attention_icon,"Vui lòng đăng nhập!");
+                }
+                else {
+                    if(totalprice>0)// xử lí đã chọn sản phẩm hay chưa
+                    {
 
-                    startActivity(i);
+                        Intent i = new Intent(getActivity(), Payment.class);
+                        i.putExtra("Total",totalprice);
+                        i.putExtra("from",2);
+                        i.putExtra("User",userID);
+
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        showToastWithIcon(R.drawable.attention_icon,"Vui lòng chọn sản phẩm!");
+                    }
                 }
-                else
-                {
-                    showToastWithIcon(R.drawable.attention_icon,"Vui lòng chọn sản phẩm!");
-                }
+
+
             }
         });
         //  Kiem tra da dang nhap hay chua

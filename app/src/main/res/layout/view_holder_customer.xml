@@ -52,7 +52,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="100dp"
-                android:src="@drawable/x_icon"/>
+                android:src="@drawable/ic_back"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 </LinearLayout>
