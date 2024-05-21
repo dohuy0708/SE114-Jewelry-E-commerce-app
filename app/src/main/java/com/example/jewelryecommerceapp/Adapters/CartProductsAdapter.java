@@ -1,45 +1,30 @@
 package com.example.jewelryecommerceapp.Adapters;
 
-import static java.security.AccessController.getContext;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.R;
-import com.example.jewelryecommerceapp.Models.Product;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
+import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapter.ProductViewHolder> {
 
     Context context;
-    ArrayList<Product> listPro;
-    public CartProductsAdapter(Context context, ArrayList<Product> listPro)
+    ArrayList<CartItem> listPro;
+    public CartProductsAdapter(Context context, ArrayList<CartItem> listPro)
     {
         this.context=context;
         this.listPro=listPro;
@@ -51,9 +36,10 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         return new ProductViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position){
-        Product pro=listPro.get(position);
-        ArrayList<String> imagelist = listPro.get(position).getImagelist();
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, @SuppressLint("RecyclerView") int position){
+
+
+        CartItem pro = listPro.get(position);
         if (pro==null)
             return;
 
@@ -69,7 +55,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                 pro.setIsChoose(isChecked ? 1 : 0);
 
                 // Thông báo cho Adapter biết dữ liệu đã thay đổi để cập nhật giao diện
-                notifyItemChanged(position);
+                // notifyItemChanged(position);
 
                 // Gọi hàm để cập nhật dữ liệu trên Firebase
                 String userID = pro.getUserID();
@@ -80,14 +66,8 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
 
 
         holder.namePro.setText(pro.getProductName());
-       // holder.imgPro.setImageResource(pro.getImg());
+        // holder.imgPro.setImageResource(pro.getImg());
         CartProductsAdapter.ProductViewHolder productViewHolder= (CartProductsAdapter.ProductViewHolder) holder;
-<<<<<<<<< Temporary merge branch 1
-        Glide.with(context).load(imagelist.get(0)).into(((ProductViewHolder) holder).imgPro);
-        String s=holder.numm.getText().toString();
-        int numb=Integer.parseInt(s);
-        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice());
-=========
         Glide.with(context).load(pro.getImage()).into(((ProductViewHolder) holder).imgPro);
 
         // set dữ liệu cho number
@@ -96,8 +76,8 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
      /*   String s=holder.numm.getText().toString();
         int numb=Integer.parseInt(s);*/
 
-        holder.pricee.setText("Đơn giá: "+ pro.getProductPrice()+"đ");
->>>>>>>>> Temporary merge branch 2
+        holder.pricee.setText("Đơn giá: "+ formatNumber(pro.getProductPrice())+"đ");
+        holder.sizee.setText("Size: "+pro.getSize());
         holder.pluss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,10 +85,10 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                 pro.setAmount(pro.getAmount()+1);
 
                 notifyItemChanged(position);
-                    PlusAmountofIteminFirebase(pro.getUserID(),pro.getProductName(),pro);
+                PlusAmountofIteminFirebase(pro.getUserID(),pro.getProductName(),pro);
 
 
-              //  notifyItemChanged(position);
+                //  notifyItemChanged(position);
                 /*String nt=holder.numm.getText().toString();
                 if(!TextUtils.isEmpty(nt))
                 {
@@ -194,6 +174,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+                //return 0;
             }
 
             @Override
@@ -230,6 +211,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+                //  return 0;
             }
 
             @Override
@@ -252,23 +234,24 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                     CartItem item = dataSnapshot.getValue(CartItem.class);
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
                     // thêm vòng lặp for , tìm hết tất cả sản phẩm có tên giống thì xóa r
                     if (item.getProductName().equals(productName)) {
 
                         // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
                         String key = dataSnapshot.getKey();
-                          itemRef.child(key).removeValue(new DatabaseReference.CompletionListener() {
+                        itemRef.child(key).removeValue(new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                 if (error != null) {
-                                 } else {
-                                 }
+                                } else {
+                                }
                             }
                         });
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+                // return 0;
             }
 
             @Override
@@ -289,12 +272,12 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                     CartItem item = dataSnapshot.getValue(CartItem.class);
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
                     if (item.getProductName().equals(productName)) {
 
                         // Tìm thấy sản phẩm cần cập nhật, sử dụng key của nó để cập nhật dữ liệu
                         String key = dataSnapshot.getKey();
-                         //   DatabaseReference itemRef = ref.child(key);
+                        //   DatabaseReference itemRef = ref.child(key);
                         itemRef.child(key).setValue(pro, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -304,6 +287,7 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
                         break; // Kết thúc vòng lặp sau khi cập nhật
                     }
                 }
+                // return 0;
             }
 
             @Override
@@ -331,7 +315,9 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
         TextView minuss;
         EditText numm;
         CheckBox check;
-        ImageView binn;
+        TextView binn;
+        TextView sizee;
+
 
         public ProductViewHolder(@NonNull View view) {
             super(view);
@@ -343,6 +329,8 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             numm = view.findViewById(R.id.number);
             check = view.findViewById(R.id.checking);
             binn = view.findViewById(R.id.bin);
+            /*sizee=view.findViewById(R.id.sz);*/
+
             numm.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -393,5 +381,19 @@ public class CartProductsAdapter extends RecyclerView.Adapter<CartProductsAdapte
             return Character.isDigit(c);
         }
     }
-}
+    public static String formatNumber(int number) {
+        String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
+        int length = strNumber.length(); // Độ dài của chuỗi số
 
+        // Xây dựng chuỗi kết quả từ phải sang trái, thêm dấu chấm sau mỗi 3 ký tự
+        StringBuilder result = new StringBuilder();
+        for (int i = length - 1; i >= 0; i--) {
+            result.insert(0, strNumber.charAt(i));
+            if ((length - i) % 3 == 0 && i != 0) {
+                result.insert(0, ".");
+            }
+        }
+
+        return result.toString(); // Trả về chuỗi kết quả
+    }
+}
