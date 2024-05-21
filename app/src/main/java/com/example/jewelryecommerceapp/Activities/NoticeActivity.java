@@ -67,9 +67,9 @@ public class NoticeActivity extends AppCompatActivity {
     }
     public void initNotice(ArrayList<Notice> mylist){
 
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3","quá mệt mỏi"));
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3","kkkkkkkkk"));
-        mylist.add(new Notice(R.drawable.ic_chat,"Thông báo giảm giá các sản phẩm nữ ngày 8/3","giảm giá mua đi"));
+        mylist.add(new Notice("Thông báo giảm giá các sản phẩm nữ ngày 8/3","quá mệt mỏi"));
+        mylist.add(new Notice("Thông báo giảm giá các sản phẩm nữ ngày 8/3","kkkkkkkkk"));
+        mylist.add(new Notice("Thông báo giảm giá các sản phẩm nữ ngày 8/3","giảm giá mua đi"));
 
     }
 }

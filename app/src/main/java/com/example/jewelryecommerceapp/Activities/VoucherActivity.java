@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -25,6 +28,11 @@ import com.example.jewelryecommerceapp.Adapters.VoucherAdapter;
 import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,11 +71,9 @@ public class VoucherActivity extends AppCompatActivity {
         });
         
         rc_voucher=findViewById(R.id.rc_voucher);
-        voucherList= initList(voucherList);
-        voucherAdapter = new VoucherAdapter(this,voucherList);
-        rc_voucher.setLayoutManager(new GridLayoutManager(this,2));
-        rc_voucher.setHasFixedSize(true);
-        rc_voucher.setAdapter(voucherAdapter);
+        voucherList= new ArrayList<>();
+        getVoucherFromDatabase();
+
 
         findViewById(R.id.add_voucher).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,12 +91,15 @@ public class VoucherActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     void createDialog(){
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_voucher,null,false);
-        EditText name,percent;
+        EditText name,discount,from,id,content;
         TextView sDay,eDay;
         sDay=view.findViewById(R.id.txt_sDay);
         eDay=view.findViewById(R.id.txt_eDay);
+        id=view.findViewById(R.id.txt_id_voucher);
         name=view.findViewById(R.id.txt_name_voucher);
-        percent=view.findViewById(R.id.txt_percent_voucher);
+        content=view.findViewById(R.id.txt_content_voucher);
+        discount=view.findViewById(R.id.txt_discount_voucher);
+        from=view.findViewById(R.id.txt_from_voucher);
         // ngàu bắt đầu
         view.findViewById(R.id.bt_sDay).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +121,11 @@ public class VoucherActivity extends AppCompatActivity {
 
 
                 // kiểm tra thông tin voucher có hợp lệ không
+                if(id.getText().toString()==""){
+                    Toast.makeText(VoucherActivity.this, "ID không hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 int isName= isValidName(name.getText().toString());
                 if (isName==1){
                     Toast.makeText(VoucherActivity.this, "Mã voucher phải chứa từ 4 kí tự trở lên!", Toast.LENGTH_SHORT).show();
@@ -121,10 +135,21 @@ public class VoucherActivity extends AppCompatActivity {
                     Toast.makeText(VoucherActivity.this, "Mã voucher chỉ được chứa chữ cái và số!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!isValidPercent(percent.getText().toString()))
+
+                if(discount.getText().toString().equals("")||from.getText().toString().equals("")||content.getText().toString().equals(""))
                 {
-                    Toast.makeText(VoucherActivity.this, "Phần trăm giảm không hợp lệ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoucherActivity.this, "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                     return;
+                }
+                try {
+                    if(Integer.parseInt(discount.getText().toString())>Integer.parseInt(from.getText().toString()))
+                    {
+                        Toast.makeText(VoucherActivity.this, "Giá giảm lớn hơn giá gốc", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                catch (Exception e){
+
                 }
                 String startDay=sDay.getText().toString();
                 String endDay = eDay.getText().toString();
@@ -154,9 +179,10 @@ public class VoucherActivity extends AppCompatActivity {
                    return;
                }
                // các điều kiện đều thỏa mãn
-                Toast.makeText(VoucherActivity.this, "Thêm hoàn tất", Toast.LENGTH_SHORT).show();
 
-//               voucherList.add(0,new Voucher(name.getText().toString(),Double.parseDouble(percent.getText().toString()),startDate,endDate));
+               Voucher voucher= new Voucher(id.getText().toString(),name.getText().toString(),content.getText().toString(),Integer.parseInt(discount.getText().toString()),Integer.parseInt(from.getText().toString()),formatDateVoucher(startDay),formatDateVoucher(endDay));
+               pushVoucherToDatabase(voucher);
+               voucherList.add(0,voucher);
                voucherAdapter.notifyDataSetChanged();
             }
         });
@@ -164,7 +190,33 @@ public class VoucherActivity extends AppCompatActivity {
 
         dialog.setContentView(view);
     }
+    void pushVoucherToDatabase(Voucher voucher){
+        FirebaseDatabase data = FirebaseDatabase.getInstance();
+        DatabaseReference ref = data.getReference("Voucher");
 
+        // Đẩy đối tượng Voucher lên Firebase
+        ref.push().setValue(voucher, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error != null) {
+                     Toast.makeText(VoucherActivity.this, "Thêm voucher thất bại", Toast.LENGTH_LONG).show();
+                } else {
+                    showToastWithIcon(R.drawable.succecss_icon,"Thêm voucher thành công");
+            }
+            }
+        });
+
+    }
+    String formatDateVoucher(String date){
+        try {
+            String[] a= date.split("/");
+            return a[2]+"-"+a[1]+"-"+a[0];
+        }
+        catch (Exception e)
+        {
+            return date;
+        }
+    }
     void  openDate(TextView textView){
         Calendar calendar=Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -209,15 +261,42 @@ public class VoucherActivity extends AppCompatActivity {
             return "0"+String.valueOf(a);
         return String.valueOf(a);
     }
-    ArrayList<Voucher> initList(ArrayList<Voucher> list){
-        list= new ArrayList<>();
-        LocalDate sDate= LocalDate.now();
-        LocalDate eDate= sDate.plusDays(10);
-//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-//        list.add(new Voucher("CHAOMUNG30T4",3.4,sDate,eDate));
-        return list;
+   void getVoucherFromDatabase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Voucher")  ;
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Voucher voucher = dataSnapshot.getValue(Voucher.class);
+                    voucherList.add(voucher);
+                }
+                voucherAdapter = new VoucherAdapter(VoucherActivity.this,voucherList);
+                rc_voucher.setLayoutManager(new GridLayoutManager(VoucherActivity.this,2));
+                rc_voucher.setHasFixedSize(true);
+                rc_voucher.setAdapter(voucherAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(VoucherActivity.this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 }
