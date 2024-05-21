@@ -110,7 +110,7 @@ public class AdStoreFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AdminProductDetailActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putString("Title","Thêm sản phẩm mới");
+                bundle.putString("Title","Add");
                 intent.putExtra("Product",bundle);
                 startActivity(intent);
 
