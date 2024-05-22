@@ -1,27 +1,40 @@
 package com.example.jewelryecommerceapp.Adapters;
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.jewelryecommerceapp.Models.AdService;
 import com.example.jewelryecommerceapp.R;
-import com.example.jewelryecommerceapp.ViewHolder.AdServiceViewHolder;
+
 import java.util.List;
 
-public class AdServiceAdapter extends RecyclerView.Adapter<AdServiceViewHolder> {
+import static java.lang.String.*;
+
+public class AdServiceAdapter extends RecyclerView.Adapter<AdServiceAdapter.AdServiceViewHolder> {
     private Context context;
     private List<AdService> serviceList;
+    private TextView totalValueTextView;
+    private double totalValue = 0;
 
 
 
-    public AdServiceAdapter(List<AdService> serviceList) {
+    public AdServiceAdapter(Context context, List<AdService> serviceList,TextView totalValueTextView) {
+        this.context = context;
         this.serviceList = serviceList;
+        this.totalValueTextView = totalValueTextView;
     }
 
     @NonNull
@@ -32,53 +45,58 @@ public class AdServiceAdapter extends RecyclerView.Adapter<AdServiceViewHolder> 
         return new AdServiceViewHolder(view);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull AdServiceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdServiceViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (serviceList == null || serviceList.isEmpty()) {
             return;
         }
         AdService service = serviceList.get(position);
-
-
-
-        // Hiển thị thông tin của dịch vụ
-        /*holder.textView1.setText("Loại dịch vụ: " + service.getServiceType());
-        holder.textView2.setText("Mã dịch vụ: " + service.getServiceCode());
-        holder.textView3.setText("Giá dịch vụ: " + String.valueOf(service.getServicePrice()));
-        holder.textView4.setText("Mô tả dịch vụ: " + service.getServiceDescription());*/
-
-        /*//holder.editText1.setText(service.getServiceType());
-        //holder.editText1.setOnClickListener(new View.OnClickListener() {
+        holder.editTextServiceCode.setText(service.getServiceCode());
+        holder.editTextServicePrice.setText(valueOf(service.getServicePrice()));
+        holder.editTextServiceDescription.setText(service.getServiceDescription());
+        holder.buttonServiceType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] serviceTypes = {"Mạ vàng", "Đánh bóng"};
+                PopupMenu popupMenu = new PopupMenu(context, holder.buttonServiceType);
 
-                // Tạo một AlertDialog.Builder
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Chọn loại dịch vụ");
+                popupMenu.getMenu().add("Mạ vàng");
+                popupMenu.getMenu().add("Đánh bóng");
 
-                // Thiết lập danh sách các loại dịch vụ trong AlertDialog
-*//*
-                builder.setItems(serviceTypes, new DialogInterface.OnClickListener() {
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Xử lý khi người dùng chọn một loại dịch vụ
-                        String selectedServiceType = serviceTypes[which];
-                        // Update text cho nút "Chọn loại dịch vụ"
-                        holder.editText1.setText(selectedServiceType);
+                    public boolean onMenuItemClick(MenuItem item) {
+                        String selectedOption = item.getTitle().toString();
+                        holder.buttonServiceType.setText(selectedOption);
+                        return true;
                     }
-
                 });
-*//**//*
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-        // Điền thông tin vào các EditText
 
-            }*//*
-        //});
-        holder.editText2.setText(service.getServiceCode());
-        holder.editText3.setText(String.valueOf(service.getServicePrice()));
-        holder.editText4.setText(service.getServiceDescription());*/
+                popupMenu.show();
+            }
+        });
+
+        holder.editTextServicePrice.setKeyListener(DigitsKeyListener.getInstance(false, true));
+        holder.editTextServicePrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String inputText = s.toString();
+                if (inputText.length() > 1 && inputText.startsWith("0") && !inputText.startsWith("0.")) {
+                    s.delete(0, 1);
+                    }
+                AdService adService = serviceList.get(position);
+                adService.setServicePrice((int) Double.parseDouble(s.toString()));
+                calculateTotalValue();
+            }
+        });
+
+
     };
 
     @Override
@@ -89,8 +107,34 @@ public class AdServiceAdapter extends RecyclerView.Adapter<AdServiceViewHolder> 
 
     public void addService(AdService service) {
         serviceList.add(service);
+        Log.d("SERVICE", "SIZE" + serviceList.size());
         notifyItemInserted(serviceList.size() - 1);
+        calculateTotalValue();
     }
 
-    
+    public double calculateTotalValue() {
+        totalValue = 0;
+        for (AdService service : serviceList) {
+            totalValue += service.getServicePrice();
+        }
+        totalValueTextView.setText(String.valueOf(totalValue));
+
+        return totalValue;
+
+    }
+
+    class AdServiceViewHolder extends RecyclerView.ViewHolder {
+        public Button buttonServiceType;
+        public EditText editTextServiceCode;
+        public EditText editTextServicePrice;
+        public EditText editTextServiceDescription;
+
+        public AdServiceViewHolder(View itemView) {
+            super(itemView);
+            buttonServiceType = itemView.findViewById(R.id.button_add);
+            editTextServiceCode = itemView.findViewById(R.id.editText2);
+            editTextServicePrice = itemView.findViewById(R.id.editText3);
+            editTextServiceDescription = itemView.findViewById(R.id.editText4);
+        }
+    }
 }

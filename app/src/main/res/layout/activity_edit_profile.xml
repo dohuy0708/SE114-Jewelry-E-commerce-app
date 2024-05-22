@@ -98,7 +98,7 @@
                         android:inputType="textPersonName"
                         android:text=""
                         android:textSize="15sp"
-                        android:padding="15dp"
+                        android:padding="10dp"
                         android:textColor="@color/black"
                         android:hint="Họ và tên"
                 />
@@ -139,7 +139,7 @@
                             android:layout_marginLeft="-15dp"
                             android:text=""
                             android:textSize="14sp"
-                            android:padding="15dp"
+                            android:padding="10dp"
                             android:textColor="@color/black"
                             android:hint="Ngày sinh"
                             android:enabled="false"
@@ -169,23 +169,18 @@
                     android:text="EMAIL"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
-            <com.google.android.material.textfield.TextInputLayout
+
+            <EditText
                     android:id="@+id/edittext_email_editProfile"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                <com.google.android.material.textfield.TextInputEditText
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="-15dp"
-                        android:enabled="false"
-                        android:hint="Email"
-                        android:padding="15dp"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="15sp"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-4dp"
+                    android:enabled="false"
+                    android:hint="Email"
+                    android:paddingBottom="20dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="15sp"></EditText>
 
 
             <TextView
@@ -202,7 +197,6 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false"
                     app:errorEnabled="true"
-
             >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -213,7 +207,7 @@
                         android:inputType="phone"
                         android:text="0123456789"
                         android:textSize="15sp"
-                        android:padding="15dp"
+                        android:padding="10dp"
                         android:textColor="@color/black"
                         android:hint="Phone number"
                 />
@@ -279,7 +273,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_save_editProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

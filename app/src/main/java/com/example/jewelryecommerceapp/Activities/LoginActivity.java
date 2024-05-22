@@ -4,21 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.jewelryecommerceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class LoginActivity extends AppCompatActivity {
     Button btnlogin;
@@ -69,7 +64,14 @@ check();
                             .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
+                                    if (task.isSuccessful() && email.equals("22520573@gm.uit.edu.vn")) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                        startActivity(intent);
+                                        // FirebaseUser user = mAuth.getCurrentUser();
+                                    }
+                                    else if (task.isSuccessful()) {
 
                                         // Sign in success, update UI with the signed-in user's information
                                         //Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_LONG).show();
@@ -120,10 +122,6 @@ check();
                 startActivity(intent);*/
                 finish();
             }
-        });
-        back_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {finish();}
         });
     }
 

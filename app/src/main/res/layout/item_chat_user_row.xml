@@ -32,25 +32,6 @@
 
 		</TextView>
 
-
-		<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="Status Displays here"
-
-				android:textSize="12sp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginTop="3dp"
-				android:layout_toRightOf="@id/cardviewofuser"
-				android:id="@+id/statusofuser"
-				android:layout_below="@id/nameofuser"
-				android:textColor="#6a6a6a">
-
-		</TextView>
-
-
-
-
 		<androidx.cardview.widget.CardView
 				android:layout_width="55dp"
 				android:layout_height="55dp"

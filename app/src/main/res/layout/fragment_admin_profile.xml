@@ -46,10 +46,11 @@
                 <TextView
                         android:id="@+id/tv_adname"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tên người dùng"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"/>
+                          android:layout_height="wrap_content"
+                          android:text="Tên người dùng"
+
+                          android:textColor="@color/black"
+                          android:textSize="20sp"/>
             </LinearLayout>
             <Button
                     android:id="@+id/edit_profile"

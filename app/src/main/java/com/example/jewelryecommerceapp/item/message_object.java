@@ -8,7 +8,7 @@ public class message_object {
 
 
     public message_object(){}
-    public message_object(String message, String senderId, String receiveID, long timestamp , String time) {
+    public message_object(String message, String senderId,String receiveID, long timestamp , String time) {
         this.timestamp = timestamp;
         this.senderId = senderId;
         this.message = message;

@@ -47,11 +47,12 @@
                         app:civ_border_width="2dp"
                         />
                 <TextView
-                        android:id="@+id/tv_username"
+
                         android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:gravity="center"
                           android:text="Tên người dùng"
+                          android:id="@+id/tv_username"
                           android:textColor="@color/black"
                           android:textSize="20sp"/>
             </LinearLayout>
@@ -77,6 +78,13 @@
                     android:text="Đơn hàng"
                     style="@style/UserButtonStyle"/>
 
+
+            <Button
+                    android:id="@+id/address_book"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Sổ địa chỉ"
+                    style="@style/UserButtonStyle"/>
             <Button
                     android:id="@+id/about"
                     android:layout_gravity="center_horizontal"
@@ -96,8 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Đăng xuất"
-            />
+                    android:text="Đăng xuất"/>
         </LinearLayout>
     </ScrollView>
 

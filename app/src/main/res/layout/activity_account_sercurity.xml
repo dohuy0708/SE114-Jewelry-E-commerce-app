@@ -41,7 +41,7 @@
                     android:textSize="15sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edittext_fullname_accountSercurity"
+                    android:id="@+id/edittext_fullname_editProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintEnabled="false"
@@ -49,12 +49,13 @@
             >
 
                 <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edittext_fullname_accountSercurity"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="-15dp"
                         android:backgroundTint="@color/white"
                         android:inputType="textPersonName"
-                        android:text=""
+                        android:text="Quang Huy"
                         android:textSize="15sp"
                         android:padding="10dp"
                         android:textColor="@color/black"
@@ -84,7 +85,7 @@
                         android:layout_marginLeft="-10dp"
                         android:backgroundTint="@color/white"
                         android:inputType="phone"
-                        android:text=""
+                        android:text="123456789"
                         android:textSize="15sp"
                         android:padding="10dp"
                         android:textColor="@color/black"
@@ -99,26 +100,18 @@
                     android:text="EMAIL"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
-            <com.google.android.material.textfield.TextInputLayout
+
+            <EditText
                     android:id="@+id/edittext_email_accountSercurity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:hintEnabled="false"
-                    app:errorEnabled="true"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="-10dp"
-                    android:backgroundTint="@color/white"
-                    android:inputType="phone"
-                    android:text=""
-                    android:textSize="15sp"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
+                    android:layout_marginLeft="-4dp"
+                    android:enabled="false"
                     android:hint="Email"
-            />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:paddingBottom="20dp"
+                    android:text="abc@gmail.com"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"></EditText>
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -157,7 +150,7 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
             </RelativeLayout>
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_save_account_sercurity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

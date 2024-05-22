@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<shape xmlns:android="http://schemas.android.com/apk/res/android">
-		<solid android:color="#E7F6FF"/> <!-- Màu nền: 38B6FF -->
+		<solid android:color="#38B6FF"/> <!-- Màu nền: 38B6FF -->
 		<corners android:radius="20dp"/> <!-- Bán kính bo tròn góc -->
 	</shape>

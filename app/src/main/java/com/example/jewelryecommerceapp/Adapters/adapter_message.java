@@ -3,6 +3,7 @@ package com.example.jewelryecommerceapp.Adapters;
 import static com.example.jewelryecommerceapp.R.drawable.background_message_blue;
 import static com.example.jewelryecommerceapp.R.drawable.background_message_white;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,10 +35,12 @@ public class adapter_message extends RecyclerView.Adapter<adapter_message.MyView
         this.messageList = messagesArrayList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void add(message_object messageObject){
         messageList.add(messageObject);
         notifyDataSetChanged();
     }
+    @SuppressLint("NotifyDataSetChanged")
     public void clear(){
         messageList.clear();
         notifyDataSetChanged();
@@ -50,6 +53,7 @@ public class adapter_message extends RecyclerView.Adapter<adapter_message.MyView
         return new MyViewHolder(view);
     }
 
+    @SuppressLint("RtlHardcoded")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         message_object messageObject = messageList.get(position);
@@ -72,12 +76,12 @@ public class adapter_message extends RecyclerView.Adapter<adapter_message.MyView
             holder.layout_rowMessage.setBackgroundResource(background_message_white);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
             holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
-        } else if ("Staff".equals(receiveId)) {
+        } else if ("budf9eXCvEVnayhfjn8RW3c8vrP2".equals(receiveId)) {
             holder.layout_message_item.setGravity(Gravity.LEFT);
             holder.layout_rowMessage.setBackgroundResource(background_message_white);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
             holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context, R.color.black)));
-        } else if ("Staff".equals(senderId)) {
+        } else if ("budf9eXCvEVnayhfjn8RW3c8vrP2".equals(senderId)) {
             holder.layout_message_item.setGravity(Gravity.RIGHT);
             holder.layout_rowMessage.setBackgroundResource(background_message_blue);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context, R.color.white)));

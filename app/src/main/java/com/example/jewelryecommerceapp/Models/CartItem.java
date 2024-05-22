@@ -1,35 +1,33 @@
 package com.example.jewelryecommerceapp.Models;
 
-import org.checkerframework.checker.units.qual.N;
-
 public class CartItem {
-     String ProductID;
-     String ProductType;
-     String ProductName;
-     String UserID;
-     int Amount;
-     String Size;
-     int isChoose;
-     String image ;
-     int ProductPrice;
+    String ProductID;
+    String ProductType;
+    String ProductName;
+    String UserID;
+    int Amount;
+    String Size;
+    int isChoose;
+    String image ;
+    int ProductPrice;
 
-     public CartItem()
-     {
+    public CartItem()
+    {
 
-     }
+    }
 
-     public CartItem(String UserID, String ProductID, String ProductType, int Amount, String Size,String image,String Name,int Price)
-     {
-         this.ProductID=ProductID;
-         this.UserID=UserID;
-         this.ProductType=ProductType;
-         this.Amount = Amount;
-         this.Size = Size;
-         this.isChoose =1;
-         this.image = image;
-         this.ProductName = Name;
-         this.ProductPrice = Price;
-     }
+    public CartItem(String UserID, String ProductID, String ProductType, int Amount, String Size,String image,String Name,int Price)
+    {
+        this.ProductID=ProductID;
+        this.UserID=UserID;
+        this.ProductType=ProductType;
+        this.Amount = Amount;
+        this.Size = Size;
+        this.isChoose =1;
+        this.image = image;
+        this.ProductName = Name;
+        this.ProductPrice = Price;
+    }
 
     public String getProductID() {
         return ProductID;

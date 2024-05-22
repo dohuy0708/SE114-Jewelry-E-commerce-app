@@ -2,10 +2,6 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +9,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.jewelryecommerceapp.Activities.CustomerViewChatActivity;
 import com.example.jewelryecommerceapp.Activities.NoticeAdActivity;
+import com.example.jewelryecommerceapp.Activities.StaffChatBoardActivity;
 import com.example.jewelryecommerceapp.Adapters.ServiceAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopRateAdapter;
 import com.example.jewelryecommerceapp.Adapters.TopWeekAdapter;
@@ -26,10 +30,16 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.type.Color;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -194,7 +204,14 @@ public class AdHomeFragment extends Fragment {
         rc_service.setHasFixedSize(true);
         rc_service.setAdapter(serviceAdapter);
 
-
+        ad_chat = view.findViewById(R.id.ad_chat);
+        ad_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), StaffChatBoardActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

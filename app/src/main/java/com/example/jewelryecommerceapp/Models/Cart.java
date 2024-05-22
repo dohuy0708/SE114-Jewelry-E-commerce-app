@@ -8,9 +8,9 @@ public class Cart {
     private int totalPrice;
     private String userId;
 
-    private ArrayList<CartItem> cartProducts;
+    private ArrayList<CartProducts> cartProducts;
 
-    public Cart(String cartId, int totalAmount, int totalPrice, String userId, ArrayList<CartItem> CartProducts) {
+    public Cart(String cartId, int totalAmount, int totalPrice, String userId, ArrayList<CartProducts> CartProducts) {
         this.cartId = cartId;
         this.totalAmount = totalAmount;
         this.totalPrice = totalPrice;
@@ -53,11 +53,11 @@ public class Cart {
         this.userId = userId;
     }
 
-    public ArrayList<CartItem> getCartProducts() {
+    public ArrayList<CartProducts> getCartProducts() {
         return cartProducts;
     }
 
-    public void setCartProducts(ArrayList<CartItem> cartProducts) {
+    public void setCartProducts(ArrayList<CartProducts> cartProducts) {
         this.cartProducts = cartProducts;
     }
 }

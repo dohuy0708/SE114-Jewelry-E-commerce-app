@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +17,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jewelryecommerceapp.Adapters.adapter_message;
 import com.example.jewelryecommerceapp.R;
+import com.example.jewelryecommerceapp.Adapters.adapter_message;
 import com.example.jewelryecommerceapp.item.message_object;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,6 +57,7 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
     adapter_message messagesAdapter;
     ArrayList<message_object> messagesArrayList;
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,23 +82,23 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
 
         setSupportActionBar(mtoolbarofspecificchat);
 
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
         calendar=Calendar.getInstance();
         simpleDateFormat=new SimpleDateFormat("hh:mm a");
 
 
-        msenderuid=firebaseAuth.getUid();
+        msenderuid = firebaseAuth.getUid();
         type = intent.getStringExtra("type");
-        mrecieveruid=getIntent().getStringExtra("receiveruid");
-        mrecievername=getIntent().getStringExtra("name");
+        mrecieveruid=getIntent().getStringExtra("UID");
+        mrecievername=getIntent().getStringExtra("NAME");
 
         try {
             if (type.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "null is recieved", Toast.LENGTH_SHORT).show();
             } else {
-                if (type.equals("customer")) {
-                    msenderuid = "Staff";
+                if (type.equals("0")) {
+                    msenderuid = "budf9eXCvEVnayhfjn8RW3c8vrP2";
                 }
             }
         }
@@ -108,6 +111,7 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
                 child("chats").child(senderroom).child("messages");
         messagesAdapter=new adapter_message(StaffSpecificChatActivity.this,messagesArrayList);
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesArrayList.clear();
@@ -136,7 +140,7 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
         });
 
         mnameofspecificuser.setText(mrecievername);
-        String uri=intent.getStringExtra("imageuri");
+        String uri=intent.getStringExtra("IMG");
         try{
             if(uri.isEmpty())
             {

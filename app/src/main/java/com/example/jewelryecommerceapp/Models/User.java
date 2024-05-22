@@ -52,6 +52,12 @@ public class User {
         this.TYPE = TYPE;
     }
 
+    public User(String UID, String NAME, String IMG) {
+        this.UID = UID;
+        this.NAME = NAME ;
+        this.IMG = IMG;
+    }
+
     public void setUID(String UID) {
         this.UID = UID;
     }

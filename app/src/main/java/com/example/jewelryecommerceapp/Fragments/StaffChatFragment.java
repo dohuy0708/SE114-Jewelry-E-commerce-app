@@ -1,7 +1,7 @@
 package com.example.jewelryecommerceapp.Fragments;
-
 import static android.content.Context.SEARCH_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.os.Bundle;
@@ -21,24 +21,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jewelryecommerceapp.Adapters.StaffChatFragmentAdapter;
 import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
+import com.example.jewelryecommerceapp.Adapters.StaffChatFragmentAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
 public class StaffChatFragment extends Fragment implements AdapterView.OnItemSelectedListener, Filterable {
 
     private FirebaseFirestore firebaseFirestore;
     LinearLayoutManager linearLayoutManager;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
+
     Button btn_back;
 
     //ImageView mimageviewofuser;
@@ -68,15 +73,14 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
         userArrayList = new ArrayList<>();
         adapterChatFragment = new StaffChatFragmentAdapter(getContext(),userArrayList);
         firebaseAuth=FirebaseAuth.getInstance();
-        firebaseFirestore= FirebaseFirestore.getInstance();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         EventInitListener();
 
         mrecyclerview.setAdapter(adapterChatFragment);
 
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) requireActivity().getSystemService(SEARCH_SERVICE);
         searchView = v.findViewById(R.id.searchView);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -97,15 +101,18 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
     private void EventInitListener() {
         progressDialog.setTitle("Loading data...");
         progressDialog.show();
-        firebaseFirestore.collection("NGUOIDUNG").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mDatabase.child("NGUOIDUNG").addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
                 userArrayList.clear();
-                for(DocumentSnapshot d : task.getResult())
+                for(DataSnapshot d : dataSnapshot.getChildren())
                 {
-                    User object = d.toObject(User.class);
+                    User object = d.getValue(User.class);
+                    assert object != null;
                     if(!object.getUID().equals(firebaseAuth.getUid())) userArrayList.add(object);
+                    adapterChatFragment.setData(userArrayList);
                     adapterChatFragment.notifyDataSetChanged();
                     if(progressDialog.isShowing())
                     {
@@ -113,11 +120,11 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
                     }
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 progressDialog.dismiss();
-                Toast.makeText(getContext(),""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

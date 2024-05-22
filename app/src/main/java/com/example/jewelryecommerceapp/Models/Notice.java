@@ -1,43 +1,36 @@
 package com.example.jewelryecommerceapp.Models;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 public class Notice implements Serializable {
-    Object imgNotice;
     String titleNotice;
     String contentNotice;
-    String id;
-static int numId=0;
+    String date;
 
     @SuppressLint("NewApi")
-    public Notice(Object imgNotice, String titleNotice,String contentNotice) {
-        this.id=id;
-        this.imgNotice = imgNotice;
+    public Notice( String titleNotice,String contentNotice,String date) {
+
         this.titleNotice = titleNotice;
         this.contentNotice= contentNotice;
-
-
-        id=String.valueOf(numId+1);
-        numId+=1;
+        this.date=date;
 
     }
     public Notice(){
 
-        id=String.valueOf(numId+1);
-        numId+=1;
     }
 
-    public String getId() {
-        return id;
+    public String getDate() {
+        return date;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDate(String date) {
+        this.date = date;
     }
-
 
     public String getContentNotice() {
         return contentNotice;
@@ -47,13 +40,6 @@ static int numId=0;
         this.contentNotice = contentNotice;
     }
 
-    public Object getImgNotice() {
-        return imgNotice;
-    }
-
-    public void setImgNotice(Object imgNotice) {
-        this.imgNotice = imgNotice;
-    }
 
     public String getTitleNotice() {
         return titleNotice;

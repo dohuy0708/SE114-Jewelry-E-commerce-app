@@ -128,12 +128,14 @@
 
                 <ImageView
                     android:id="@+id/btnFilter"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="24dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/black_stroke" />
+                    android:src="@drawable/icon_filter">
+
+                </ImageView>
 
             </RelativeLayout>
 

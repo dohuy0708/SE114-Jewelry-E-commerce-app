@@ -1,13 +1,13 @@
 package com.example.jewelryecommerceapp.Activities;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.jewelryecommerceapp.Adapters.ViewPagerAdapter;
 import com.example.jewelryecommerceapp.Fragments.CartFragment;
@@ -62,16 +62,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-        boolean showThirdFragment = getIntent().getBooleanExtra("showCart", false);
-
-        if (showThirdFragment) {
-            // Hiển thị Fragment thứ ba
-            pagerMain.setCurrentItem(2);
-        } else {
-            // Hiển thị Fragment đầu tiên
-            pagerMain.setCurrentItem(0);
-        }
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -97,6 +87,8 @@ public class HomeActivity extends AppCompatActivity {
     public void ClickSignOut( Fragment fragment)
     {
         FirebaseAuth.getInstance().signOut();
+
+
         Intent intent = getIntent();
         finish();
         startActivity(intent);

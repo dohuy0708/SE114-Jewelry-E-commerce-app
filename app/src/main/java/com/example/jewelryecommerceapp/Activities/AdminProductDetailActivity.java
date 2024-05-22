@@ -15,30 +15,17 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
+import android.widget.*;
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.jewelryecommerceapp.Adapters.ImageAdapter;
 import com.example.jewelryecommerceapp.Interfaces.SelectListener;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -55,7 +42,7 @@ public class AdminProductDetailActivity extends AppCompatActivity {
 
     Product product;
     private TextView admin_productDetail_Title, admin_productDetail_Save, admin_productDetail_Cancel;
-    private EditText admin_product_name, admin_product_ID, admin_product_description, admin_product_price, admin_product_size, admin_product_amount;
+    private EditText admin_product_name, admin_product_ID, admin_product_description, admin_product_price, admin_product_size, admin_product_amount,admind_product_accessory;
     private ImageView admin_product_add_image,qrcode;
     RecyclerView rc_admin_product_image;
     ImageAdapter imageAdapter;
@@ -74,10 +61,19 @@ public class AdminProductDetailActivity extends AppCompatActivity {
         reference();
         getCategory();
         getMaterial();
-    /*    Intent intent = getIntent();
+        Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("Product");
-        String title=bundle.getString("Title");*/
-        admin_productDetail_Title.setText("title");
+        String title=bundle.getString("Title");
+        if(title.equals("Add")){
+            admin_productDetail_Title.setText("Thêm sản phẩm mới");
+
+        }
+        else
+        {
+            admin_productDetail_Title.setText("Cập nhật sản phẩm");
+            admin_product_btnremove.setVisibility(View.VISIBLE);
+            createqr_btn.setVisibility(View.VISIBLE);
+        }
         //btn xóa sản phẩm
         admin_product_btnremove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +155,7 @@ public class AdminProductDetailActivity extends AppCompatActivity {
         admin_product_price=findViewById(R.id.admin_product_price);
         admin_product_size=findViewById(R.id.admin_product_size);
         admin_product_amount=findViewById(R.id.admin_product_amount);
+        admind_product_accessory=findViewById(R.id.admin_product_accessory);
         admin_product_btnremove=findViewById(R.id.admin_product_btnremove);
         admin_product_add_image=findViewById(R.id.admin_product_add_image);
         rc_admin_product_image=findViewById(R.id.rc_admin_prd_image);

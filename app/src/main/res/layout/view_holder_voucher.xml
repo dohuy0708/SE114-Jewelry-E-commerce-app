@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="3dp"
-    app:cardBackgroundColor="@color/blue"
+    app:cardBackgroundColor="#8ACBFF"
     app:cardCornerRadius="5dp"
     android:layout_margin="8dp">
 
     <LinearLayout
+        android:background="@drawable/black_stroke"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/name_voucher"
@@ -39,18 +41,43 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/percent_voucher"
+                android:id="@+id/discount_voucher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:text="5%"
+                android:text="200.000"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/textView192"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Đơn từ:"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/from_voucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:text="3.000.000"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
