@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,6 +20,11 @@ import com.example.jewelryecommerceapp.Interfaces.SelectListener;
 import com.example.jewelryecommerceapp.Interfaces.SelectNotice;
 import com.example.jewelryecommerceapp.Models.Notice;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -42,19 +48,7 @@ public class NoticeActivity extends AppCompatActivity {
 
         rc_notice=findViewById(R.id.rc_notice_ad);
         noticeList= new ArrayList<>();
-        initNotice(noticeList);
-        noticeAdapter = new NoticeAdapter(this, noticeList, new SelectNotice() {
-            @Override
-            public void onNoticeSelect(Notice notice) {
-                Intent intent= new Intent(NoticeActivity.this, NoticeDetailActivity.class);
-                intent.putExtra("notice",notice);
-                startActivity(intent);
-            }
-        });
-                rc_notice.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rc_notice.setHasFixedSize(true);
-        rc_notice.setAdapter(noticeAdapter);
-
+        getNoticeFromDatabase();
         img_back=findViewById(R.id.img_back);
 
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +59,37 @@ public class NoticeActivity extends AppCompatActivity {
         });
 
     }
-    public void initNotice(ArrayList<Notice> mylist){
+    void getNoticeFromDatabase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Notice")  ;
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                noticeList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Notice notice = dataSnapshot.getValue(Notice.class);
 
-        mylist.add(new Notice("Thông báo giảm giá các sản phẩm nữ ngày 8/3","quá mệt mỏi"));
-        mylist.add(new Notice("Thông báo giảm giá các sản phẩm nữ ngày 8/3","kkkkkkkkk"));
-        mylist.add(new Notice("Thông báo giảm giá các sản phẩm nữ ngày 8/3","giảm giá mua đi"));
+                    noticeList.add(notice);
+                }
+                noticeAdapter = new NoticeAdapter(NoticeActivity.this, noticeList, new SelectNotice() {
+                    @Override
+                    public void onNoticeSelect(Notice notice) {
+                        Intent intent = new Intent(NoticeActivity.this, NoticeDetailActivity.class);
+                        intent.putExtra("title", notice.getTitleNotice());
+                        intent.putExtra("content",notice.getContentNotice());
+                        intent.putExtra("date",notice.getDate());
+                        startActivity(intent);
+                    }
+                });
+                rc_notice.setLayoutManager(new LinearLayoutManager(NoticeActivity.this, LinearLayoutManager.VERTICAL, false));
+                rc_notice.setHasFixedSize(true);
+                rc_notice.setAdapter(noticeAdapter);
 
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

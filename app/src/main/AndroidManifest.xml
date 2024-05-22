@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,10 +12,10 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/logo_icon"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@color/white"
         android:supportsRtl="true"
         android:theme="@style/Theme.JewelryEcommerceApp"
-        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
         <activity
             android:name=".Activities.ShippedOrders"
@@ -36,6 +39,8 @@
             android:exported="true">
 
         </activity>
+        <activity android:name=".Activities.NoticeDetailActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".Activities.AdminHomeActivity"
             android:exported="true" >
@@ -76,9 +81,6 @@
             android:name=".Activities.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/ThemeSpl" >
-
-
-
 
         </activity>
         <activity
