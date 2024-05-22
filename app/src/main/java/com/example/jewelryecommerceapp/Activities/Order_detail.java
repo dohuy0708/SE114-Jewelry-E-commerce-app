@@ -10,16 +10,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Adapters.CartPurchaseAdapter;
 import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
 import com.example.jewelryecommerceapp.Models.CartItem;
+import com.example.jewelryecommerceapp.Models.Comment;
 import com.example.jewelryecommerceapp.Models.Order;
+import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Order_detail extends AppCompatActivity {
@@ -40,30 +49,26 @@ public class Order_detail extends AppCompatActivity {
     private LoadingDialog loadingDialog;
     CartPurchaseAdapter adt;
     ArrayList<CartItem> listpro;
+    BottomSheetDialog dialog;
     Order orderchoose = new Order();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
         loadingDialog = new LoadingDialog(Order_detail.this);
+        btn_review= findViewById(R.id.btnreview);
         // khai báo UI
         initUI();
         // lấy intent
         Intent myintent =getIntent();
         String ID = myintent.getStringExtra("ID");
         Log.d("ID", ID);
-
-
         // init list + adapter
         listpro=new ArrayList<>();
         adt=new CartPurchaseAdapter(this, listpro);
-
-
-
         // Lấy dữ liệu trên firebase
         GetOrderFromFireBase(ID);
-
-
         // sự kiện
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,23 +80,47 @@ public class Order_detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // chuyển tới đánh giá đơn hàng
+                dialog= new BottomSheetDialog(Order_detail.this);
+                createDialog();
+                dialog.show();
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             }
         });
-
-
-
-
     }
+    void createDialog(){
+        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_review,null,false);
+        TextView prd_name_review;
+        RatingBar ratingBar;
+        Button add_review;
+        TextInputEditText content_review;
+        prd_name_review= view.findViewById(R.id.prd_name_review);
+        ratingBar= view.findViewById(R.id.ratingBar);
+        add_review=view.findViewById(R.id.bt_add_review);
+        content_review=view.findViewById(R.id.content_review);
 
+        // prd_name_review : hiển thị tên của sản phẩm đánh giá
+        // nút đăng comment
+        add_review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // số sao
+                int rating =(int)ratingBar.getRating();
+                // nội dung
+                String content_comment=content_review.getText().toString();
+                //
+               // Comment comment = new Comment();
+
+
+            }
+        });
+        dialog.setContentView(view);
+    }
     private void GetOrderFromFireBase(String ID) {
         loadingDialog.show();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userid = user.getUid();
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Đơn hàng").child(userid);
-
-
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -102,35 +131,21 @@ public class Order_detail extends AppCompatActivity {
 
                     if ( order!=null&& order.getOrderID().equals(ID))
                     {
-
-
                         orderchoose =order;
                         listpro = orderchoose.getListPurchaseProduct();
-
-
                         break;
-
                     }
-
-
-
                 }
                 adt.notifyDataSetChanged();
-
                 SetUI();
-
-
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         loadingDialog.cancel();
 
     }
-
     private void SetUI()
     {
         // dịa chỉ
@@ -148,12 +163,8 @@ public class Order_detail extends AppCompatActivity {
         // button
         if(orderchoose.getStatus().equals("Đã nhận"))
         {
-
             btn_review.setVisibility(View.VISIBLE);
         }
-
-
-
         //rcView
         adt=new CartPurchaseAdapter(this, listpro);
         adt.notifyDataSetChanged();
@@ -161,11 +172,7 @@ public class Order_detail extends AppCompatActivity {
         rc_product.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rc_product.setHasFixedSize(true);
         rc_product.setAdapter(adt);
-
-
     }
-
-
     private void initUI() {
         add = findViewById(R.id.addd);
         masp= findViewById(R.id.masp);
@@ -173,12 +180,10 @@ public class Order_detail extends AppCompatActivity {
         total = findViewById(R.id.totalsp);
         voucher=findViewById(R.id.discountvoucher);
         totallord = findViewById(R.id.totalord);
-
         rc_product=findViewById(R.id.rc_product_list);
         btn_review=findViewById(R.id.btnreview);
         back = findViewById(R.id.btnbackkkdetail);
     }
-
     public static String formatNumber(int number) {
         String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
         int length = strNumber.length(); // Độ dài của chuỗi số
