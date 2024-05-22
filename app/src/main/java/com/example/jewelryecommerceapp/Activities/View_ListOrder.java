@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -30,7 +31,7 @@ public class View_ListOrder extends AppCompatActivity {
 
 
     private RecyclerView rc_listOrder;
-    private ArrayList<Order> OrderList;
+    private ArrayList<Order> OrderList = new ArrayList<>();
 
     private OrdersAdapter ordersAdapter;
     private LoadingDialog loadingDialog;
@@ -41,6 +42,7 @@ public class View_ListOrder extends AppCompatActivity {
         setContentView(R.layout.activity_view_list_order);
         loadingDialog = new LoadingDialog(View_ListOrder.this);
         back = findViewById(R.id.btnbackkk);
+        rc_listOrder= findViewById(R.id.rc_listorder);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,32 +52,48 @@ public class View_ListOrder extends AppCompatActivity {
 
 
         OrderList = new ArrayList<>();
+        ordersAdapter=new OrdersAdapter(this, OrderList, new OrdersAdapter.IClickListener() {
+            @Override
+            public void OnClickItem(String productType, String productID) {
+                // intent tới màn hình xem chi tiết sản phẩm
 
-            GetOrderFromfirebase();
+            }
+        });
+
+        GetOrderFromfirebase();
 
     }
 
     private void GetOrderFromfirebase() {
         loadingDialog.show();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-       String userid = user.getUid();
+        String userid = user.getUid();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Đơn hàng").child(userid)  ;
+        DatabaseReference ref = database.getReference("Đơn hàng").child(userid);
+
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                OrderList.clear();
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
+
                     Order order = dataSnapshot.getValue(Order.class);
+
                     if ( order!=null)
                     {
+
                         OrderList.add(order);
+
                     }
 
+
+
                 }
-                ordersAdapter.notifyDataSetChanged();
-                SetUI();
+                 SetUI();
                 //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();
 
             }
@@ -87,21 +105,30 @@ public class View_ListOrder extends AppCompatActivity {
         loadingDialog.cancel();
     }
 
-/// Dòng 90
+    /// Dòng 90
     private void SetUI() {
-        ordersAdapter=new OrdersAdapter(this, OrderList, new OrdersAdapter.IClickListener() {
-            @Override
-            public void OnClickItem(String productType, String productID) {
-                // intent tới màn hình xem chi tiết sản phẩm
-
-            }
-        });
 
 
+
+        ordersAdapter.notifyDataSetChanged();
         rc_listOrder.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rc_listOrder.setHasFixedSize(true);
-        rc_listOrder.setLayoutManager(new GridLayoutManager(this,2));
         rc_listOrder.setAdapter(ordersAdapter);
 
+    }
+    public static String formatNumber(int number) {
+        String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
+        int length = strNumber.length(); // Độ dài của chuỗi số
+
+        // Xây dựng chuỗi kết quả từ phải sang trái, thêm dấu chấm sau mỗi 3 ký tự
+        StringBuilder result = new StringBuilder();
+        for (int i = length - 1; i >= 0; i--) {
+            result.insert(0, strNumber.charAt(i));
+            if ((length - i) % 3 == 0 && i != 0) {
+                result.insert(0, ".");
+            }
+        }
+
+        return result.toString(); // Trả về chuỗi kết quả
     }
 }
