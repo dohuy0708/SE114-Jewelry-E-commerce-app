@@ -6,22 +6,28 @@ import java.io.Serializable;
 
 
 public class Notice implements Serializable {
-public boolean isSend=false;
     String titleNotice;
     String contentNotice;
-
-static int numId=0;
+    String date;
 
     @SuppressLint("NewApi")
-    public Notice( String titleNotice,String contentNotice) {
+    public Notice( String titleNotice,String contentNotice,String date) {
 
         this.titleNotice = titleNotice;
         this.contentNotice= contentNotice;
-
+        this.date=date;
 
     }
     public Notice(){
 
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getContentNotice() {
