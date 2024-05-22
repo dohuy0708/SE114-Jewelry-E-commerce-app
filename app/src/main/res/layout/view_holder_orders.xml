@@ -8,7 +8,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginRight="15dp"
     android:layout_marginBottom="8dp"
-    android:background="#BED9EF"
+    android:background="@drawable/rounded_corner"
     android:orientation="vertical">
 
 
@@ -32,21 +32,13 @@
 
         </TextView>
 
-        <Button
-            android:id="@+id/buttonDtls"
-            android:layout_width="158dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:text="Chi tiết"
-            android:textSize="7sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
     </LinearLayout>
@@ -57,18 +49,6 @@
         android:layout_height="wrap_content"
         android:text="Ngày đặt đơn: "
         android:layout_marginTop="13dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="13dp"/>
-
-    <TextView
-        android:id="@+id/orderermoney"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tổng tiền: "
-        android:layout_marginTop="13dp"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -76,20 +56,68 @@
         android:layout_marginRight="13dp"/>
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/orderermey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền: "
+            android:layout_marginTop="13dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1000 "
+            android:layout_marginTop="13dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#E3B632"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/orermey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tình trạng:"
+            android:layout_marginTop="13dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đang xử lý "
+            android:layout_marginTop="13dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#2196F3"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="2dp"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnacpt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Xác nhận"
-            android:layout_gravity="center"
-            android:layout_marginLeft="13dp"
-            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btncancel"
@@ -97,10 +125,39 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Hủy "
+            android:textStyle="bold"
             android:layout_gravity="center"
+             android:layout_marginRight="6dp"
+            android:layout_marginLeft="13dp"
+            tools:ignore="ButtonStyle" />
+        <Button
+            android:id="@+id/btnfinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ĐÃ NHẬN"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+
             android:layout_marginRight="6dp"
             android:layout_marginLeft="13dp"
             tools:ignore="ButtonStyle" />
+
+
+
+        <Button
+            android:id="@+id/btndetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Chi tiết"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_marginLeft="13dp"
+            tools:ignore="ButtonStyle" />
+
+
     </LinearLayout>
 
 </LinearLayout>

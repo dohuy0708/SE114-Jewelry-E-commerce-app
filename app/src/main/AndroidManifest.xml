@@ -94,6 +94,9 @@
         <activity
             android:name=".Activities.ChangePasswordActivity"
             android:exported="true" />
+        <activity android:name=".Activities.Order_detail"
+            android:exported="true" />
+
     </application>
 
 </manifest>
