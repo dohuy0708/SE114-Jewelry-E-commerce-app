@@ -12,8 +12,9 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="62dp"
         android:backgroundTint="@color/white" />
+
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
 
@@ -23,9 +24,10 @@
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
             android:layout_height="62dp"
+            android:background="#FFFFFF"
             app:itemIconTint="@color/color_item_bottom_nav"
-            app:itemTextColor="@color/color_item_bottom_nav"
 
+            app:itemTextColor="@color/color_item_bottom_nav"
             app:menu="@menu/menu_admin_bottom_nav" />
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
