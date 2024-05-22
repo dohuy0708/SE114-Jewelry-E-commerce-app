@@ -2,27 +2,31 @@ package com.example.jewelryecommerceapp.Fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
 import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
 import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
 import com.example.jewelryecommerceapp.Activities.HomeActivity;
+import com.example.jewelryecommerceapp.Activities.LoginActivity;
+import com.example.jewelryecommerceapp.Activities.View_ListOrder;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -89,7 +93,6 @@ public class UserFragment extends Fragment {
     private void setupButton()
     {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 ((HomeActivity) getActivity()).ClickSignOut(new HomeFragment());
@@ -99,6 +102,9 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+                Intent intent = new Intent(getActivity(), View_ListOrder.class);
+                startActivity(intent);
+
             }
 
         });

@@ -59,6 +59,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -104,7 +105,7 @@ public class Payment extends AppCompatActivity {
         Intent myintent  = getIntent();
 
         int type = myintent.getIntExtra("from",-1);
-         totalprice = myintent.getIntExtra("Total",0);
+        totalprice = myintent.getIntExtra("Total",0);
         String productID = myintent.getStringExtra("productID");
         Log.d("ID",productID+"");
 
@@ -125,7 +126,7 @@ public class Payment extends AppCompatActivity {
         pross=findViewById(R.id.ttpros);
         listpro=new ArrayList<>();
         adt=new CartPurchaseAdapter(this, listpro);
-      //  initListPro(listpro);
+        //  initListPro(listpro);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null) {
             userid = user.getUid();
@@ -146,8 +147,7 @@ public class Payment extends AppCompatActivity {
         }
         else// mua ngay , có thể không đăng nhập
         {
-                GetProductBuyNow(productID,productType,Size,amount);
-
+            GetProductBuyNow(productID,productType,Size,amount);
 
         }
 
@@ -185,20 +185,16 @@ public class Payment extends AppCompatActivity {
                 // nếu có rồi thì cho đặt
                 // nếu getcurrent user khác null thì lấy địa chỉ có user ID bằng user ID này bỏ vô
                 // lấy thông tin giao hàng đã lưu trước đó
-             // nếu chưa đăng nhập
+                // nếu chưa đăng nhập
 
-                    if( add.getText().toString().equals("Chưa có địa chỉ giao hàng"))
-                    {
-                        showToastWithIcon(R.drawable.attention_icon, "Vui lòng thêm thông tin giao hàng!");
+                if( add.getText().toString().equals("Chưa có địa chỉ giao hàng"))
+                {
+                    showToastWithIcon(R.drawable.attention_icon, "Vui lòng thêm thông tin giao hàng!");
 
-                    }
-                    else {
-                        GetDialog();
-                    }
-
-
-
-
+                }
+                else {
+                    GetDialog();
+                }
 
             }
         });
@@ -349,7 +345,7 @@ public class Payment extends AppCompatActivity {
                         Address address = new Address(userid,name.getText().toString(),(String)spinnerProvince.getSelectedItem(),(String)spinnerDistrict.getSelectedItem(),(String)spinnerWard.getSelectedItem(),street.getText().toString(),detail.getText().toString(),phone.getText().toString());
                         showToastWithIcon(R.drawable.succecss_icon,"Thêm địa chỉ thành công");
                         add.setText(address.getFullName()+", sđt: "+address.getPhoneNumber()+"\n"+address.getStreet()+", "+address.getWard()+", "+address.getDistrict()+", "+address.getProvince()+"\n"+"Ghi chú: "+address.getDetail());
-                         Address = address;
+                        Address = address;
                     }
 
 
@@ -386,7 +382,7 @@ public class Payment extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 loadingDialog.cancel();
-             }
+            }
         });
     }
 
@@ -403,9 +399,9 @@ public class Payment extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Voucher voucher = dataSnapshot.getValue(Voucher.class);
-                     if (voucher.getCode().equals(code)) {
+                    if (voucher.getCode().equals(code)) {
 
-                         if (totalprice > voucher.getInCase()) {
+                        if (totalprice > voucher.getInCase()) {
                             checkvoucher = 1;
                             VoucherSale = voucher.getDiscount();
                             break;
@@ -454,7 +450,7 @@ public class Payment extends AppCompatActivity {
                 listpro.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     CartItem item = dataSnapshot.getValue(CartItem.class);
-                     if(item.getIsChoose()==1)
+                    if(item.getIsChoose()==1)
                     {
 
                         listpro.add(item);
@@ -498,7 +494,7 @@ public class Payment extends AppCompatActivity {
         loadingDialog.show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Cart").child(userID);
-Log.d("xóa","chạy");
+        Log.d("xóa","chạy");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -558,19 +554,19 @@ Log.d("xóa","chạy");
         mydialog.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                 //showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
+                //showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
 
-                 // xóa các sản phẩm đã chọn ra khỏi firebase
-                   // DeleteChosenProducts(userid);
+                // xóa các sản phẩm đã chọn ra khỏi firebase
+                // DeleteChosenProducts(userid);
                 // tạo 1 đơn hàng leen firebaseO
-                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user!=null) {
                     userid = user.getUid();
                     // lấy ra ngày hiện tại
                     String currentdate = getCurrentDateString();
                     // lấy ra tổng tiền
-
-                   Order order = new Order(userid,VoucherSale,totalprice,currentdate,"Chờ xử lý",Address,listpro);
+                    String code = generateRandomString();
+                    Order order = new Order(code,VoucherSale,totalprice,currentdate,"Đang xử lý",Address,listpro);
                     FirebaseDatabase data = FirebaseDatabase.getInstance();
                     DatabaseReference ref = data.getReference("Đơn hàng");
 
@@ -710,6 +706,31 @@ Log.d("xóa","chạy");
                 Toast.makeText(Payment.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    public char getRandomLetter() {
+        Random random = new Random();
+        return (char) ('A' + random.nextInt(26));
+    }
+
+    public char getRandomDigit() {
+        Random random = new Random();
+        return (char) ('0' + random.nextInt(10));
+    }
+
+    public String generateRandomString() {
+        StringBuilder randomString = new StringBuilder();
+
+        // Tạo 4 chữ cái ngẫu nhiên
+        for (int i = 0; i < 4; i++) {
+            randomString.append(getRandomLetter());
+        }
+
+        // Tạo 4 chữ số ngẫu nhiên
+        for (int i = 0; i < 4; i++) {
+            randomString.append(getRandomDigit());
+        }
+
+        return randomString.toString();
     }
 
 }
