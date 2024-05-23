@@ -123,7 +123,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
         //comment
         cmtList= new ArrayList<>();
-        GetCommentListFromFirebase(productID) ;
+        GetCommentListFromFirebase(productID,productType) ;
         cmtAdapter = new CommentAdapter(cmtList);
         rc_cmt.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rc_cmt.setHasFixedSize(true);
@@ -241,7 +241,28 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-    private void GetCommentListFromFirebase(String productID) {
+    private void GetCommentListFromFirebase(String productID,String productType) {
+        /*FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Comment");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot Snapshot : snapshot.getChildren()) {
+                    Comment comment = Snapshot.getValue(Comment.class);
+                    if (comment.getProductID().equals(productID) && comment.getProductType().equals(productType)) {
+                        cmtList.add(comment);
+                    }
+                }
+                cmtAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
     }
 
     private void GetSameProductFromFireBase(String productType) {

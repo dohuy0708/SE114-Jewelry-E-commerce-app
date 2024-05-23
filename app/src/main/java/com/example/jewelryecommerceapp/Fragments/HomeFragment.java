@@ -67,6 +67,41 @@ public class HomeFragment extends Fragment {
 
 
         }
+  /*ArrayList<String> imagelist = new ArrayList<>();
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-01.png?alt=media&token=c5cdb449-87c4-4607-a227-cd19f4c56417");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-02.png?alt=media&token=659d7394-cc5c-4737-bc69-45617dc033e7");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-03.png?alt=media&token=7641b0f5-e3eb-444c-865f-d0178d971c8c");
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-04.jpg?alt=media&token=6158040e-c393-45ca-84f0-c60479ae4d33");
+
+        imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-05.jpg?alt=media&token=748836db-7743-4c91-86cc-6ce1c350b4b7");
+       // imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%20%C4%91%C3%B4i%2Fsample4%2Fnc466_1_acb49941fe154c22b1cdf524226b3823_master_c105dd97ae4042708fce06c5a15d0da3.webp?alt=media&token=9faf7419-dd0a-4116-8360-c429ef829176");
+        Map<String,Integer> sizemap = new HashMap<>();
+        sizemap.put("14",10);
+        sizemap.put("15",10);
+        sizemap.put("16",10);
+        sizemap.put("17",10);
+
+        User user=new User("Hưng Ngô","ngoduyhung2305@gmail.com");
+        Product testproduct = new Product("8", "Nhẫn","Nhẫn Vàng trắng đính đá RedPearl ","Vàng trắng",imagelist,sizemap,"đá RedPearl",11.6,6250000,"Sang xịn mịn","H-Jewelry");
+        Comment testcomment=new Comment(user,testproduct,5,"Sản phẩm quá đẹp, quá tuyệt vời");
+
+
+        FirebaseDatabase data = FirebaseDatabase.getInstance();
+        DatabaseReference ref = data.getReference("Comment")  ;
+
+
+        ref.push().setValue(testcomment, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error != null) {
+                    // Đã xảy ra lỗi khi đẩy dữ liệu lên Firebase
+                   Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    // Đẩy dữ liệu lên Firebase thành công
+                    Toast.makeText(getActivity(),"Finish", Toast.LENGTH_LONG).show();
+                }
+            }
+        });*/
 
 
         ///  Đẩy dữ liệu lên firebase

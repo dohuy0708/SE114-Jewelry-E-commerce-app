@@ -47,7 +47,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.cmt_content.setText(cmt.getContent());
         holder.cmt_name.setText(user.getNAME());
        // holder.cmt_avt.setImageResource(user.getImgTest());
-
+        holder.cmt_avt.setImageResource(R.drawable.ic_user);
         int desiredWidthInDp = 20 * cmt.getRate(); // Số nguyên bất kỳ nhân với cmt.getRate() để có chiều rộng mong muốn tính theo dp
 
         // Chuyển đổi từ dp sang px

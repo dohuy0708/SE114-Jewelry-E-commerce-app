@@ -122,9 +122,7 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     Product product =  dataSnapshot.getValue(Product.class);
-
                     productList.add(product);
-
                 }
                 SetUI();
                 //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();

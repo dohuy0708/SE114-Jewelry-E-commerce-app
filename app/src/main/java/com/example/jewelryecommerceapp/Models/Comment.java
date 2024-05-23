@@ -2,13 +2,15 @@ package com.example.jewelryecommerceapp.Models;
 
 public class Comment {
     User user;
-    Product product;
+    String productID;
+    String productType;
     int rate;
     String content;
-
-    public Comment(User user, Product product, int rate, String content) {
+    public Comment(){}
+    public Comment(User user,String productID,String productType, int rate, String content) {
         this.user = user;
-        this.product = product;
+        this.productID=productID;
+        this.productType=productType;
         this.rate = rate;
         this.content = content;
     }
@@ -21,13 +23,13 @@ public class Comment {
         this.user = user;
     }
 
-    public Product getProduct() {
-        return product;
-    }
+    public String getProductID() {return productID;}
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+    public void setProductID(String productID) {this.productID = productID;}
+
+    public String getProductType() {return productType;}
+
+    public void setProductType(String productType) {this.productType = productType;}
 
     public int getRate() {
         return rate;

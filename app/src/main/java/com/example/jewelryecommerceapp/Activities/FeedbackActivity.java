@@ -48,13 +48,13 @@ public class FeedbackActivity extends AppCompatActivity {
         star1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Rate=1;
             }
         });
         star2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Rate=2;
             }
         });
         star3.setOnClickListener(new View.OnClickListener() {
@@ -68,12 +68,13 @@ public class FeedbackActivity extends AppCompatActivity {
         star4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Rate=4;
             }
         });
         star5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Rate=5;
 
             }
         });

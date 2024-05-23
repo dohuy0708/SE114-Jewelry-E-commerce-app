@@ -22,6 +22,9 @@ public class StoreProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context=context;
         this.productList=productList;
     }
+    public StoreProductAdapter(ArrayList<Product> productList){
+        this.productList=productList;
+    }
     @NonNull
     @Override
     public TableViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
