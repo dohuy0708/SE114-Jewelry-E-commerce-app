@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,9 +16,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.jewelryecommerceapp.Activities.AdminProductDetailActivity;
+import com.example.jewelryecommerceapp.Activities.ProductDetailActivity;
+import com.example.jewelryecommerceapp.Activities.SearchActivity;
+import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
 import com.example.jewelryecommerceapp.Adapters.StoreProductAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -85,25 +94,7 @@ public class AdStoreFragment extends Fragment {
 
         rc_store_product=view.findViewById(R.id.rc_store_prd);
         productList = new ArrayList<>();
-/*        productList.add(new Product("abctyityi","abctyityityityit7acd",59,99999));
-        productList.add(new Product("abc","Nhẫn",59,999999782));
-        productList.add(new Product("abc","Nhẫngikỳìtity",59,99999));
-        productList.add(new Product("abc","Nhẫn",386935439,99999));*/
-        storeProductAdapter=new StoreProductAdapter(getContext(),productList);
-        rc_store_product.setHasFixedSize(true);
-        rc_store_product.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        rc_store_product.setAdapter(storeProductAdapter);
-        storeProductAdapter.setOnItemClickListener(new StoreProductAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Product product) {
-                Intent intent = new Intent(getActivity(), AdminProductDetailActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putString("Title","Update");
-                bundle.putString("ProductID",product.getProductId());
-                intent.putExtra("Product",bundle);
-                startActivity(intent);
-            }
-        });
+        GetProductListFromFireBase("Nhẫn");
         addproduct_btn=view.findViewById(R.id.button8);
         addproduct_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,5 +108,45 @@ public class AdStoreFragment extends Fragment {
             }
         });
     }
+    private void GetProductListFromFireBase(String categoryname) {
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Product");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot productSnapshot : categorySnapshot.getChildren()) {
+                        Product product = productSnapshot.getValue(Product.class);
+                        productList.add(product);
+                    }
+                }
+                SetUI();
+                //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void SetUI() {
+        storeProductAdapter=new StoreProductAdapter(productList);
+        rc_store_product.setAdapter(storeProductAdapter);
+        rc_store_product.setHasFixedSize(true);
+        rc_store_product.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        storeProductAdapter.setOnItemClickListener(new StoreProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                Intent intent = new Intent(getActivity(), AdminProductDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("Title","Update");
+                bundle.putString("ProductID",product.getProductId());
+                intent.putExtra("Product",bundle);
+                startActivity(intent);
+            }
+        });
+    }
 }

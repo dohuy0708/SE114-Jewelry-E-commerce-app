@@ -19,7 +19,7 @@
             android:id="@+id/cmt_avt"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@drawable/ic_user" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,4 +85,10 @@
         android:layout_weight="1"
         android:text="Đây sẽ là nội dung commet. ồ sản phẩm này thật là đẹp quá đi mà, chu choa mạ ơi chi chi mà đẹp ri hè, đeo vô như kiểu tăng 10 phần sang chảnh luôn"
         android:textColor="#000000" />
+    <TextView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectangle" />
 </LinearLayout>
