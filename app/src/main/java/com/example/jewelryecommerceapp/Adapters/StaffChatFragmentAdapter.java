@@ -47,6 +47,9 @@ public class StaffChatFragmentAdapter extends RecyclerView.Adapter<StaffChatFrag
         {
             return;
         }*/
+        if (firebaseModel.getNAME()==null){
+            noteViewHolder.particularusername.setText("Nguời dùng không xác định");
+        }
         noteViewHolder.particularusername.setText(firebaseModel.getNAME());
         String uri=firebaseModel.getIMG();
 

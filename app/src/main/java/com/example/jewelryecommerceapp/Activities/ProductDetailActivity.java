@@ -158,7 +158,8 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Intent to chat
-
+                Intent intent = new Intent (ProductDetailActivity.this, CustomerViewChatActivity.class);
+                startActivity(intent);
             }
         });
         add_cart_but.setOnClickListener(new View.OnClickListener() {
