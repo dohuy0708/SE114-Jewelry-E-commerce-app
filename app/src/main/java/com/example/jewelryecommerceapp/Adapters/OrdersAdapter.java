@@ -76,7 +76,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         if (status.equals("Đang xử lý")) {
             Log.d("status", status);
             holder.cancel.setEnabled(true);
-           // holder.cancel.setTextColor(Color.GRAY); // Ẩn Button nhưng vẫn chiếm không gian
+            // holder.cancel.setTextColor(Color.GRAY); // Ẩn Button nhưng vẫn chiếm không gian
             holder.cancel.setVisibility(View.VISIBLE);
             holder.finish.setVisibility(View.GONE);
         }
@@ -84,6 +84,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.finish.setVisibility(View.VISIBLE);
             holder.cancel.setEnabled(true);
             holder.cancel.setVisibility(View.GONE);
+            holder.status.setTextColor(Color.MAGENTA);
 
         }
         else {
@@ -91,9 +92,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.cancel.setEnabled(false);
             holder.cancel.setVisibility(View.GONE);
             holder.finish.setTextColor(Color.GRAY);
+            holder.status.setTextColor(Color.GREEN);
         }
 
-       // hủy đơn
+        // hủy đơn
         holder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,12 +106,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             }
         });
 
-       // hoàn tất đơn
+        // hoàn tất đơn
         holder.finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    GetDialogFinish("Bạn đã nhận đơn hàng thành công",order);
+                GetDialogFinish("Bạn đã nhận đơn hàng thành công",order);
             }
         });
 
