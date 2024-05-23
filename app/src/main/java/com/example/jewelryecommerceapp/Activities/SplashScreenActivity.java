@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,17 +25,24 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
+                    Log.d("user ", "khac null");
                     if(user.getEmail().equals("huydq58422@gmail.com")||user.getEmail().equals("22520573@gm.uit.edu.vn"))
                     {
+                        Log.d("admin","đăng nhập admin");
                         Intent intent = new Intent(SplashScreenActivity.this, AdminHomeActivity.class);
                         startActivity(intent);
                         finish();
                     }
-                    Intent intent = new Intent( SplashScreenActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    else {
+                        Log.d("user", "Đăng nhập user");
+                        Intent intent = new Intent( SplashScreenActivity.this,HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
                 else{
+                    Log.d("Chưa đăng nhập","Khách");
 
                 Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                 startActivity(intent);

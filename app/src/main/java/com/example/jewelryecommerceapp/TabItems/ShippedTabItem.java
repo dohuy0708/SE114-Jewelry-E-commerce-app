@@ -50,4 +50,6 @@ public class ShippedTabItem extends Fragment {
 
     private void initOrds(ArrayList<Order> ords) {
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.jewelryecommerceapp.TabItems;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,10 @@ public class WaitAceptTabItem extends Fragment {
         ords=new ArrayList<>();
         adt=new OrdersAdapter(getContext(),ords);
 
-
         Sort=view.findViewById(R.id.btnsort);
 
         waitacp=view.findViewById(R.id.listwait);
-        //GetOrderFromfirebase();
+        GetOrderFromfirebase();
     }
 
 
@@ -70,13 +70,14 @@ public class WaitAceptTabItem extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ords.clear();
-                ords.clear();
+
 
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     for (DataSnapshot orderSnapshot : childSnapshot.getChildren()) {
                         Order order = orderSnapshot.getValue(Order.class);
 
                         if (order != null && order.getStatus().equals("Đang xử lý")) {
+                            Log.d("order", ords.size()+"");
                             ords.add(order);
                         }
                     }
@@ -98,7 +99,6 @@ public class WaitAceptTabItem extends Fragment {
         waitacp.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
         waitacp.setHasFixedSize(true);
         waitacp.setAdapter(adt);
-
     }
 
 }

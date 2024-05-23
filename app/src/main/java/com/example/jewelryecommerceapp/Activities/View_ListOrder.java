@@ -77,22 +77,33 @@ public class View_ListOrder extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 OrderList.clear();
+                ArrayList<Order> processingOrders = new ArrayList<>();
+                ArrayList<Order> shippingOrders = new ArrayList<>();
+                ArrayList<Order> receivedOrders = new ArrayList<>();
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
+                OrderList.clear();
 
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Order order = dataSnapshot.getValue(Order.class);
 
-                    if ( order!=null)
-                    {
-
-                        OrderList.add(order);
-
+                    if (order != null) {
+                        switch (order.getStatus()) {
+                            case "Đang xử lý":
+                                processingOrders.add(order);
+                                break;
+                            case "Đang giao":
+                                shippingOrders.add(order);
+                                break;
+                            case "Đã nhận":
+                                receivedOrders.add(order);
+                                break;
+                        }
                     }
-
-
-
                 }
+
+                OrderList.addAll(processingOrders);
+                OrderList.addAll(shippingOrders);
+                OrderList.addAll(receivedOrders);
                  SetUI();
                 //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();
 
@@ -107,8 +118,6 @@ public class View_ListOrder extends AppCompatActivity {
 
     /// Dòng 90
     private void SetUI() {
-
-
 
         ordersAdapter.notifyDataSetChanged();
         rc_listOrder.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

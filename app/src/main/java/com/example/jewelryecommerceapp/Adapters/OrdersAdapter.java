@@ -211,7 +211,14 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
                             if ( orderget!=null && orderget.getOrderID().equals(order.getOrderID()))
                             {
+                                dataSnapshot.getRef().removeValue().addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
 
+
+                                    } else {
+                                        Log.e("Delete order", "Failed to delete order", task.getException());
+                                    }
+                                });
 
                             }
 
@@ -264,19 +271,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
                             Order orderget = dataSnapshot.getValue(Order.class);
 
-                            if ( orderget!=null && orderget.getOrderID().equals(order.getOrderID()))
-                            {
-                                dataSnapshot.getRef().removeValue().addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-
-
-                                    } else {
-                                        Log.e("Delete order", "Failed to delete order", task.getException());
-                                    }
-                                });
-
+                            if (orderget != null && orderget.getOrderID().equals(order.getOrderID())) {
+                                // Update the order status to "Đã nhận"
+                                dataSnapshot.getRef().child("status").setValue("Đã nhận");
                             }
-
 
 
                         }
