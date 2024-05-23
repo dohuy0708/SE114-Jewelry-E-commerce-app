@@ -95,7 +95,9 @@ public class UserFragment extends Fragment {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ((HomeActivity) getActivity()).ClickSignOut(new HomeFragment());
+
             }
         });
         btnOrderList.setOnClickListener(new View.OnClickListener(){

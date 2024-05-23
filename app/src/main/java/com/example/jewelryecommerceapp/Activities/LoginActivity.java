@@ -66,8 +66,8 @@ check();
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful() && email.equals("22520573@gm.uit.edu.vn")) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                        showToastWithIcon(R.drawable.succecss_icon,"Đăng nhập tài khoản Admin thành công!");
+                                         Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                                         startActivity(intent);
                                         // FirebaseUser user = mAuth.getCurrentUser();
                                     }
