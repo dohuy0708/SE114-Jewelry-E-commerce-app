@@ -107,5 +107,3 @@ public class adapter_message extends RecyclerView.Adapter<adapter_message.MyView
         }
     }
 }
-
-

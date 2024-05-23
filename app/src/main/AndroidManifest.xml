@@ -98,7 +98,8 @@
             android:exported="true" />
         <activity android:name=".Activities.Order_detail"
             android:exported="true" />
-
+        <activity android:name=".Activities.CustomerViewChatActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
