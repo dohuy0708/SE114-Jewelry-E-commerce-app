@@ -6,9 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.Payment">
+
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
@@ -16,11 +20,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
-
-            <View
-                android:id="@+id/view5"
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,7 +29,7 @@
                 <ImageView
                     android:id="@+id/btnbackkkdetail"
                     android:layout_width="65dp"
-                    android:layout_height="36dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_back" />
 
@@ -38,14 +37,13 @@
                     android:id="@+id/textView13"
                     android:layout_width="363dp"
                     android:layout_height="51dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:text="Chi Tiết Đơn Hàng"
+                    android:layout_weight="1"
                     android:gravity="center"
+                    android:text="Chi Tiết Đơn Hàng"
                     android:textColor="@color/black"
                     android:textSize="25sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <View
                     android:id="@+id/view6"
@@ -69,7 +67,6 @@
                 android:orientation="vertical">
 
 
-
                 <TextView
                     android:id="@+id/textView14"
                     android:layout_width="238dp"
@@ -80,7 +77,6 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
 
 
                 <TextView
@@ -95,8 +91,6 @@
                     android:textStyle="italic" />
 
 
-
-
             </LinearLayout>
 
             <View
@@ -108,16 +102,16 @@
                 android:id="@+id/textView20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginBottom="5dp"
                 android:text="Danh sách sản phẩm"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="13dp"
-                android:layout_marginBottom="5dp"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_product_list"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginLeft="13dp"
                 android:layout_marginRight="13dp" />
@@ -132,29 +126,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="31dp"
                     android:layout_marginLeft="13dp"
+                    android:layout_marginTop="13dp"
                     android:layout_marginRight="1dp"
                     android:text="Mã sản phẩm:"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="13dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/masp"
                     android:layout_width="200dp"
                     android:layout_height="31dp"
                     android:layout_marginLeft="13dp"
+                    android:layout_marginTop="13dp"
                     android:layout_marginRight="13dp"
                     android:text="JGJJ6789"
                     android:textColor="#122693"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="13dp"/>
-
-
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -164,65 +157,58 @@
                     android:layout_width="match_parent"
                     android:layout_height="31dp"
                     android:layout_marginLeft="13dp"
+                    android:layout_marginTop="3dp"
                     android:layout_marginRight="1dp"
                     android:text="Tình trạng:"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="3dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/statusdetail"
                     android:layout_width="200dp"
                     android:layout_height="31dp"
                     android:layout_marginLeft="13dp"
+                    android:layout_marginTop="3dp"
                     android:layout_marginRight="13dp"
                     android:text="Đã nhận"
                     android:textColor="#122693"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="3dp"/>
-
-
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/ttong"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="31dp"
                     android:layout_marginLeft="13dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="1dp"
                     android:text="Tổng giá trị sản phẩm: "
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/totalsp"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="31dp"
                     android:layout_marginLeft="13dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="13dp"
                     android:text="100000 "
                     android:textColor="#122693"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
-
-
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
-
-
-
 
 
             <LinearLayout
@@ -234,8 +220,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
-                    android:layout_marginRight="1dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="1dp"
                     android:text="Giảm voucher: "
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -247,9 +233,9 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="13dp"
-                    android:layout_marginRight="1dp"
-
                     android:layout_marginTop="5dp"
+
+                    android:layout_marginRight="1dp"
                     android:textColor="#122693"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -280,6 +266,7 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/totalord"
                     android:layout_width="200dp"
@@ -293,11 +280,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="372dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
                     android:layout_marginRight="13dp"
@@ -314,6 +301,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:ignore="DuplicateIds" />
+
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="228dp"
@@ -327,25 +315,25 @@
                         tools:ignore="DuplicateIds" />
 
 
-
                 </LinearLayout>
 
 
             </LinearLayout>
+
             <Button
                 android:id="@+id/btnreview"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_corner"
                 android:text="ĐÁNH GIÁ"
                 android:textStyle="bold"
                 android:visibility="gone"
-                android:layout_gravity="center"
-                android:layout_marginRight="6dp"
-                android:layout_marginLeft="13dp"
-                android:layout_marginBottom="10dp"
-                tools:ignore="ButtonStyle"
-                android:background="@drawable/rounded_corner"/>
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
     </ScrollView>
