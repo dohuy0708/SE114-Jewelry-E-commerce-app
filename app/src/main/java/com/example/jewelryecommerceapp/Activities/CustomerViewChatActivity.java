@@ -185,7 +185,7 @@ public class CustomerViewChatActivity extends AppCompatActivity {
                                                         // Lưu đối tượng User vào "NGUOIDUNG" sau khi gửi tin nhắn
                                                         User user = new User(msenderuid, userName, userImage);
                                                         saveUserToFirebase(user);
-                                                }}
+                                                    }}
                                             });
                                 }
                             });
@@ -230,7 +230,7 @@ public class CustomerViewChatActivity extends AppCompatActivity {
         }
     }*/
 }
-    /*@Override*/
+/*@Override*/
    /* protected void onStart() {
         super.onStart();
         DocumentReference documentReference=FirebaseFirestore.getInstance().

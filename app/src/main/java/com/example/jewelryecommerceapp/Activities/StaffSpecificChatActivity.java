@@ -121,7 +121,7 @@ public class StaffSpecificChatActivity extends AppCompatActivity{
                     messagesArrayList.add(messages);
                 }
                 messagesAdapter.notifyDataSetChanged();
-             }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -25,7 +25,7 @@ public class StaffChatBoardAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-            return new StaffChatFragment();
+        return new StaffChatFragment();
     }
 
     @Override

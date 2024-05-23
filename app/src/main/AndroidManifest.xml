@@ -44,7 +44,9 @@
             android:exported="true" />
         <activity
             android:name=".Activities.AdminHomeActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Activities.SignUpActivity"
             android:exported="true" />
@@ -96,7 +98,8 @@
             android:exported="true" />
         <activity android:name=".Activities.Order_detail"
             android:exported="true" />
-
+        <activity android:name=".Activities.CustomerViewChatActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
