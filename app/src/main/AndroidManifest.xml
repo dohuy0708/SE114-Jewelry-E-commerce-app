@@ -22,9 +22,7 @@
             android:exported="false" />
         <activity
             android:name=".Activities.Delivery_address"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Activities.ShippedOrders"
             android:exported="false" />
@@ -40,21 +38,13 @@
             android:exported="false" />
         <activity
             android:name=".Activities.NoticeActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Activities.NoticeAdActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Activities.AdminHomeActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Activities.SignUpActivity"
             android:exported="true" />
@@ -80,13 +70,15 @@
             android:name=".Activities.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/ThemeSpl">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.VoucherActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Activities.SearchActivity"
             android:exported="true" />
@@ -102,9 +94,9 @@
         <activity
             android:name=".Activities.ChangePasswordActivity"
             android:exported="true" />
-        <activity
-                android:name=".Activities.CustomerManagementActitvity"
-                android:exported="true"/>
+        <activity android:name=".Activities.Order_detail"
+            android:exported="true" />
+
     </application>
 
 </manifest>

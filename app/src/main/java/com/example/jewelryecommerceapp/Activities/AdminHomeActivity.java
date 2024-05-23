@@ -6,11 +6,19 @@ import android.view.MenuItem;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.jewelryecommerceapp.Adapters.ViewPagerAdapter;
-import com.example.jewelryecommerceapp.Fragments.*;
+import com.example.jewelryecommerceapp.Fragments.AdHomeFragment;
+import com.example.jewelryecommerceapp.Fragments.AdStoreFragment;
+import com.example.jewelryecommerceapp.Fragments.AdOrderFragment;
+import com.example.jewelryecommerceapp.Fragments.AdUserFragment;
+import com.example.jewelryecommerceapp.Fragments.CategoryFragment;
+import com.example.jewelryecommerceapp.Fragments.FilterFragment;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -33,7 +41,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         fragmentArrayList.add(new AdHomeFragment());
         fragmentArrayList.add(new AdStoreFragment());
         fragmentArrayList.add(new AdOrderFragment());
-        fragmentArrayList.add(new AdminProfileFragment());
+        fragmentArrayList.add(new AdUserFragment());
 
         ViewPagerAdapter adapterViewPager = new ViewPagerAdapter(this,fragmentArrayList);
         pagerMain.setAdapter(adapterViewPager);

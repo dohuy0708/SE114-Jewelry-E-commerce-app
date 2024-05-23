@@ -62,21 +62,10 @@
             android:layout_width="match_parent"
             android:layout_height="12dp" />
 
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Danh sách đơn hàng"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="13dp"
-            android:layout_marginBottom="5dp"/>
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ttpros"
+            android:id="@+id/rc_listorder"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="13dp" />
 

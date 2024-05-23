@@ -21,10 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jewelryecommerceapp.Activities.LoadingDialog;
-import com.example.jewelryecommerceapp.Activities.NoticeActivity;
-import com.example.jewelryecommerceapp.Activities.ProductDetailActivity;
-import com.example.jewelryecommerceapp.Activities.SearchActivity;
+import com.example.jewelryecommerceapp.Activities.*;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.Models.Voucher;
@@ -336,7 +333,8 @@ public class HomeFragment extends Fragment {
         but_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent (getContext(), CustomerViewChatActivity.class);
+                startActivity(intent);
             }
         });
 

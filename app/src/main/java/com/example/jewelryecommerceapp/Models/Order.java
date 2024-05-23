@@ -82,4 +82,17 @@ public class Order {
     public void setListPurchaseProduct(ArrayList<CartItem> listPurchaseProduct) {
         ListPurchaseProduct = listPurchaseProduct;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "OrderID='" + OrderID + '\'' +
+                ", voucher=" + voucher +
+                ", Money=" + Money +
+                ", Date='" + Date + '\'' +
+                ", status='" + status + '\'' +
+                ", address=" + address +
+                ", ListPurchaseProduct=" + ListPurchaseProduct +
+                '}';
+    }
 }

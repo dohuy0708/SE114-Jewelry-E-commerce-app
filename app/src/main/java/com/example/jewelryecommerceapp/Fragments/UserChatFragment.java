@@ -1,10 +1,12 @@
 package com.example.jewelryecommerceapp.Fragments;
+
 import static android.content.Context.SEARCH_SERVICE;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,15 +37,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class StaffChatFragment extends Fragment implements AdapterView.OnItemSelectedListener, Filterable {
+public class UserChatFragment extends Fragment implements AdapterView.OnItemSelectedListener, Filterable {
 
     private FirebaseFirestore firebaseFirestore;
     LinearLayoutManager linearLayoutManager;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference mDatabase;
-
     Button btn_back;
 
     //ImageView mimageviewofuser;
@@ -57,6 +56,8 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
 
     Query query;
 
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_chat_fragment,container,false);
         mrecyclerview=v.findViewById(R.id.recyclerview);
@@ -73,21 +74,21 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
         userArrayList = new ArrayList<>();
         adapterChatFragment = new StaffChatFragmentAdapter(getContext(),userArrayList);
         firebaseAuth=FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //firebaseFirestore= FirebaseFirestore.getInstance();
+
         EventInitListener();
 
         mrecyclerview.setAdapter(adapterChatFragment);
 
-        SearchManager searchManager = (SearchManager) requireActivity().getSystemService(SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
         searchView = v.findViewById(R.id.searchView);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 adapterChatFragment.getFilter().filter(s);
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String s) {
                 adapterChatFragment.getFilter().filter(s);
@@ -101,24 +102,22 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
     private void EventInitListener() {
         progressDialog.setTitle("Loading data...");
         progressDialog.show();
-        mDatabase.child("NGUOIDUNG").addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NGUOIDUNG");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
                 userArrayList.clear();
-                for(DataSnapshot d : dataSnapshot.getChildren())
-                {
-                    User object = d.getValue(User.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User object = snapshot.getValue(User.class);
                     assert object != null;
-                    if(!object.getUID().equals(firebaseAuth.getUid())) userArrayList.add(object);
-                    adapterChatFragment.setData(userArrayList);
-                    adapterChatFragment.notifyDataSetChanged();
-                    if(progressDialog.isShowing())
-                    {
-                        progressDialog.dismiss();
+                    if (!object.getUID().equals(firebaseAuth.getUid())) {
+                        userArrayList.add(object);
                     }
                 }
+                adapterChatFragment.notifyDataSetChanged();
             }
 
             @Override
@@ -127,15 +126,17 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
                 Toast.makeText(getContext(), "" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
@@ -143,4 +144,8 @@ public class StaffChatFragment extends Fragment implements AdapterView.OnItemSel
     public Filter getFilter() {
         return null;
     }
+
+
+
+
 }

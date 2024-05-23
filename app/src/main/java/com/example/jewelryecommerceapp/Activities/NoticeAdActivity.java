@@ -41,17 +41,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class NoticeAdActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SUB_ACTIVITY = 1;
 
     ImageView img_back;
-    RecyclerView rc_notice;
-    NoticeAdapter noticeAdapter;
+    EditText txt_title;
+    TextInputEditText txt_content;
     Button add_notice;
-    ArrayList<Notice> noticeList;
-    BottomSheetDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +67,9 @@ public class NoticeAdActivity extends AppCompatActivity {
         });
 
         img_back=findViewById(R.id.img_back);
-        rc_notice=findViewById(R.id.rc_notice);
+        txt_title=findViewById(R.id.txt_title);
+        txt_content=findViewById(R.id.txt_content);
         add_notice=findViewById(R.id.add_notice);
-        noticeList= new ArrayList<>();
-
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,125 +81,52 @@ public class NoticeAdActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-               /* Intent intent = new Intent(NoticeAdActivity.this, NoticeAddActivity.class);
-                startActivityForResult(intent,REQUEST_CODE_SUB_ACTIVITY);*/
-                dialog= new BottomSheetDialog(NoticeAdActivity.this);
-                createDialog();
-                dialog.show();
-                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+              if(txt_content.getText().toString().equals("")||txt_title.getText().toString().equals("")){
+                  Toast.makeText(NoticeAdActivity.this, "Vui lòng điền đủ thông tin", Toast.LENGTH_LONG).show();
+              }
+              else {
+                  Date currentDate = Calendar.getInstance().getTime();
+
+                  // Định dạng ngày thành chuỗi
+                  SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                  String dateString = dateFormat.format(currentDate);
+                  pushNoticeToDatabase(new Notice(txt_title.getText().toString(),txt_content.getText().toString(),dateString));
+              }
             }
         });
 
-    }
-
-    @SuppressLint("MissingInflatedId")
-
-    void createDialog(){
-    View view = getLayoutInflater().inflate(R.layout.bottom_sheet_notice,null,false);
-    EditText txt_title = view.findViewById(R.id.txt_title);
-    TextInputEditText txt_content= view.findViewById(R.id.txt_content);
-
-    view.findViewById(R.id.bt_add).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String title = txt_title.getText().toString();
-            String content = txt_content.getText().toString();
-            if (title.isEmpty() || content.isEmpty()) {
-                Toast.makeText(NoticeAdActivity.this, "Vui lòng nhập đủ tiêu đề và nội dung", Toast.LENGTH_SHORT).show();
-            } else {
-                Notice notice = new Notice();
-                notice.setTitleNotice(title);
-                notice.setContentNotice(content);
-                noticeList.add(notice);
-                noticeAdapter.notifyDataSetChanged();
-                // Ở đây bạn có thể lưu trữ hoặc xử lý đối tượng 'notice' theo yêu cầu của ứng dụng của bạn
-                dialog.dismiss();
-            }
-        }
-    });
-    view.findViewById(R.id.bt_send).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-        }
-    });
-    dialog.setContentView(view);
-
-
-    }
-
-    void createDetailDialog(Notice notice){
-        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_notice,null,false);
-        EditText txt_title = view.findViewById(R.id.txt_title);
-        TextInputEditText txt_content= view.findViewById(R.id.txt_content);
-        TextView title_add= view.findViewById(R.id.title_add);
-        title_add.setText("Thông báo chờ gửi");
-
-        txt_content.setText(notice.getContentNotice());
-        txt_title.setText(notice.getTitleNotice());
-
-        Button bt_add= view.findViewById(R.id.bt_add);
-        bt_add.setText("Xong");
-        bt_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = txt_title.getText().toString();
-                String content = txt_content.getText().toString();
-                if (title.isEmpty() || content.isEmpty()) {
-                    Toast.makeText(NoticeAdActivity.this, "Vui lòng nhập đủ tiêu đề và nội dung", Toast.LENGTH_SHORT).show();
-                } else {
-                    notice.setTitleNotice(title);
-                    notice.setContentNotice(content);
-                    noticeAdapter.notifyDataSetChanged();
-                    // Ở đây bạn có thể lưu trữ hoặc xử lý đối tượng 'notice' theo yêu cầu của ứng dụng của bạn
-                    dialog.dismiss();
-                }
-            }
-        });
-    view.findViewById(R.id.bt_send).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String title = txt_title.getText().toString();
-            String content = txt_content.getText().toString();
-            if (title.isEmpty() || content.isEmpty()) {
-                Toast.makeText(NoticeAdActivity.this, "Vui lòng nhập đủ tiêu đề và nội dung", Toast.LENGTH_SHORT).show();
-            } else {
-               // Ở đây bạn có thể lưu trữ hoặc xử lý đối tượng 'notice' theo yêu cầu của ứng dụng của bạn
-                dialog.dismiss();
-            }
-        }
-    });
-    dialog.setContentView(view);
     }
     void pushNoticeToDatabase(Notice notice){
         FirebaseDatabase data = FirebaseDatabase.getInstance();
-        DatabaseReference ref = data.getReference("Voucher");
+        DatabaseReference ref = data.getReference("Notice");
 
-        // Đẩy đối tượng Voucher lên Firebase
+        // Đẩy đối tượng thông báo lên Firebase
         ref.push().setValue(notice, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error != null) {
-                    Toast.makeText(NoticeAdActivity.this, "Thêm voucher thất bại", Toast.LENGTH_LONG).show();
+                    Toast.makeText(NoticeAdActivity.this, "Thêm thông báo thất bại", Toast.LENGTH_LONG).show();
                 } else {
-                    showToastWithIcon(R.drawable.succecss_icon,"Thêm voucher thành công");
+                    showToastWithIcon(R.drawable.succecss_icon,"Thêm thông báo thành công");
                 }
             }
         });
     }
-    void getNoticeFromDatabase(){
+   /* void getNoticeFromDatabase(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Notice")  ;
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                noticeList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Notice notice = dataSnapshot.getValue(Notice.class);
+
+                    noticeList.add(notice);
+                }
                 noticeAdapter = new NoticeAdapter(NoticeAdActivity.this, noticeList, new SelectNotice() {
                     @Override
                     public void onNoticeSelect(Notice notice) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Voucher voucher = dataSnapshot.getValue(Voucher.class);
-                            noticeList.add(notice);
-                        }
                         dialog= new BottomSheetDialog(NoticeAdActivity.this);
                         createDetailDialog(notice);
                         dialog.show();
@@ -216,7 +144,7 @@ public class NoticeAdActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
     public void showToastWithIcon(int icon, String message) {
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, null);

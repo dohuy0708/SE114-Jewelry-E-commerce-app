@@ -19,8 +19,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Adapters.CategoryAdapter;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
 import com.example.jewelryecommerceapp.Fragments.FilterFragment;
+import com.example.jewelryecommerceapp.Models.CategoryItem;
 import com.example.jewelryecommerceapp.Models.Product;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.database.DataSnapshot;
