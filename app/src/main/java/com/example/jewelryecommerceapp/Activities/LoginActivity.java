@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         InitUI();
         InitListener();
-check();
+
 
     }
 
@@ -78,7 +78,7 @@ check();
 //                                        Intent intent = new Intent(LoginActivity.this, SplashScreenActivity.class);
                                         //Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                         showToastWithIcon(R.drawable.succecss_icon,"Đăng nhập thành công!");
-                                        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this,SplashScreenActivity.class);
                                         startActivity(intent);
                                         // FirebaseUser user = mAuth.getCurrentUser();
 

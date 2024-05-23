@@ -22,10 +22,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
-import com.example.jewelryecommerceapp.Activities.AccountSercurityActivity;
-import com.example.jewelryecommerceapp.Activities.EditProfileActivity;
-import com.example.jewelryecommerceapp.Activities.HomeActivity;
-import com.example.jewelryecommerceapp.Activities.LoginActivity;
+import com.example.jewelryecommerceapp.Activities.*;
 import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -121,6 +118,14 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+                if(user!=null)
+                {
+                    Intent intent = new Intent(getActivity(), View_ListOrder.class);
+                    startActivity(intent);
+                }
+                else {
+                    showToastWithIcon(R.drawable.attention_icon,"Bạn cần đăng nhập để xem đơn hàng");
+                }
             }
 
         });
@@ -133,7 +138,8 @@ public class UserFragment extends Fragment {
                 activityResultLauncher.launch(intent);
                 }
                 else {
-                    Toast.makeText(getActivity(),"Bạn chưa đăng nhập",Toast.LENGTH_SHORT).show();
+                    showToastWithIcon(R.drawable.attention_icon,"Bạn chưa đăng nhập ");
+
                 }
 
             }
@@ -147,7 +153,8 @@ public class UserFragment extends Fragment {
                     activityResultLauncher.launch(intent);
                 }
                 else {
-                    Toast.makeText(getActivity(),"Bạn chưa đăng nhập",Toast.LENGTH_SHORT).show();
+                    showToastWithIcon(R.drawable.attention_icon,"Bạn chưa đăng nhập ");
+
                 }
             }
         });
@@ -178,6 +185,21 @@ public class UserFragment extends Fragment {
         }
 
     }
+    public void showToastWithIcon(int icon, String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, null);
 
+        // Tùy chỉnh icon và văn bản trong toast
+        ImageView imageView = layout.findViewById(R.id.toast_icon);
+        imageView.setImageResource(icon); // Thay 'your_icon' bằng tên icon của bạn
+        TextView textView = layout.findViewById(R.id.toast_text);
+        textView.setText(message);
+
+        // Tạo và hiển thị toast custom
+        Toast toast = new Toast(getContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
 
 }

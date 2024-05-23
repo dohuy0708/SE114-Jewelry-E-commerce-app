@@ -87,22 +87,23 @@ public class AdminProfileFragment extends Fragment {
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        String path = "User/"+user.getUid();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(path);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
-                User user1 = dataSnapshot.getValue(User.class);
-                tvAdname.setText(user1.getNAME());
-            }
+        if(user!=null) {
+            String path = "User/" + user.getUid();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(path);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                    User user1 = dataSnapshot.getValue(User.class);
+                    tvAdname.setText(user1.getNAME());
+                }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
 
-            }
+                }
 
 
-        });
-
+            });
+        }
 }}

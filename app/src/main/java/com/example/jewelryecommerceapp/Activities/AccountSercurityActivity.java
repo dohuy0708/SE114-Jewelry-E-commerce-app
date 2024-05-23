@@ -67,16 +67,18 @@ public class AccountSercurityActivity extends AppCompatActivity
 
     private void getUserImformation()
     {
-        String path = "User/"+user.getUid();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(path);
+user= FirebaseAuth.getInstance().getCurrentUser();
+            String path = "User/" + user.getUid();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(path);
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 User user1 = dataSnapshot.getValue(User.class);
-                fullname.getEditText().setText(user.getDisplayName());
+                fullname.getEditText().setText(user1.getNAME());
                 phoneNumber.getEditText().setText(user1.getPHONE());
-                email.getEditText().setText(user.getEmail());
+                email.getEditText().setText(user1.getEMAIL());
             }
 
             @Override
