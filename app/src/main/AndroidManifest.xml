@@ -102,6 +102,8 @@
             android:exported="true" />
         <activity android:name=".Activities.CustomerViewChatActivity"
             android:exported="true"/>
+        <activity android:name=".Activities.NoticeDetailActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
