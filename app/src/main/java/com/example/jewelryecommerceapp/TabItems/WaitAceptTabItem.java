@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WaitAceptTabItem extends Fragment {
 
@@ -53,6 +54,7 @@ public class WaitAceptTabItem extends Fragment {
         Sort=view.findViewById(R.id.btnsort);
 
         waitacp=view.findViewById(R.id.listwait);
+
         GetOrderFromfirebase();
     }
 
@@ -73,16 +75,16 @@ public class WaitAceptTabItem extends Fragment {
 
 
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    for (DataSnapshot orderSnapshot : childSnapshot.getChildren()) {
-                        Order order = orderSnapshot.getValue(Order.class);
+
+                        Order order = childSnapshot.getValue(Order.class);
 
                         if (order != null && order.getStatus().equals("Đang xử lý")) {
                             Log.d("order", ords.size()+"");
                             ords.add(order);
-                        }
+
                     }
                 }
-
+                adt.notifyDataSetChanged();
                 SetUI();
 
             }
@@ -95,8 +97,9 @@ public class WaitAceptTabItem extends Fragment {
     }
     private void SetUI()
     {
+        adt=new OrdersAdapter(getContext(),ords);
         adt.notifyDataSetChanged();
-        waitacp.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        waitacp.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         waitacp.setHasFixedSize(true);
         waitacp.setAdapter(adt);
     }

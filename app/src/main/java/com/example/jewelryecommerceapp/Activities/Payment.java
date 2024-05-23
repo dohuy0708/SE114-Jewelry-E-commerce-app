@@ -490,30 +490,7 @@ public class Payment extends AppCompatActivity {
 
 
     }
-    private void DeleteChosenProducts(String userID) {
-        loadingDialog.show();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Cart").child(userID);
-        Log.d("xóa","chạy");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    CartItem item = dataSnapshot.getValue(CartItem.class);
-                    if (item != null && item.getIsChoose() == 1) {
-                        dataSnapshot.getRef().removeValue();
-                    }
-                }
-                loadingDialog.cancel();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                loadingDialog.cancel();
-                // Handle the error
-            }
-        });
-    }
     public static String formatNumber(int number) {
         String strNumber = String.valueOf(number); // Chuyển đổi số thành chuỗi
         int length = strNumber.length(); // Độ dài của chuỗi số
@@ -556,8 +533,11 @@ public class Payment extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
 
-                // xóa các sản phẩm đã chọn ra khỏi firebase
-                // DeleteChosenProducts(userid);
+
+
+
+
+
                 // tạo 1 đơn hàng leen firebaseO
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user!=null) {
@@ -566,12 +546,13 @@ public class Payment extends AppCompatActivity {
                     String currentdate = getCurrentDateString();
                     // lấy ra tổng tiền
                     String code = generateRandomString();
-                    Order order = new Order(code,VoucherSale,totalprice,currentdate,"Đang xử lý",Address,listpro);
+
+                    Order order = new Order(code,userid,checkvoucher,totalprice,currentdate,"Đang xử lý",Address,listpro);
                     FirebaseDatabase data = FirebaseDatabase.getInstance();
                     DatabaseReference ref = data.getReference("Đơn hàng");
 
                     // Đẩy đối tượng address lên Firebase
-                    ref.child(userid).push().setValue(order, new DatabaseReference.CompletionListener() {
+                    ref.push().setValue(order, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                             if(error!=null){
@@ -586,11 +567,39 @@ public class Payment extends AppCompatActivity {
                     });
                     //
                 }
+
+                /// vai trò khách
                 else {
+
+                    String currentdate = getCurrentDateString();
+                    // lấy ra tổng tiền
+                    String code = generateRandomString();
+
+                    Order order = new Order(code,"guest",checkvoucher,totalprice,currentdate,"Đang xử lý",Address,listpro);
+                    FirebaseDatabase data = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = data.getReference("Đơn hàng");
+
+                    // Đẩy đối tượng address lên Firebase
+                    ref.child("khách").push().setValue(order, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            if(error!=null){
+
+                            }
+                            else
+                            {
+                                showToastWithIcon(R.drawable.succecss_icon,"Đặt hàng thành công, đơn hàng đang được xử lý.");
+
+                            }
+                        }
+                    });
                     showToastWithIcon(R.drawable.succecss_icon,"Đơn hàng đã được đặt, vui lòng chờ cửa hàng liên hệ để xác nhận!");
                 }
 
-                // trở lại màn hình home
+                // xóa các sản phẩm đã chọn ra khỏi firebase
+                 DeleteChosenProducts(userid);
+
+
 
                 finish();
                 dialog.dismiss();
@@ -603,6 +612,35 @@ public class Payment extends AppCompatActivity {
             }
         });
         mydialog.create().show();
+    }
+
+    private void DeleteChosenProducts(String userID) {
+        loadingDialog.show();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Cart").child(userID);
+        Log.d("xóa","chạy");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    CartItem item = dataSnapshot.getValue(CartItem.class);
+                    if (item != null && item.getIsChoose() == 1) {
+                        Log.d("xóa2","chạy2");
+                        dataSnapshot.getRef().removeValue();
+                        ref.removeEventListener(this); // Dừng lắng nghe sự kiện sau khi xóa
+                        loadingDialog.cancel();
+                        return; // Kết thúc hàm
+                    }
+                }
+                loadingDialog.cancel();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                loadingDialog.cancel();
+                // Handle the error
+            }
+        });
     }
 
 

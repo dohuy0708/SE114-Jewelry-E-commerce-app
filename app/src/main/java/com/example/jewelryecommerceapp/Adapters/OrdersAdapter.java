@@ -79,12 +79,28 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             // holder.cancel.setTextColor(Color.GRAY); // Ẩn Button nhưng vẫn chiếm không gian
             holder.cancel.setVisibility(View.VISIBLE);
             holder.finish.setVisibility(View.GONE);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if(user.getEmail().equals("huydq58422@gmail.com"))
+            {
+                holder.accept.setVisibility(View.VISIBLE);
+
+            }
+
+
         }
         else if (status.equals("Đang giao")){
             holder.finish.setVisibility(View.VISIBLE);
             holder.cancel.setEnabled(true);
             holder.cancel.setVisibility(View.GONE);
             holder.status.setTextColor(Color.MAGENTA);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            if(user.getEmail().equals("huydq58422@gmail.com"))
+            {
+              holder.finish.setEnabled(false);
+                holder.finish.setTextColor(Color.GRAY);
+
+            }
 
         }
         else {
@@ -100,7 +116,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             @Override
             public void onClick(View v) {
 
-                GetDialogCancel("Bạn chắn chắn muốn hủy đơn hàng!",order);
+                GetDialogCancel("Xác nhận hủy đơn hàng!",order);
 
 
             }
@@ -111,7 +127,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             @Override
             public void onClick(View v) {
 
-                GetDialogFinish("Bạn đã nhận đơn hàng thành công",order);
+                GetDialogFinish("Xác nhận nhận đơn thành công!",order);
             }
         });
 
@@ -128,6 +144,16 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
             }
         });
+
+        // duyệt đơn hàng
+        holder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetDialogAccept("Xác nhận duyệt đơn!",order);
+            }
+        });
+
+
 
 
     }
@@ -155,6 +181,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         Button detail;
         Button cancel;
         Button finish;
+        Button accept;
         public OrderViewHolder(@NonNull View view)
         {
             super(view);
@@ -168,6 +195,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             detail= view.findViewById(R.id.btndetail);
             cancel=view.findViewById(R.id.btncancel);
             finish=view.findViewById(R.id.btnfinish);
+            accept=view .findViewById(R.id.btnaccept);
         }
     }
     public static String formatNumber(int number) {
@@ -198,7 +226,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
                 String userid = user.getUid();
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference ref = database.getReference("Đơn hàng").child(userid);
+                DatabaseReference ref = database.getReference("Đơn hàng");
 
 
                 ref.addValueEventListener(new ValueEventListener() {
@@ -260,7 +288,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
                 String userid = user.getUid();
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference ref = database.getReference("Đơn hàng").child(userid);
+                DatabaseReference ref = database.getReference("Đơn hàng");
 
 
                 ref.addValueEventListener(new ValueEventListener() {
@@ -300,4 +328,57 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         mydialog.create().show();
     }
 
+
+    void GetDialogAccept(String Message, Order order)
+    {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(context);
+        mydialog.setTitle("Thông báo!");
+        mydialog.setMessage(Message);
+        mydialog.setIcon(R.drawable.ic_alarm);
+        mydialog.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String userid = user.getUid();
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference ref = database.getReference("Đơn hàng");
+
+
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                        {
+
+                            Order orderget = dataSnapshot.getValue(Order.class);
+
+                            if (orderget != null && orderget.getOrderID().equals(order.getOrderID())) {
+                                // Update the order status to "Đã nhận"
+                                dataSnapshot.getRef().child("status").setValue("Đang giao");
+                            }
+
+
+                        }
+                        //    ordersAdapter.notifyDataSetChanged();
+
+                        //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+        mydialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        mydialog.create().show();
+    }
 }

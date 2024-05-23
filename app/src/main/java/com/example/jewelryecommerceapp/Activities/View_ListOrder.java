@@ -70,7 +70,7 @@ public class View_ListOrder extends AppCompatActivity {
         String userid = user.getUid();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Đơn hàng").child(userid);
+        DatabaseReference ref = database.getReference("Đơn hàng");
 
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -85,20 +85,24 @@ public class View_ListOrder extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Order order = dataSnapshot.getValue(Order.class);
-
-                    if (order != null) {
-                        switch (order.getStatus()) {
-                            case "Đang xử lý":
-                                processingOrders.add(order);
-                                break;
-                            case "Đang giao":
-                                shippingOrders.add(order);
-                                break;
-                            case "Đã nhận":
-                                receivedOrders.add(order);
-                                break;
+                    if(order.getUserID().equals(userid))
+                    {
+                        if (order != null) {
+                            switch (order.getStatus()) {
+                                case "Đang xử lý":
+                                    processingOrders.add(order);
+                                    break;
+                                case "Đang giao":
+                                    shippingOrders.add(order);
+                                    break;
+                                case "Đã nhận":
+                                    receivedOrders.add(order);
+                                    break;
+                            }
                         }
                     }
+
+
                 }
 
                 OrderList.addAll(processingOrders);

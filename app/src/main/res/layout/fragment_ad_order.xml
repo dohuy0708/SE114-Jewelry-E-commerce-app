@@ -73,19 +73,19 @@
                         android:id="@+id/choxacnhan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chờ xác nhận (0)" />
+                        android:text="Chờ xác nhận  " />
 
                     <com.google.android.material.tabs.TabItem
                         android:id="@+id/daxacnhan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Đã xác nhận (0)" />
+                        android:text="Đã xác nhận  " />
 
                     <com.google.android.material.tabs.TabItem
                         android:id="@+id/dagiao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Đã giao (0)" />
+                        android:text="Đã giao  " />
                 </com.google.android.material.tabs.TabLayout>
 
                 <androidx.viewpager2.widget.ViewPager2

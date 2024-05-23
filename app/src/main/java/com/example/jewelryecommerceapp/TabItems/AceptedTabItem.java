@@ -1,6 +1,7 @@
 package com.example.jewelryecommerceapp.TabItems;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jewelryecommerceapp.Activities.LoadingDialog;
+import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
 import com.example.jewelryecommerceapp.Adapters.ShippingOrdsAdapter;
 import com.example.jewelryecommerceapp.Models.Order;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -30,24 +40,72 @@ public class AceptedTabItem extends Fragment {
     }
     ImageView Sort;
     ArrayList<Order> ords;
-    ShippingOrdsAdapter adt;
+    OrdersAdapter adt;
     RecyclerView acpted;
+    private LoadingDialog loadingDialog;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        loadingDialog = new LoadingDialog(getContext());
+
         ords=new ArrayList<>();
-        initOrds(ords);
+
+        adt=new OrdersAdapter(getContext(),ords);
+
         Sort=view.findViewById(R.id.btnsort);
-        adt=new ShippingOrdsAdapter(getContext(),ords);
+
         acpted=view.findViewById(R.id.listacpted);
-        acpted.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+
+        GetOrderFromfirebase();
+    }
+
+
+    private void GetOrderFromfirebase() {
+        loadingDialog.show();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userid = user.getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Đơn hàng") ;
+
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ords.clear();
+
+
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+
+                        Order order = childSnapshot.getValue(Order.class);
+
+                        if (order != null && order.getStatus().equals("Đang giao")) {
+                            Log.d("orde đang giaor", ords.size()+"");
+                            ords.add(order);
+                        }
+
+                }
+                adt.notifyDataSetChanged();
+                SetUI();
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        loadingDialog.cancel();
+    }
+    private void SetUI()
+    {
+
+        adt=new OrdersAdapter(getContext(),ords);
+
+        acpted.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         acpted.setHasFixedSize(true);
         acpted.setAdapter(adt);
         adt.notifyDataSetChanged();
-    }
-
-    private void initOrds(ArrayList<Order> ords) {
-
     }
 }

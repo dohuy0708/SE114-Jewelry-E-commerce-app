@@ -10,19 +10,20 @@ public class Order {
     private String Date;
     private String status;
     private Address address;
+    private String UserID ;
     private ArrayList<CartItem> ListPurchaseProduct;
 
     public Order(){
 
     }
-    public   Order(String ID, int voucher, int money,String Date, String status,Address address,ArrayList<CartItem> Listproduct)
+    public   Order(String ID, String UserID,int voucher, int money,String Date, String status,Address address,ArrayList<CartItem> Listproduct)
     {
         this.OrderID = ID;
         this.voucher = voucher;
         this.address = address;
         this.Date= Date;
         this.Money = money;
-
+        this.UserID=UserID;
         this.status = status;
         this.ListPurchaseProduct= Listproduct;
     }
@@ -81,6 +82,22 @@ public class Order {
 
     public void setListPurchaseProduct(ArrayList<CartItem> listPurchaseProduct) {
         ListPurchaseProduct = listPurchaseProduct;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String userID) {
+        UserID = userID;
     }
 
     @Override
