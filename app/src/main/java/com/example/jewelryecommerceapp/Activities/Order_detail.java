@@ -179,8 +179,7 @@ public class Order_detail extends AppCompatActivity {
         DatabaseReference ref=database.getReference("Comment");
         String productID = listpro.get(0).getProductID();
         String productType=listpro.get(0).getProductType();
-        Comment comment=new Comment(currentUser,productID,productType,rating,content);
-        Log.d("usser", "usse" + currentUser.getUID());
+        Comment comment=new Comment(user,productID,productType,rating,content);
         ref.push().setValue(comment, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {

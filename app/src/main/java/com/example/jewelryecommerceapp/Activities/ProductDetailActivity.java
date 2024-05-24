@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -242,26 +243,31 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void GetCommentListFromFirebase(String productID,String productType) {
-        /*FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Comment");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                double total= 0;
                 for (DataSnapshot Snapshot : snapshot.getChildren()) {
                     Comment comment = Snapshot.getValue(Comment.class);
                     if (comment.getProductID().equals(productID) && comment.getProductType().equals(productType)) {
                         cmtList.add(comment);
+                        total+=comment.getRate();
                     }
                 }
+                if(cmtList.size()!=0) {
+                    productdetail.setRatingStar(total / cmtList.size());
+                }
                 cmtAdapter.notifyDataSetChanged();
-
+                SetUi();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
 
     }
 
@@ -309,6 +315,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         Image = product.getImagelist().get(0);
                         productName = product.getProductName();
                         productPrice  = product.getProductPrice();
+                        productdetail.setRatingStar((double) 0);
                         SetUi();
                     }
                 }
@@ -385,13 +392,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 // Tính toán chiều rộng mong muốn của LinearLayout dựa trên số sao trung bình (đơn vị là dp)
         double averageRating=0;
         int desiredWidthInDp;
-        try{
             averageRating = productdetail.getRatingStar();
+            Log.d("rate",averageRating+"");
             desiredWidthInDp= (int) (20 * averageRating);
-        }
-        catch (Exception e){
-            desiredWidthInDp= (int) (20 * 0.05);
-        }
         Resources resources = getResources();
         double density = resources.getDisplayMetrics().density;
         int desiredWidthInPx = (int) (desiredWidthInDp * density);
@@ -411,6 +414,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         prd_origin.setText(productdetail.getPublisher());
        prd_accessory.setText(productdetail.getAccessory());
         prd_description.setText(productdetail.getDescription());
+
+
+
     }
     private void initUi() {
         img_number=findViewById(R.id.img_number);

@@ -277,7 +277,8 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
 //sự kiện filter
     @Override
     public void onDataPass(String material, String accessory, int price) {
-        GetProductListFilterFromFireBase(material,accessory,price);
+        String newinput = etSearch.getText().toString();
+        GetProductListFilterFromFireBase(material,accessory,price,newinput);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         productList.clear();
         filterFragment = getSupportFragmentManager().findFragmentByTag(FilterFragment.TAG);
@@ -291,9 +292,10 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
             }
         }
     }
-    private void GetProductListFilterFromFireBase(String material, String accessory, int price) {
+    private void GetProductListFilterFromFireBase(String material, String accessory, int price,String input) {
+        String newInput = normalizeVietnameseString(input).toLowerCase().replaceAll("\\s", "");
 
-            String Material=null,Accessory=null;
+        String Material=null,Accessory=null;
             if(material!=null) {
                 Material =normalizeVietnameseString(material.toLowerCase().replaceAll("\\s", ""));
             }
@@ -314,23 +316,24 @@ public class SearchActivity extends AppCompatActivity implements FilterFragment.
                     for (DataSnapshot productSnapshot : categorySnapshot.getChildren()) {
                         Product product = productSnapshot.getValue(Product.class);
                         // chuẩn hóa tên về chữ thường và bỏ dấu
+                        String newName = normalizeVietnameseString(product.getProductName()).toLowerCase().replaceAll("\\s", "");
                         String newMaterial =normalizeVietnameseString( product.getMaterial().toLowerCase().replaceAll("\\s", ""));
                         String newAccessory =normalizeVietnameseString( product.getAccessory().toLowerCase().replaceAll("\\s", ""));
                         int newPrice=product.getProductPrice();
                         if(getMaterial==null&&getAccessory==null){
-                            if (product!=null&&newPrice>price){
+                            if (product!=null&&newPrice>price&&newName.contains(newInput)){
                                 productList.add(product);
                             }
                         } else if (getMaterial!=null&&getAccessory==null) {
-                            if (product!=null&&newPrice>price&&newMaterial.equalsIgnoreCase(getMaterial)){
+                            if (product!=null&&newPrice>price&&newMaterial.equalsIgnoreCase(getMaterial)&&newName.contains(newInput)){
                                 productList.add(product);
                             }
                         } else if (getMaterial==null&&getAccessory!=null) {
-                            if (product!=null&&newPrice>price&&newAccessory.contains(getAccessory)){
+                            if (product!=null&&newPrice>price&&newAccessory.contains(getAccessory)&&newName.contains(newInput)){
                                 productList.add(product);
                             }
                         } else{
-                            if (product!=null&&newPrice>price&&newAccessory.contains(getAccessory)&&newMaterial.equalsIgnoreCase(getMaterial)){
+                            if (product!=null&&newPrice>price&&newAccessory.contains(getAccessory)&&newMaterial.equalsIgnoreCase(getMaterial)&&newName.contains(newInput)){
                                 productList.add(product);
                             }
                         }
