@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -206,12 +207,15 @@ public class Order_detail extends AppCompatActivity {
                         {
                             Map<String, Object> updates = new HashMap<>();
                             updates.put("ratingAmount", product.getRatingAmount()+1);
+                            updates.put("sold",product.getSold()+1);
                             productSnapshot.getRef().updateChildren(updates)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
+                                            showToastWithIcon(R.drawable.succecss_icon,"Đã đánh giá thành công");
+                                            btn_review.setEnabled(false);
+                                            btn_review.setTextColor(Color.GRAY);
                                         } else {
-                                            Toast.makeText(Order_detail.this, "Failed to update product name", Toast.LENGTH_SHORT).show();
-                                        }
+                                                    }
                                     });
                         }
                     }
