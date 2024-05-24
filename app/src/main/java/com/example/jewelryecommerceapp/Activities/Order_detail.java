@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
 import com.example.jewelryecommerceapp.Models.CartItem;
 import com.example.jewelryecommerceapp.Models.Comment;
 import com.example.jewelryecommerceapp.Models.Order;
+import com.example.jewelryecommerceapp.Models.Product;
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -38,6 +41,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Order_detail extends AppCompatActivity {
 
@@ -51,6 +56,7 @@ public class Order_detail extends AppCompatActivity {
     ArrayList<CartItem> listpro;
     BottomSheetDialog dialog;
     Order orderchoose = new Order();
+    User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +114,7 @@ public class Order_detail extends AppCompatActivity {
                 // nội dung
                 String content_comment=content_review.getText().toString();
                 //
-               // Comment comment = new Comment();
-
+                AddCommentToFirebase(content_comment,rating);
 
             }
         });
@@ -120,7 +125,7 @@ public class Order_detail extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userid = user.getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Đơn hàng").child(userid);
+        DatabaseReference ref = database.getReference("Đơn hàng");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -145,6 +150,80 @@ public class Order_detail extends AppCompatActivity {
         });
         loadingDialog.cancel();
 
+    }
+    public void AddCommentToFirebase(String content,int rating){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userid = firebaseUser.getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref=database.getReference("User");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot userSnapshot:snapshot.getChildren()){
+                    User user=userSnapshot.getValue(User.class);
+                    if(user!=null&&user.getUID().equals(userid)){
+                        Addcomment(user,content,rating);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    public void Addcomment(User user,String content,int rating){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref=database.getReference("Comment");
+        String productID = listpro.get(0).getProductID();
+        String productType=listpro.get(0).getProductType();
+        Comment comment=new Comment(currentUser,productID,productType,rating,content);
+        Log.d("usser", "usse" + currentUser.getUID());
+        ref.push().setValue(comment, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error != null) {
+                    // Đã xảy ra lỗi khi đẩy dữ liệu lên Firebase
+
+                    Toast.makeText(Order_detail.this, error.getMessage(), Toast.LENGTH_LONG).show();
+
+                } else {
+                    // Đẩy dữ liệu lên Firebase thành công
+                    Toast.makeText(Order_detail.this, "Đã đánh giá", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        ref = database.getReference("Product");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot categorySnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot productSnapshot : categorySnapshot.getChildren()) {
+                        Product product = productSnapshot.getValue(Product.class);
+
+                        if(product.getProductId().equals(productID)&&product.getType().equals(productType))
+                        {
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("ratingAmount", product.getRatingAmount()+1);
+                            productSnapshot.getRef().updateChildren(updates)
+                                    .addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()) {
+                                        } else {
+                                            Toast.makeText(Order_detail.this, "Failed to update product name", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void SetUI()
     {

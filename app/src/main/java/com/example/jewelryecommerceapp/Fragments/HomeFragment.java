@@ -5,13 +5,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +24,14 @@ import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Activities.*;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
+import com.example.jewelryecommerceapp.MainActivity;
+import com.example.jewelryecommerceapp.Models.Comment;
 import com.example.jewelryecommerceapp.Models.Product;
+import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,15 +64,14 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    User currentUser=new User();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
-
-
         }
+
+
   /*ArrayList<String> imagelist = new ArrayList<>();
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-01.png?alt=media&token=c5cdb449-87c4-4607-a227-cd19f4c56417");
         imagelist.add("https://firebasestorage.googleapis.com/v0/b/jewelry-b2dcd.appspot.com/o/Nh%E1%BA%ABn%2Fsample8%2Fsnztxmw060007-nhan-bac-pnjsilver-02.png?alt=media&token=659d7394-cc5c-4737-bc69-45617dc033e7");
@@ -180,6 +185,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
     private LoadingDialog loadingDialog;
 
     ImageView img_notice, but_search,but_chat;
