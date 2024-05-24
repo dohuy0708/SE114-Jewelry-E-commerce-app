@@ -102,10 +102,10 @@ public class AceptedTabItem extends Fragment {
     {
 
         adt=new OrdersAdapter(getContext(),ords);
-
+        adt.notifyDataSetChanged();
         acpted.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         acpted.setHasFixedSize(true);
         acpted.setAdapter(adt);
-        adt.notifyDataSetChanged();
+
     }
 }

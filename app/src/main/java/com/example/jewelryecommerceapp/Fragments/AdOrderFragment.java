@@ -1,5 +1,6 @@
 package com.example.jewelryecommerceapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jewelryecommerceapp.Activities.AddProductsActivity;
 import com.example.jewelryecommerceapp.Adapters.OrderTabItemAdapter;
 import com.example.jewelryecommerceapp.Adapters.OrdersAdapter;
 import com.example.jewelryecommerceapp.Models.Order;
@@ -96,6 +98,7 @@ public class AdOrderFragment extends Fragment {
 
 
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -130,6 +133,9 @@ public class AdOrderFragment extends Fragment {
                 tablayout.getTabAt(position).select();
             }
         });
+
+
+
 
     }
 

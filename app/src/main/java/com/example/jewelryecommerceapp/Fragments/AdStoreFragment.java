@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.jewelryecommerceapp.Activities.AddProductsActivity;
 import com.example.jewelryecommerceapp.Activities.AdminProductDetailActivity;
 import com.example.jewelryecommerceapp.Activities.ProductDetailActivity;
 import com.example.jewelryecommerceapp.Activities.SearchActivity;
@@ -87,6 +89,7 @@ public class AdStoreFragment extends Fragment {
     StoreProductAdapter storeProductAdapter;
     ArrayList<Product> productList;
     Button addproduct_btn;
+    ImageView btnAdd;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -148,5 +151,32 @@ public class AdStoreFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+       /* addproduct_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AdminProductDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("Title","Add");
+                intent.putExtra("Product",bundle);
+                startActivity(intent);
+
+            }
+        });*/
+
+        //btnAdd = view.findViewById(R.id.btn_addpro);
+
+        // intent tới thêm sp
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddProductsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
+
+
 }

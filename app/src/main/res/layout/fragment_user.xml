@@ -12,7 +12,7 @@
             android:id="@+id/imageView5"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo_icon" />
 
     <TextView
             android:id="@+id/textView6"
@@ -61,6 +61,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
                     android:text="Thông tin cá nhân"
+                 android:textColor="@color/black"
+                android:background="@drawable/rounded_background"
                     style='@style/UserButtonStyle'
             />
 
@@ -69,12 +71,16 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="Tài khoản và bảo mật"
+                android:background="@drawable/rounded_background"
+                android:textColor="@color/black"
                     style="@style/UserButtonStyle"/>
             <Button
                     android:id="@+id/orderlist"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="Đơn hàng"
+                android:background="@drawable/rounded_background"
+                android:textColor="@color/black"
                     style="@style/UserButtonStyle"/>
 
             <Button
@@ -82,21 +88,27 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="Thông tin"
+                android:background="@drawable/rounded_background"
+                android:textColor="@color/black"
                     style="@style/UserButtonStyle"/>
             <Button
                     android:id="@+id/help"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="Hỗ trợ"
+                android:background="@drawable/rounded_background"
+                android:textColor="@color/black"
                     style="@style/UserButtonStyle"/>
 
             <Button
                     android:id="@+id/SignOut"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
                     android:text="Đăng xuất"
+                android:background="@drawable/rounded_background"
+                android:textColor="@color/black"
             />
         </LinearLayout>
     </ScrollView>

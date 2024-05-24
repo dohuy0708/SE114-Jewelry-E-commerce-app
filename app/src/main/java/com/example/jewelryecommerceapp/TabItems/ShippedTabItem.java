@@ -99,12 +99,13 @@ public class ShippedTabItem extends Fragment {
     }
     private void SetUI()
     {
-        adt=new OrdersAdapter(getContext(),ords);
 
+        adt=new OrdersAdapter(getContext(),ords);
+        adt.notifyDataSetChanged();
         shipped.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         shipped.setHasFixedSize(true);
         shipped.setAdapter(adt);
-        adt.notifyDataSetChanged();
+
     }
 
 

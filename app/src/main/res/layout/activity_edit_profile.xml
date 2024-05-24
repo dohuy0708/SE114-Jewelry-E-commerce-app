@@ -93,11 +93,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="-15dp"
+                        android:layout_marginLeft="0dp"
                         android:inputType="textPersonName"
                         android:text=""
                         android:textSize="15sp"
-                        android:background="@drawable/rounded_background"
+                        android:background="@drawable/rounded_corner"
                         android:padding="15dp"
                         android:textColor="@color/black"
                         android:hint="Họ và tên"
@@ -135,10 +135,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="text|date"
-                            android:layout_marginLeft="-15dp"
+                            android:layout_marginLeft="0dp"
                             android:text=""
                             android:textSize="14sp"
-                            android:background="#E7F6FF"
+                            android:background="@drawable/rounded_corner"
                             android:padding="15dp"
                             android:textColor="@color/black"
                             android:hint="Ngày sinh"
@@ -177,11 +177,11 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="-15dp"
+
                         android:enabled="false"
                         android:hint="Email"
                         android:padding="15dp"
-                        android:background="@drawable/rounded_background"
+                        android:background="@drawable/rounded_corner"
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
@@ -209,9 +209,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="-15dp"
+
                         android:inputType="phone"
-                        android:background="@drawable/rounded_background"
+                        android:background="@drawable/rounded_corner"
                         android:text="0123456789"
                         android:textSize="15sp"
                         android:padding="15dp"
@@ -289,6 +289,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="10dp"
                 android:text="Lưu"
+            android:backgroundTint="#03A9F4"
                 app:cornerRadius="10dp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

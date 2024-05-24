@@ -580,7 +580,7 @@ public class Payment extends AppCompatActivity {
                     DatabaseReference ref = data.getReference("Đơn hàng");
 
                     // Đẩy đối tượng address lên Firebase
-                    ref.child("khách").push().setValue(order, new DatabaseReference.CompletionListener() {
+                    ref.push().setValue(order, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                             if(error!=null){

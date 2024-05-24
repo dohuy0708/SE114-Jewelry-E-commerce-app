@@ -96,6 +96,10 @@ public class CustomerViewChatActivity extends AppCompatActivity {
 
 
         msenderuid = firebaseAuth.getUid();
+        if (msenderuid == null) {
+            Intent intent = new Intent (CustomerViewChatActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
 
 
         mrecieveruid = "budf9eXCvEVnayhfjn8RW3c8vrP2";

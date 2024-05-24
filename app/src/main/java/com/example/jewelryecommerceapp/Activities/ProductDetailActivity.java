@@ -1,5 +1,7 @@
 package com.example.jewelryecommerceapp.Activities;
 
+import static java.security.AccessController.getContext;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -158,9 +160,17 @@ public class ProductDetailActivity extends AppCompatActivity {
         chat_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent to chat
-                Intent intent = new Intent (ProductDetailActivity.this, CustomerViewChatActivity.class);
-                startActivity(intent);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (user == null) {
+                    GetDialog();
+                }
+                else {
+                    Intent intent = new Intent (ProductDetailActivity.this, CustomerViewChatActivity.class);
+                    startActivity(intent);
+                }
+
+
             }
         });
         add_cart_but.setOnClickListener(new View.OnClickListener() {

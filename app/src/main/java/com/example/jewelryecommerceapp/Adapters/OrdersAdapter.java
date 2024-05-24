@@ -360,7 +360,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
 
                         }
-                        //    ordersAdapter.notifyDataSetChanged();
+                           // ordersAdapter.notifyDataSetChanged();
 
                         //    Toast.makeText(SearchActivity.this,productList.get(0).getProductName(),Toast.LENGTH_SHORT).show();
 

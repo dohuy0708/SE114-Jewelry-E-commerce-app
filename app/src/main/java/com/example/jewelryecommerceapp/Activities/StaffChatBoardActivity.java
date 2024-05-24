@@ -34,7 +34,7 @@ public class StaffChatBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_staff_chat);
 
         tabLayout = findViewById(R.id.include);
-        mChat = findViewById(R.id.chat);
+       // mChat = findViewById(R.id.chat);
         viewPager = findViewById(R.id.fragmentcontainer);
 
         firebaseAuth = FirebaseAuth.getInstance();

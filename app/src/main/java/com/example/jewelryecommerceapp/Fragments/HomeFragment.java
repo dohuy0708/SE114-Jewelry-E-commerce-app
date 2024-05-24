@@ -1,18 +1,19 @@
 package com.example.jewelryecommerceapp.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +25,7 @@ import android.widget.Toast;
 
 import com.example.jewelryecommerceapp.Activities.*;
 import com.example.jewelryecommerceapp.Adapters.ProductAdapter;
-import com.example.jewelryecommerceapp.MainActivity;
-import com.example.jewelryecommerceapp.Models.Comment;
 import com.example.jewelryecommerceapp.Models.Product;
-import com.example.jewelryecommerceapp.Models.User;
 import com.example.jewelryecommerceapp.Models.Voucher;
 import com.example.jewelryecommerceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,7 +62,7 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    User currentUser=new User();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,7 +183,6 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
-
     private LoadingDialog loadingDialog;
 
     ImageView img_notice, but_search,but_chat;
@@ -194,6 +191,8 @@ public class HomeFragment extends Fragment {
 
     RecyclerView rc_trend;
     EditText input_search;
+
+    private FirebaseDatabase firebaseDatabase;
 
     RecyclerView rc_new, rc_diamond, rc_pearl,rc_couple, rc_set;
     ProductAdapter myAdapterTrend, myAdapterNew, myAdapterCouple, myAdapterDiamond, myAdapterSet, myAdapterPearl;
@@ -374,8 +373,17 @@ public class HomeFragment extends Fragment {
         but_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (getContext(), CustomerViewChatActivity.class);
-                startActivity(intent);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    GetDialog();
+
+                }
+                else
+                {
+                    Intent intent = new Intent (getContext(), CustomerViewChatActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -662,6 +670,29 @@ public class HomeFragment extends Fragment {
         });
         
     }
+    void GetDialog()
+    {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder( getContext());
+        mydialog.setTitle("Thông báo!");
+        mydialog.setMessage("Bạn cần phải đăng nhập!");
+        mydialog.setIcon(R.drawable.ic_alarm);
+        mydialog.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        mydialog.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        mydialog.create().show();
+    }
+
+
 
     /*public void initProduct(ArrayList<Product> myList){
         myList.add( new Product(R.drawable.demo,"Nhẫn",2999000));

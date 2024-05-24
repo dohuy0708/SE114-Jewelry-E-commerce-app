@@ -149,8 +149,8 @@ public class UserFragment extends Fragment {
             public void onClick(View v) {
                 if(user!=null)
                 {
-                    Intent intent = new Intent(getActivity(), AccountSercurityActivity.class);
-                    activityResultLauncher.launch(intent);
+                   /* Intent intent = new Intent(getActivity(), AccountSercurityActivity.class);
+                    activityResultLauncher.launch(intent);*/
                 }
                 else {
                     showToastWithIcon(R.drawable.attention_icon,"Bạn chưa đăng nhập ");

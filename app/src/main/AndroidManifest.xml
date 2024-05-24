@@ -104,6 +104,11 @@
             android:exported="true"/>
         <activity android:name=".Activities.NoticeDetailActivity"
             android:exported="true"/>
+
+        <activity android:name=".Activities.AddProductsActivity"
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>

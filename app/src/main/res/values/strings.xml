@@ -8,4 +8,25 @@
     <string name="phoneNumber">Số điện thoại</string>
     <string name="phone_Number">"Số điện thoại "</string>
     <string name="VND">VND\n</string>
+    <string-array name="ProType">
+        <item>
+            Bông tai
+        </item>
+        <item>
+            Bộ trang sức
+        </item>
+        <item>
+            Dây chuyền
+        </item>
+        <item>
+            Nhẫn
+        </item>
+        <item>
+            Nhẫn đôi
+        </item>
+        <item>
+            Vòng tay
+        </item>
+    </string-array>
+
 </resources>
