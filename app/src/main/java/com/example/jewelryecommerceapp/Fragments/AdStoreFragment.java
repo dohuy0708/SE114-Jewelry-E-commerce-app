@@ -98,8 +98,8 @@ public class AdStoreFragment extends Fragment {
         rc_store_product=view.findViewById(R.id.rc_store_prd);
         productList = new ArrayList<>();
         GetProductListFromFireBase("Nhẫn");
-        addproduct_btn=view.findViewById(R.id.button8);
-        addproduct_btn.setOnClickListener(new View.OnClickListener() {
+       // addproduct_btn=view.findViewById(R.id.button8);
+      /*  addproduct_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AdminProductDetailActivity.class);
@@ -109,7 +109,7 @@ public class AdStoreFragment extends Fragment {
                 startActivity(intent);
 
             }
-        });
+        });*/
     }
     private void GetProductListFromFireBase(String categoryname) {
 
@@ -167,13 +167,13 @@ public class AdStoreFragment extends Fragment {
         //btnAdd = view.findViewById(R.id.btn_addpro);
 
         // intent tới thêm sp
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+      /*  btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddProductsActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
     }

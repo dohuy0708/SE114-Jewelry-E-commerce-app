@@ -80,7 +80,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.cancel.setVisibility(View.VISIBLE);
             holder.finish.setVisibility(View.GONE);
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if(user.getEmail().equals("huydq58422@gmail.com"))
+            if(user.getEmail().equals("huydq58422@gmail.com") || user.getEmail().equals("22520573@gm.uit.edu.vn"))
             {
                 holder.accept.setVisibility(View.VISIBLE);
 
@@ -95,7 +95,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.status.setTextColor(Color.MAGENTA);
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-            if(user.getEmail().equals("huydq58422@gmail.com"))
+            if(user.getEmail().equals("huydq58422@gmail.com") || user.getEmail().equals("22520573@gm.uit.edu.vn"))
             {
               holder.finish.setEnabled(false);
                 holder.finish.setTextColor(Color.GRAY);
