@@ -30,7 +30,7 @@ ThS. Huynh Ho Thi Mong Trinh  - Faculty of Software Engineering, University of I
  
 * Cart
   
-  <img src= "https://github.com/dohuy0708/SE114-Jewelry-E-commerce-app/blob/main/app/src/main/res/drawable/scrhome.png" width="300"  />
+  <img src= "https://github.com/dohuy0708/SE114-Jewelry-E-commerce-app/blob/main/app/src/main/res/drawable/scrCart.png" width="300"  />
    
 * Order
   
