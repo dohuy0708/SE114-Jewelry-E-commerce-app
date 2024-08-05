@@ -9,10 +9,10 @@
 An application providing an online shopping platform aims to increase customer reach and boost business sales, with features such as:  product search, viewing product details, adding products to the cart, order payment, product comments and reviews, and chatting with the store.
 
 ## Contributors:
-* Do Nguyen Hoang Huy - 22520538 (Leader) 
+* Do Nguyen Hoang Huy - 22520538 (Leader)
+* Le Huy Hoang - 22520462
 * Phan Tran Tien Hung - 22520523
 * Ngo Duy Hung - 22520511
-* Le Huy Hoang - 22520462
 * To Hoang Huy - 22520573
  
 ### Supervisors:
